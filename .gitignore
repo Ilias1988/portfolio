@@ -1,0 +1,21 @@
+# Original unoptimized images (30MB+ - too heavy for GitHub)
+images/ilias1988.jpg
+images/Tryhackme - Certificate/
+images/Pentester Lab - Badges/
+
+# Keep optimized images (1.3MB)
+!images/optimized/
+
+# Python optimization script (not needed in production)
+optimize_images.py
+__pycache__/
+*.pyc
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/

@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- SEO Meta Tags -->
+    <title>Ilias Georgopoulos | Cybersecurity Portfolio</title>
+    <meta name="description" content="Cybersecurity Enthusiast, CTF Player & Red Teaming Tool Developer. Building offensive security tools with AI & Code.">
+    <meta name="keywords" content="cybersecurity, penetration testing, red team, CTF, ethical hacking, security tools, Ilias Georgopoulos, Ilias1988">
+    <meta name="author" content="Ilias Georgopoulos">
+    <link rel="canonical" href="https://ilias1988.me/">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ilias1988.me/">
+    <meta property="og:title" content="Ilias Georgopoulos | Cybersecurity Portfolio">
+    <meta property="og:description" content="Cybersecurity Enthusiast, CTF Player & Red Teaming Tool Developer. Building offensive security tools with AI & Code.">
+    <meta property="og:image" content="https://ilias1988.me/images/og-image.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ilias Georgopoulos | Cybersecurity Portfolio">
+    <meta name="twitter:description" content="Cybersecurity Enthusiast, CTF Player & Red Teaming Tool Developer.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ============================================ -->
+    <!-- NAVIGATION                                    -->
+    <!-- ============================================ -->
+    <nav id="navbar" class="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">
+                <span class="logo-bracket">[</span>
+                <span class="logo-text">ilias1988</span>
+                <span class="logo-bracket">]</span>
+                <span class="logo-cursor">_</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#roadmap" class="nav-link">Roadmap</a></li>
+                <li><a href="#certifications" class="nav-link">Certs</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ============================================ -->
+    <!-- HERO SECTION                                  -->
+    <!-- ============================================ -->
+    <section id="hero" class="hero">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-content">
+            <div class="terminal-line">
+                <span class="terminal-prompt">root@kali:~$</span>
+                <span class="terminal-command"> cat /etc/profile</span>
+            </div>
+
+            <h1 class="glitch" data-text="Ilias Georgopoulos">Ilias Georgopoulos</h1>
+            <p class="hero-username">// Ilias1988</p>
+
+            <div class="hero-tagline">
+                <span id="typed-output" class="typed-text"></span>
+                <span class="typed-cursor">|</span>
+            </div>
+
+            <p class="hero-subtext">
+                <i class="fas fa-terminal"></i> Automating offensive security workflows with AI &amp; Code.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">
+                    <i class="fas fa-code"></i> View Projects
+                </a>
+                <a href="#contact" class="btn btn-secondary">
+                    <i class="fas fa-envelope"></i> Contact Me
+                </a>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number" data-target="10">0</span><span class="stat-plus">+</span>
+                    <span class="stat-label">Tools Built</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="70">0</span><span class="stat-plus">+</span>
+                    <span class="stat-label">Cheatsheets</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="600">0</span><span class="stat-plus">+</span>
+                    <span class="stat-label">LOLBins Indexed</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="mouse-wheel"></div>
+            </div>
+            <span>Scroll Down</span>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- ABOUT SECTION                                 -->
+    <!-- ============================================ -->
+    <section id="about" class="section about">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-decorator">&lt;</span>
+                About Me
+                <span class="title-decorator">/&gt;</span>
+            </h2>
+
+            <div class="about-grid">
+                <div class="about-image-wrapper">
+                    <div class="about-image-border">
+                        <img src="images/optimized/profile.jpg" alt="Ilias Georgopoulos - Cybersecurity Professional" class="about-image" loading="lazy">
+                    </div>
+                    <div class="about-image-decoration"></div>
+                </div>
+
+                <div class="about-content">
+                    <div class="terminal-window">
+                        <div class="terminal-header">
+                            <span class="terminal-dot red"></span>
+                            <span class="terminal-dot yellow"></span>
+                            <span class="terminal-dot green"></span>
+                            <span class="terminal-title">about_me.sh</span>
+                        </div>
+                        <div class="terminal-body">
+                            <p>
+                                <span class="terminal-prompt-sm">$</span>
+                                Over the past year, I have dedicated myself daily to mastering cybersecurity. 
+                                My journey started on <span class="highlight">TryHackMe</span> (Top % Rank) and 
+                                <span class="highlight">PentesterLab</span>.
+                            </p>
+                            <p>
+                                <span class="terminal-prompt-sm">$</span>
+                                I specialize in <span class="highlight">Web Security</span> and 
+                                <span class="highlight">Automation</span>. I believe in 
+                                <span class="highlight-purple">"vibe coding"</span> — leveraging AI to build 
+                                custom tools for Red Teaming and CTF challenges.
+                            </p>
+                            <p>
+                                <span class="terminal-prompt-sm">$</span>
+                                My goal is to transition from continuous learning to professional 
+                                <span class="highlight">Penetration Testing</span>.
+                            </p>
+                            <p class="terminal-output">
+                                <span class="terminal-prompt-sm">&gt;</span> 
+                                <span class="blink">Ready for the next challenge._</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SKILLS SECTION                                -->
+    <!-- ============================================ -->
+    <section id="skills" class="section skills">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-decorator">&lt;</span>
+                Tech Stack
+                <span class="title-decorator">/&gt;</span>
+            </h2>
+
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3 class="skill-category-title"><i class="fas fa-code"></i> Languages</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Bash</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">HTML/CSS</span>
+                        <span class="skill-tag">PowerShell</span>
+                        <span class="skill-tag">SQL</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="skill-category-title"><i class="fas fa-shield-halved"></i> Offensive Security</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Web App Pentesting</span>
+                        <span class="skill-tag">Network Pentesting</span>
+                        <span class="skill-tag">CTF Challenges</span>
+                        <span class="skill-tag">OWASP Top 10</span>
+                        <span class="skill-tag">Reverse Shells</span>
+                        <span class="skill-tag">Privilege Escalation</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="skill-category-title"><i class="fas fa-wrench"></i> Tools</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Burp Suite</span>
+                        <span class="skill-tag">Nmap</span>
+                        <span class="skill-tag">Metasploit</span>
+                        <span class="skill-tag">SQLMap</span>
+                        <span class="skill-tag">Gobuster</span>
+                        <span class="skill-tag">Wireshark</span>
+                        <span class="skill-tag">Hashcat</span>
+                        <span class="skill-tag">Hydra</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="skill-category-title"><i class="fas fa-robot"></i> AI &amp; Automation</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">AI-Assisted Development</span>
+                        <span class="skill-tag">Custom Tool Building</span>
+                        <span class="skill-tag">Workflow Automation</span>
+                        <span class="skill-tag">Web Scraping</span>
+                        <span class="skill-tag">OSINT Automation</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="skill-category-title"><i class="fab fa-linux"></i> Platforms</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Kali Linux</span>
+                        <span class="skill-tag">Windows</span>
+                        <span class="skill-tag">Git / GitHub</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">VS Code</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- ROADMAP SECTION                               -->
+    <!-- ============================================ -->
+    <section id="roadmap" class="section roadmap">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-decorator">&lt;</span>
+                The Roadmap
+                <span class="title-decorator">/&gt;</span>
+            </h2>
+
+            <div class="timeline">
+                <!-- Timeline Item 1 -->
+                <div class="timeline-item active" data-animate>
+                    <div class="timeline-marker">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-badge current">Active Daily</div>
+                        <h3>TryHackMe &amp; PentesterLab</h3>
+                        <p>Daily hands-on practice with real-world cybersecurity labs. Building a strong foundation in web exploitation, privilege escalation, and network attacks. Currently ranking in the top percentages on TryHackMe.</p>
+                        <div class="timeline-tags">
+                            <span>Web Security</span>
+                            <span>Linux PrivEsc</span>
+                            <span>Windows PrivEsc</span>
+                            <span>CTF</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="timeline-item" data-animate>
+                    <div class="timeline-marker">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-badge next">Next Step</div>
+                        <h3>PortSwigger Web Security Academy</h3>
+                        <p>Deep-dive into advanced web vulnerabilities: SQL Injection, XSS, SSRF, CORS, Prototype Pollution, HTTP Request Smuggling, and more. Mastering Burp Suite at a professional level.</p>
+                        <div class="timeline-tags">
+                            <span>Advanced Web</span>
+                            <span>Burp Suite Pro</span>
+                            <span>Bug Bounty</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="timeline-item" data-animate>
+                    <div class="timeline-marker">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-badge next">Next Step</div>
+                        <h3>HackTheBox &amp; Certifications</h3>
+                        <p>Taking on realistic penetration testing scenarios. Working towards industry certifications (OSCP / eJPT) to validate skills and transition into professional Penetration Testing.</p>
+                        <div class="timeline-tags">
+                            <span>HackTheBox</span>
+                            <span>OSCP</span>
+                            <span>eJPT</span>
+                            <span>Professional Pentesting</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 4 -->
+                <div class="timeline-item" data-animate>
+                    <div class="timeline-marker">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-badge goal">Goal</div>
+                        <h3>Professional Penetration Tester</h3>
+                        <p>Transitioning from continuous learning to a full-time role in offensive security. Contributing to the cybersecurity community through open-source tools, research, and knowledge sharing.</p>
+                        <div class="timeline-tags">
+                            <span>Red Team</span>
+                            <span>Bug Bounty</span>
+                            <span>Open Source</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- CERTIFICATIONS SECTION                        -->
+    <!-- ============================================ -->
+    <section id="certifications" class="section certifications">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-decorator">&lt;</span>
+                Certifications
+                <span class="title-decorator">/&gt;</span>
+            </h2>
+            <p class="section-subtitle">
+                <i class="fas fa-award"></i> 29 Certificates &amp; Badges earned
+            </p>
+
+            <!-- Tabs -->
+            <div class="cert-tabs">
+                <button class="cert-tab active" data-tab="tryhackme">
+                    <i class="fas fa-flag"></i> TryHackMe <span class="tab-count">14</span>
+                </button>
+                <button class="cert-tab" data-tab="pentesterlab">
+                    <i class="fas fa-flask"></i> PentesterLab <span class="tab-count">15</span>
+                </button>
+            </div>
+
+            <!-- TryHackMe Certificates -->
+            <div class="cert-tab-content active" id="tab-tryhackme">
+                <div class="certs-grid">
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/thm-pre-security.jpg" alt="Pre Security" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>Pre Security</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/thm-introstuction-to-cyber-security.jpg" alt="Introduction to Cyber Security" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>Intro to Cyber Security</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/thm-complete-begginer.jpg" alt="Complete Beginner" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>Complete Beginner</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/thm-junior-pentesting.jpg" alt="Junior Penetration Tester" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>Junior Pentesting</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/thm-offensive-pentesting.jpg" alt="Offensive Pentesting" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>Offensive Pentesting</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/thm-comptia-pentest.jpg" alt="CompTIA Pentest+" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>CompTIA Pentest+</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/thm-web-pentesting-application.jpg" alt="Web Application Pentesting" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>Web App Pentesting</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/thm-red-teaming.jpg" alt="Red Teaming" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>Red Teaming</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/thm-soc-level-1.jpg" alt="SOC Level 1" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>SOC Level 1</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/thm-soc-level-2.jpg" alt="SOC Level 2" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>SOC Level 2</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/thm-security-enginner.jpg" alt="Security Engineer" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>Security Engineer</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/thm-devsecops.jpg" alt="DevSecOps" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>DevSecOps</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/thm-attacking-defenting-aws.jpg" alt="Attacking & Defending AWS" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>Attacking &amp; Defending AWS</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/thm-cyber-advent-2025.jpg" alt="Cyber Advent 2025" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>Cyber Advent 2025</h3></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PentesterLab Badges -->
+            <div class="cert-tab-content" id="tab-pentesterlab">
+                <div class="certs-grid">
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/ptl-ptla1362_page-0001.jpg" alt="PentesterLab Badge" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>PTLA1362</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/ptl-ptlb1529_page-0001.jpg" alt="PentesterLab Badge" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>PTLB1529</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/ptl-ptlc0337_page-0001.jpg" alt="PentesterLab Badge" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>PTLC0337</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/ptl-ptle7397_page-0001.jpg" alt="PentesterLab Badge" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>PTLE7397</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/ptl-ptlg0449_page-0001.jpg" alt="PentesterLab Badge" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>PTLG0449</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/ptl-ptlh2392_page-0001.jpg" alt="PentesterLab Badge" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>PTLH2392</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/ptl-ptli1077_page-0001.jpg" alt="PentesterLab Badge" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>PTLI1077</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/ptl-ptlk0031_page-0001.jpg" alt="PentesterLab Badge" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>PTLK0031</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/ptl-ptln27407_page-0001.jpg" alt="PentesterLab Badge" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>PTLN27407</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/ptl-ptlo0434_page-0001.jpg" alt="PentesterLab Badge" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>PTLO0434</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/ptl-ptlp5618_page-0001.jpg" alt="PentesterLab Badge" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>PTLP5618</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/ptl-ptls3280_page-0001.jpg" alt="PentesterLab Badge" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>PTLS3280</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/ptl-ptlt0183_page-0001.jpg" alt="PentesterLab Badge" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>PTLT0183</h3></div>
+                    </div>
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/ptl-ptly2033_page-0001.jpg" alt="PentesterLab Badge" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>PTLY2033</h3></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- PROJECTS SECTION                              -->
+    <!-- ============================================ -->
+    <section id="projects" class="section projects">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-decorator">&lt;</span>
+                Projects
+                <span class="title-decorator">/&gt;</span>
+            </h2>
+            <p class="section-subtitle">
+                <i class="fas fa-robot"></i> Built with AI assistance &amp; "Vibe Coding" philosophy
+            </p>
+
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card" data-animate>
+                    <div class="project-header">
+                        <div class="project-icon">
+                            <i class="fas fa-terminal"></i>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/Ilias1988/RevesrseShell-Generator" target="_blank" rel="noopener noreferrer" aria-label="View on GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Reverse Shell Generator</h3>
+                    <p class="project-description">A standalone dark-themed GUI application with 90+ reverse shell payloads for Linux &amp; Windows. Features real-time generation, Base64/URL encoding, and one-click copy.</p>
+                    <div class="project-tags">
+                        <span>Python</span>
+                        <span>CustomTkinter</span>
+                        <span>Red Team</span>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card" data-animate>
+                    <div class="project-header">
+                        <div class="project-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/Ilias1988/Cyber-News-Scraper" target="_blank" rel="noopener noreferrer" aria-label="View on GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Cyber News Scraper</h3>
+                    <p class="project-description">Advanced news aggregator supporting RSS feeds, Web Scraping &amp; Topic Auto-Discovery via Bing RSS. 30+ international sources with multi-format export (CSV, JSON, HTML).</p>
+                    <div class="project-tags">
+                        <span>Python</span>
+                        <span>Web Scraping</span>
+                        <span>OSINT</span>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card" data-animate>
+                    <div class="project-header">
+                        <div class="project-icon">
+                            <i class="fas fa-book-skull"></i>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/Ilias1988/Hacking-Cheatsheets" target="_blank" rel="noopener noreferrer" aria-label="View on GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Hacking Cheatsheets</h3>
+                    <p class="project-description">70+ comprehensive penetration testing cheatsheets. Full MITRE ATT&amp;CK kill chain, Blue Team guides, Cloud Security, Mobile Security, CTF writeups, and more.</p>
+                    <div class="project-tags">
+                        <span>Markdown</span>
+                        <span>Documentation</span>
+                        <span>Education</span>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card" data-animate>
+                    <div class="project-header">
+                        <div class="project-icon">
+                            <i class="fas fa-bug"></i>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/Ilias1988/LOLBins-Reference" target="_blank" rel="noopener noreferrer" aria-label="View on GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://Ilias1988.github.io/LOLBins-Reference" target="_blank" rel="noopener noreferrer" aria-label="Live Demo">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">LOLBins Reference</h3>
+                    <p class="project-description">Interactive reference for 600+ Living off the Land Binaries (Windows LOLBAS + Linux GTFOBins). Features payload builder, MITRE ATT&amp;CK mapping, and real-time search.</p>
+                    <div class="project-tags">
+                        <span>JavaScript</span>
+                        <span>HTML/CSS</span>
+                        <span>Red Team</span>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="project-card" data-animate>
+                    <div class="project-header">
+                        <div class="project-icon">
+                            <i class="fas fa-shield-virus"></i>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/Ilias1988/Data-Breach-Checker" target="_blank" rel="noopener noreferrer" aria-label="View on GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Data Breach Checker</h3>
+                    <p class="project-description">OSINT desktop tool to check if email credentials have been compromised in known data breaches. Modern dark-mode GUI with real-time breach detection and detailed reports.</p>
+                    <div class="project-tags">
+                        <span>Python</span>
+                        <span>OSINT</span>
+                        <span>API</span>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="project-card" data-animate>
+                    <div class="project-header">
+                        <div class="project-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/Ilias1988/Port-Scanner" target="_blank" rel="noopener noreferrer" aria-label="View on GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Port Scanner</h3>
+                    <p class="project-description">Multithreaded port scanner with banner grabbing and service detection. Supports common ports, ranges, and full 65535 scans with clean colored output and export.</p>
+                    <div class="project-tags">
+                        <span>Python</span>
+                        <span>Networking</span>
+                        <span>Recon</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="projects-cta">
+                <a href="https://github.com/Ilias1988?tab=repositories" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                    <i class="fab fa-github"></i> View All Repositories
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- CONTACT / FOOTER                              -->
+    <!-- ============================================ -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-decorator">&lt;</span>
+                Get In Touch
+                <span class="title-decorator">/&gt;</span>
+            </h2>
+
+            <div class="contact-content">
+                <div class="terminal-window contact-terminal">
+                    <div class="terminal-header">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                        <span class="terminal-title">contact.sh</span>
+                    </div>
+                    <div class="terminal-body">
+                        <p><span class="terminal-prompt-sm">$</span> echo "Let's connect!"</p>
+                        <p class="terminal-output-text">Interested in collaborating, discussing cybersecurity, or just want to say hello? Feel free to reach out through any of the platforms below.</p>
+                        <p><span class="terminal-prompt-sm">$</span> cat socials.txt</p>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="https://github.com/Ilias1988" target="_blank" rel="noopener noreferrer" class="social-card" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                        <span class="social-name">GitHub</span>
+                        <span class="social-handle">@Ilias1988</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/ilias-georgopoulos-b491a3371/" target="_blank" rel="noopener noreferrer" class="social-card" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                        <span class="social-name">LinkedIn</span>
+                        <span class="social-handle">Ilias Georgopoulos</span>
+                    </a>
+                    <a href="https://x.com/EliotGeo" target="_blank" rel="noopener noreferrer" class="social-card" aria-label="X (Twitter)">
+                        <i class="fab fa-x-twitter"></i>
+                        <span class="social-name">X (Twitter)</span>
+                        <span class="social-handle">@EliotGeo</span>
+                    </a>
+                    <a href="https://tryhackme.com/p/Ilias1988" target="_blank" rel="noopener noreferrer" class="social-card" aria-label="TryHackMe">
+                        <i class="fas fa-flag"></i>
+                        <span class="social-name">TryHackMe</span>
+                        <span class="social-handle">Ilias1988</span>
+                    </a>
+                    <a href="https://pentesterlab.com/profile/Elliot_1988" target="_blank" rel="noopener noreferrer" class="social-card" aria-label="PentesterLab">
+                        <i class="fas fa-flask"></i>
+                        <span class="social-name">PentesterLab</span>
+                        <span class="social-handle">Elliot_1988</span>
+                    </a>
+                    <a href="https://buymeacoffee.com/ilias1988" target="_blank" rel="noopener noreferrer" class="social-card" aria-label="Buy Me a Coffee">
+                        <i class="fas fa-mug-hot"></i>
+                        <span class="social-name">Buy Me a Coffee</span>
+                        <span class="social-handle">Support my work</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- FOOTER                                        -->
+    <!-- ============================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    <span class="footer-prompt">&gt;</span> Designed &amp; Built by 
+                    <span class="highlight">Ilias Georgopoulos</span> 
+                    <span class="footer-year">// 2026</span>
+                </p>
+                <p class="footer-subtext">Stay safe in cyberspace. <span class="blink">_</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- LIGHTBOX (για μεγέθυνση certificates)         -->
+    <!-- ============================================ -->
+    <div id="lightbox" class="lightbox" role="dialog" aria-hidden="true">
+        <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
+        <img src="" alt="Certificate" class="lightbox-image" id="lightboxImage">
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
