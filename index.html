@@ -35,24 +35,293 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="shortcut icon" href="favicon.png">
 
-    <!-- JSON-LD Structured Data -->
+    <!-- JSON-LD Structured Data: ProfilePage + Person -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Ilias Georgopoulos",
-        "alternateName": "Ilias1988",
+        "@type": "ProfilePage",
+        "dateCreated": "2026-01-01",
+        "dateModified": "2026-02-19",
+        "mainEntity": {
+            "@type": "Person",
+            "@id": "https://ilias1988.me/#person",
+            "name": "Ilias Georgopoulos",
+            "givenName": "Ilias",
+            "familyName": "Georgopoulos",
+            "alternateName": "Ilias1988",
+            "url": "https://ilias1988.me",
+            "image": {
+                "@type": "ImageObject",
+                "url": "https://ilias1988.me/images/optimized/profile.jpg",
+                "width": 400,
+                "height": 400
+            },
+            "email": "mailto:hliasgeorgopoulos@hotmail.com",
+            "birthDate": "1988-09-18",
+            "gender": "Male",
+            "nationality": {
+                "@type": "Country",
+                "name": "Greece"
+            },
+            "homeLocation": {
+                "@type": "Place",
+                "name": "Gargalianoi, Messinia",
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Gargalianoi",
+                    "addressRegion": "Messinia",
+                    "addressCountry": "GR"
+                }
+            },
+            "jobTitle": "Cybersecurity Enthusiast & Red Teaming Tool Developer",
+            "description": "Cybersecurity Enthusiast, CTF Player & Red Teaming Tool Developer. Building offensive security tools with AI & Code. Top 1% on TryHackMe with 30+ certifications.",
+            "knowsAbout": [
+                "Penetration Testing",
+                "Web Application Security",
+                "Red Teaming",
+                "CTF Challenges",
+                "Python",
+                "JavaScript",
+                "Bash",
+                "PowerShell",
+                "OSINT",
+                "Automation",
+                "Burp Suite",
+                "Nmap",
+                "Metasploit",
+                "SQL Injection",
+                "XSS",
+                "Privilege Escalation",
+                "Reverse Shells",
+                "Network Pentesting",
+                "Docker",
+                "Kali Linux",
+                "AI-Assisted Development"
+            ],
+            "knowsLanguage": ["Greek", "English"],
+            "hasCredential": [
+                {
+                    "@type": "EducationalOccupationalCredential",
+                    "name": "Pre Security",
+                    "credentialCategory": "certificate",
+                    "recognizedBy": { "@type": "Organization", "name": "TryHackMe", "url": "https://tryhackme.com" }
+                },
+                {
+                    "@type": "EducationalOccupationalCredential",
+                    "name": "Introduction to Cyber Security",
+                    "credentialCategory": "certificate",
+                    "recognizedBy": { "@type": "Organization", "name": "TryHackMe", "url": "https://tryhackme.com" }
+                },
+                {
+                    "@type": "EducationalOccupationalCredential",
+                    "name": "Complete Beginner",
+                    "credentialCategory": "certificate",
+                    "recognizedBy": { "@type": "Organization", "name": "TryHackMe", "url": "https://tryhackme.com" }
+                },
+                {
+                    "@type": "EducationalOccupationalCredential",
+                    "name": "Junior Penetration Tester",
+                    "credentialCategory": "certificate",
+                    "recognizedBy": { "@type": "Organization", "name": "TryHackMe", "url": "https://tryhackme.com" }
+                },
+                {
+                    "@type": "EducationalOccupationalCredential",
+                    "name": "Offensive Pentesting",
+                    "credentialCategory": "certificate",
+                    "recognizedBy": { "@type": "Organization", "name": "TryHackMe", "url": "https://tryhackme.com" }
+                },
+                {
+                    "@type": "EducationalOccupationalCredential",
+                    "name": "CompTIA Pentest+",
+                    "credentialCategory": "certificate",
+                    "recognizedBy": { "@type": "Organization", "name": "TryHackMe", "url": "https://tryhackme.com" }
+                },
+                {
+                    "@type": "EducationalOccupationalCredential",
+                    "name": "Web Application Pentesting",
+                    "credentialCategory": "certificate",
+                    "recognizedBy": { "@type": "Organization", "name": "TryHackMe", "url": "https://tryhackme.com" }
+                },
+                {
+                    "@type": "EducationalOccupationalCredential",
+                    "name": "Red Teaming",
+                    "credentialCategory": "certificate",
+                    "recognizedBy": { "@type": "Organization", "name": "TryHackMe", "url": "https://tryhackme.com" }
+                },
+                {
+                    "@type": "EducationalOccupationalCredential",
+                    "name": "SOC Level 1",
+                    "credentialCategory": "certificate",
+                    "recognizedBy": { "@type": "Organization", "name": "TryHackMe", "url": "https://tryhackme.com" }
+                },
+                {
+                    "@type": "EducationalOccupationalCredential",
+                    "name": "SOC Level 2",
+                    "credentialCategory": "certificate",
+                    "recognizedBy": { "@type": "Organization", "name": "TryHackMe", "url": "https://tryhackme.com" }
+                },
+                {
+                    "@type": "EducationalOccupationalCredential",
+                    "name": "Security Engineer",
+                    "credentialCategory": "certificate",
+                    "recognizedBy": { "@type": "Organization", "name": "TryHackMe", "url": "https://tryhackme.com" }
+                },
+                {
+                    "@type": "EducationalOccupationalCredential",
+                    "name": "DevSecOps",
+                    "credentialCategory": "certificate",
+                    "recognizedBy": { "@type": "Organization", "name": "TryHackMe", "url": "https://tryhackme.com" }
+                },
+                {
+                    "@type": "EducationalOccupationalCredential",
+                    "name": "Attacking & Defending AWS",
+                    "credentialCategory": "certificate",
+                    "recognizedBy": { "@type": "Organization", "name": "TryHackMe", "url": "https://tryhackme.com" }
+                },
+                {
+                    "@type": "EducationalOccupationalCredential",
+                    "name": "Cyber Advent 2025",
+                    "credentialCategory": "certificate",
+                    "recognizedBy": { "@type": "Organization", "name": "TryHackMe", "url": "https://tryhackme.com" }
+                },
+                {
+                    "@type": "EducationalOccupationalCredential",
+                    "name": "Advanced Endpoint Investigations",
+                    "credentialCategory": "certificate",
+                    "recognizedBy": { "@type": "Organization", "name": "TryHackMe", "url": "https://tryhackme.com" }
+                },
+                {
+                    "@type": "EducationalOccupationalCredential",
+                    "name": "PentesterLab Badges (15 badges)",
+                    "credentialCategory": "badge",
+                    "recognizedBy": { "@type": "Organization", "name": "PentesterLab", "url": "https://pentesterlab.com" }
+                }
+            ],
+            "sameAs": [
+                "https://github.com/Ilias1988",
+                "https://www.linkedin.com/in/ilias-georgopoulos-b491a3371/",
+                "https://x.com/EliotGeo",
+                "https://tryhackme.com/p/Ilias1988",
+                "https://pentesterlab.com/profile/Elliot_1988",
+                "https://buymeacoffee.com/ilias1988"
+            ]
+        }
+    }
+    </script>
+
+    <!-- JSON-LD Structured Data: WebSite -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Ilias Georgopoulos — Cybersecurity Portfolio",
+        "alternateName": "Ilias1988 Portfolio",
         "url": "https://ilias1988.me",
-        "image": "https://ilias1988.me/images/optimized/profile.jpg",
-        "jobTitle": "Cybersecurity Enthusiast & Red Teaming Tool Developer",
-        "description": "Cybersecurity Enthusiast, CTF Player & Red Teaming Tool Developer. Building offensive security tools with AI & Code.",
-        "knowsAbout": ["Penetration Testing", "Web Security", "Red Teaming", "CTF", "Python", "OSINT", "Automation"],
-        "sameAs": [
-            "https://github.com/Ilias1988",
-            "https://www.linkedin.com/in/ilias-georgopoulos-b491a3371/",
-            "https://x.com/EliotGeo",
-            "https://tryhackme.com/p/Ilias1988",
-            "https://pentesterlab.com/profile/Elliot_1988"
+        "description": "Personal cybersecurity portfolio of Ilias Georgopoulos. Offensive security tools, CTF player, red teaming, and penetration testing resources.",
+        "author": { "@id": "https://ilias1988.me/#person" },
+        "inLanguage": "en"
+    }
+    </script>
+
+    <!-- JSON-LD Structured Data: Projects (ItemList + SoftwareApplication) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Cybersecurity Projects by Ilias Georgopoulos",
+        "description": "Open-source offensive security tools built with AI & Code.",
+        "numberOfItems": 6,
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "item": {
+                    "@type": "SoftwareApplication",
+                    "name": "Reverse Shell Generator",
+                    "description": "A standalone dark-themed GUI application with 90+ reverse shell payloads for Linux & Windows. Features real-time generation, Base64/URL encoding, and one-click copy.",
+                    "url": "https://github.com/Ilias1988/RevesrseShell-Generator",
+                    "applicationCategory": "SecurityApplication",
+                    "operatingSystem": "Windows, Linux",
+                    "programmingLanguage": "Python",
+                    "author": { "@id": "https://ilias1988.me/#person" },
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "item": {
+                    "@type": "SoftwareApplication",
+                    "name": "Cyber News Scraper",
+                    "description": "Advanced news aggregator supporting RSS feeds, Web Scraping & Topic Auto-Discovery via Bing RSS. 30+ international sources with multi-format export (CSV, JSON, HTML).",
+                    "url": "https://github.com/Ilias1988/Cyber-News-Scraper",
+                    "applicationCategory": "SecurityApplication",
+                    "operatingSystem": "Windows, Linux",
+                    "programmingLanguage": "Python",
+                    "author": { "@id": "https://ilias1988.me/#person" },
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "item": {
+                    "@type": "SoftwareApplication",
+                    "name": "Hacking Cheatsheets",
+                    "description": "70+ comprehensive penetration testing cheatsheets. Full MITRE ATT&CK kill chain, Blue Team guides, Cloud Security, Mobile Security, CTF writeups, and more.",
+                    "url": "https://github.com/Ilias1988/Hacking-Cheatsheets",
+                    "applicationCategory": "EducationalApplication",
+                    "programmingLanguage": "Markdown",
+                    "author": { "@id": "https://ilias1988.me/#person" },
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 4,
+                "item": {
+                    "@type": "SoftwareApplication",
+                    "name": "LOLBins Reference",
+                    "description": "Interactive reference for 600+ Living off the Land Binaries (Windows LOLBAS + Linux GTFOBins). Features payload builder, MITRE ATT&CK mapping, and real-time search.",
+                    "url": "https://github.com/Ilias1988/LOLBins-Reference",
+                    "installUrl": "https://ilias1988.github.io/LOLBins-Reference/",
+                    "applicationCategory": "SecurityApplication",
+                    "operatingSystem": "Web Browser",
+                    "programmingLanguage": "JavaScript",
+                    "author": { "@id": "https://ilias1988.me/#person" },
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 5,
+                "item": {
+                    "@type": "SoftwareApplication",
+                    "name": "Data Breach Checker",
+                    "description": "OSINT desktop tool to check if email credentials have been compromised in known data breaches. Modern dark-mode GUI with real-time breach detection and detailed reports.",
+                    "url": "https://github.com/Ilias1988/Data-Breach-Checker",
+                    "applicationCategory": "SecurityApplication",
+                    "operatingSystem": "Windows, Linux",
+                    "programmingLanguage": "Python",
+                    "author": { "@id": "https://ilias1988.me/#person" },
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 6,
+                "item": {
+                    "@type": "SoftwareApplication",
+                    "name": "Port Scanner",
+                    "description": "Multithreaded port scanner with banner grabbing and service detection. Supports common ports, ranges, and full 65535 scans with clean colored output and export.",
+                    "url": "https://github.com/Ilias1988/Port-Scanner",
+                    "applicationCategory": "SecurityApplication",
+                    "operatingSystem": "Windows, Linux",
+                    "programmingLanguage": "Python",
+                    "author": { "@id": "https://ilias1988.me/#person" },
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+                }
+            }
         ]
     }
     </script>
