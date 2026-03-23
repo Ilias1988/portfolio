@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========================================
     // 4. SCROLL ANIMATIONS (Intersection Observer)
     // ========================================
-    const animatedElements = document.querySelectorAll('[data-animate], .timeline-item, .cert-card, .project-card');
+    const animatedElements = document.querySelectorAll('[data-animate], .timeline-item, .cert-card, .project-card, .tool-card');
 
     const observerOptions = {
         root: null,
