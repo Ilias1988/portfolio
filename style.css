@@ -458,6 +458,16 @@ ul {
     color: var(--accent-green);
 }
 
+.stat-rank {
+    font-family: var(--font-mono);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-green);
+    display: inline;
+    white-space: nowrap;
+}
+
+
 .stat-label {
     display: block;
     font-size: 0.8rem;
@@ -785,11 +795,27 @@ ul {
     margin-bottom: 10px;
 }
 
+.timeline-badge.done {
+    background: rgba(88, 166, 255, 0.12);
+    color: #58a6ff;
+    border: 1px solid rgba(88, 166, 255, 0.3);
+}
+
+.timeline-item.done .timeline-marker {
+    border-color: #58a6ff;
+    box-shadow: 0 0 12px rgba(88, 166, 255, 0.2);
+}
+
+.timeline-item.done .timeline-marker i {
+    color: #58a6ff;
+}
+
 .timeline-badge.current {
     background: var(--accent-green-dim);
     color: var(--accent-green);
     border: 1px solid rgba(0, 255, 65, 0.3);
 }
+
 
 .timeline-badge.next {
     background: var(--accent-purple-dim);
@@ -1716,9 +1742,11 @@ ul {
         gap: 20px;
     }
 
-    .stat-number {
+    .stat-number,
+    .stat-rank {
         font-size: 1.6rem;
     }
+
 
     .terminal-body {
         padding: 16px;
