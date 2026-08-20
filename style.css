@@ -865,6 +865,7 @@ ul {
 /* Tabs */
 .cert-tabs {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 12px;
     margin-bottom: 40px;
