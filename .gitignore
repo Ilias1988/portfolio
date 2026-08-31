@@ -13,6 +13,11 @@ optimize_htb.py
 __pycache__/
 *.pyc
 
+# Astro / Node build artifacts
+node_modules/
+dist/
+.astro/
+
 # OS files
 .DS_Store
 Thumbs.db

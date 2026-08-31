@@ -1,0 +1,75 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'writeups'>;
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const published = new Intl.DateTimeFormat('en-GB', {
+  day: '2-digit',
+  month: 'short',
+  year: 'numeric',
+}).format(data.publishedAt);
+
+const searchable = [
+  data.title,
+  data.summary,
+  data.platform,
+  data.contentType,
+  data.difficulty,
+  data.os,
+  ...data.tags,
+  ...data.tools,
+].filter(Boolean).join(' ').toLowerCase();
+---
+
+<article
+  class="writeup-card"
+  data-writeup-card
+  data-search={searchable}
+  data-difficulty={data.difficulty ?? ''}
+  data-os={data.os ?? ''}
+  data-type={data.contentType}
+>
+  {data.cover && (
+    <a class="writeup-card-cover" href={`/writeups/${entry.id}/`} tabindex="-1" aria-hidden="true">
+      <img src={data.cover} alt="" loading="lazy" width="300" height="300" />
+    </a>
+  )}
+  <div class="writeup-card-topline">
+    <span class="writeup-platform"><i class="fas fa-cube" aria-hidden="true"></i> {data.platform}</span>
+    <time datetime={data.publishedAt.toISOString()}>{published}</time>
+  </div>
+
+  <h2><a href={`/writeups/${entry.id}/`}>{data.title}</a></h2>
+  <p>{data.summary}</p>
+
+  <dl class="writeup-meta-list">
+    <div>
+      <dt>Type</dt>
+      <dd>{data.contentType.replace('-', ' ')}</dd>
+    </div>
+    {data.difficulty && (
+      <div>
+        <dt>Difficulty</dt>
+        <dd>{data.difficulty}</dd>
+      </div>
+    )}
+    {data.os && (
+      <div>
+        <dt>OS</dt>
+        <dd>{data.os}</dd>
+      </div>
+    )}
+  </dl>
+
+  <div class="writeup-tags" aria-label="Techniques">
+    {data.tags.slice(0, 5).map((tag) => <span>{tag}</span>)}
+  </div>
+
+  <a class="writeup-read-link" href={`/writeups/${entry.id}/`} aria-label={`Read ${data.title}`}>
+    Read write-up <i class="fas fa-arrow-right" aria-hidden="true"></i>
+  </a>
+</article>

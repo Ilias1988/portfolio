@@ -1,0 +1,172 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WriteupCard from '../../components/WriteupCard.astro';
+
+const writeups = (await getCollection('writeups', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+
+const difficulties = [...new Set(writeups.map(({ data }) => data.difficulty).filter(Boolean))].sort();
+const operatingSystems = [...new Set(writeups.map(({ data }) => data.os).filter(Boolean))].sort();
+const contentTypes = [...new Set(writeups.map(({ data }) => data.contentType))].sort();
+---
+
+<BaseLayout
+  title="Hack The Box Write-ups | Ilias Georgopoulos"
+  description="Practical Hack The Box write-ups covering enumeration, exploitation, privilege escalation, tools, failed paths and lessons learned."
+  canonicalPath="/writeups/"
+  currentPath="/writeups/"
+>
+  <section class="writeups-hero">
+    <div class="container writeups-hero-content">
+      <p class="terminal-kicker"><span>root@kali:~$</span> ls ./writeups</p>
+      <h1>Hack The Box <span>Write-ups</span></h1>
+      <p class="writeups-lead">
+        Reproducible attack paths, clear technical reasoning and lessons learned from authorized Hack The Box labs.
+      </p>
+      <div class="writeups-status">
+        <span><i class="fas fa-book-open" aria-hidden="true"></i> {writeups.length} published</span>
+        <span><i class="fas fa-shield-halved" aria-hidden="true"></i> Retired content only</span>
+        <a href="/rss.xml"><i class="fas fa-rss" aria-hidden="true"></i> RSS feed</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="writeups-library section" aria-labelledby="writeups-library-title">
+    <div class="container">
+      <div class="writeups-heading-row">
+        <div>
+          <p class="eyebrow">Knowledge base</p>
+          <h2 id="writeups-library-title">Field notes from the labs</h2>
+        </div>
+        <p>Every entry follows the same reviewable structure: recon, foothold, escalation and takeaways.</p>
+      </div>
+
+      {writeups.length > 0 ? (
+        <>
+          <form class="writeup-filters" data-writeup-filters role="search">
+            <label class="search-field">
+              <span class="sr-only">Search write-ups</span>
+              <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+              <input type="search" name="query" placeholder="Search techniques, tools or machines..." autocomplete="off" />
+            </label>
+
+            <label>
+              <span class="sr-only">Filter by type</span>
+              <select name="type">
+                <option value="">All types</option>
+                {contentTypes.map((type) => <option value={type}>{type.replace('-', ' ')}</option>)}
+              </select>
+            </label>
+
+            <label>
+              <span class="sr-only">Filter by difficulty</span>
+              <select name="difficulty">
+                <option value="">All difficulties</option>
+                {difficulties.map((difficulty) => <option value={difficulty}>{difficulty}</option>)}
+              </select>
+            </label>
+
+            <label>
+              <span class="sr-only">Filter by operating system</span>
+              <select name="os">
+                <option value="">All operating systems</option>
+                {operatingSystems.map((os) => <option value={os}>{os}</option>)}
+              </select>
+            </label>
+          </form>
+
+          <p class="filter-result-count" aria-live="polite" data-result-count>{writeups.length} write-ups</p>
+          <div class="writeups-grid" data-writeups-grid>
+            {writeups.map((entry) => <WriteupCard entry={entry} />)}
+          </div>
+          <div class="filter-empty" data-filter-empty hidden>
+            <i class="fas fa-terminal" aria-hidden="true"></i>
+            <h3>No matching write-ups</h3>
+            <p>Try a broader search or clear one of the filters.</p>
+          </div>
+        </>
+      ) : (
+        <div class="writeups-empty-state">
+          <div class="empty-terminal" aria-hidden="true">
+            <div class="empty-terminal-bar"><span></span><span></span><span></span></div>
+            <div class="empty-terminal-body">
+              <p><span class="prompt">$</span> find ./writeups -type f</p>
+              <p class="terminal-output">No public write-ups yet.</p>
+              <p><span class="prompt">$</span> <span class="terminal-cursor">_</span></p>
+            </div>
+          </div>
+          <div class="empty-copy">
+            <p class="eyebrow">Publishing pipeline ready</p>
+            <h3>The archive is prepared for the first retired box.</h3>
+            <p>
+              New write-ups will appear here automatically after content validation, a local build and publication through GitHub Pages.
+            </p>
+            <a class="btn btn-secondary" href="/">
+              <i class="fas fa-arrow-left" aria-hidden="true"></i> Back to portfolio
+            </a>
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="writeup-principles" aria-labelledby="principles-title">
+    <div class="container">
+      <p class="eyebrow">Publication standard</p>
+      <h2 id="principles-title">Built for learning, not spoilers</h2>
+      <div class="principles-grid">
+        <article>
+          <i class="fas fa-check-double" aria-hidden="true"></i>
+          <h3>Verified steps</h3>
+          <p>Only commands and findings reproduced during the solve are documented.</p>
+        </article>
+        <article>
+          <i class="fas fa-user-shield" aria-hidden="true"></i>
+          <h3>Sanitized evidence</h3>
+          <p>Flags, personal secrets, VPN data and unrelated tokens are removed. Retired lab credentials appear only when they are essential to reproduce the attack path.</p>
+        </article>
+        <article>
+          <i class="fas fa-box-archive" aria-hidden="true"></i>
+          <h3>Publishable content</h3>
+          <p>Public entries are limited to content permitted by Hack The Box publication rules.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    const filters = document.querySelector('[data-writeup-filters]');
+    const cards = [...document.querySelectorAll('[data-writeup-card]')];
+    const resultCount = document.querySelector('[data-result-count]');
+    const emptyState = document.querySelector('[data-filter-empty]');
+
+    if (filters && cards.length) {
+      const updateResults = () => {
+        const form = new FormData(filters);
+        const query = String(form.get('query') ?? '').trim().toLowerCase();
+        const type = String(form.get('type') ?? '');
+        const difficulty = String(form.get('difficulty') ?? '');
+        const os = String(form.get('os') ?? '');
+        let visible = 0;
+
+        cards.forEach((card) => {
+          const matches =
+            (!query || card.dataset.search.includes(query)) &&
+            (!type || card.dataset.type === type) &&
+            (!difficulty || card.dataset.difficulty === difficulty) &&
+            (!os || card.dataset.os === os);
+
+          card.hidden = !matches;
+          if (matches) visible += 1;
+        });
+
+        if (resultCount) resultCount.textContent = `${visible} write-up${visible === 1 ? '' : 's'}`;
+        if (emptyState) emptyState.hidden = visible !== 0;
+      };
+
+      filters.addEventListener('input', updateResults);
+      filters.addEventListener('change', updateResults);
+    }
+  </script>
+</BaseLayout>

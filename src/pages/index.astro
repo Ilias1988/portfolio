@@ -1,3 +1,7 @@
+---
+import '../styles/portfolio.css';
+---
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,16 +36,18 @@
     <meta name="twitter:image" content="https://ilias1988.me/images/optimized/profile.jpg">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="shortcut icon" href="favicon.png">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="sitemap" href="/sitemap-index.xml">
+    <link rel="alternate" type="application/rss+xml" title="Ilias1988 Security Write-ups" href="/rss.xml">
 
     <!-- JSON-LD Structured Data: ProfilePage + Person -->
-    <script type="application/ld+json">
+    <script is:inline type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "ProfilePage",
         "dateCreated": "2026-01-01",
-        "dateModified": "2026-07-02",
+        "dateModified": "2026-08-31",
         "mainEntity": {
             "@type": "Person",
             "@id": "https://ilias1988.me/#person",
@@ -236,7 +242,7 @@
     </script>
 
     <!-- JSON-LD Structured Data: WebSite -->
-    <script type="application/ld+json">
+    <script is:inline type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "WebSite",
@@ -250,7 +256,7 @@
     </script>
 
     <!-- JSON-LD Structured Data: Projects (ItemList + SoftwareApplication) -->
-    <script type="application/ld+json">
+    <script is:inline type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "ItemList",
@@ -360,8 +366,6 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -383,6 +387,7 @@
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#skills" class="nav-link">Skills</a></li>
                 <li><a href="#roadmap" class="nav-link">Roadmap</a></li>
+                <li><a href="/writeups/" class="nav-link">Write-ups</a></li>
                 <li><a href="#certifications" class="nav-link">Certs</a></li>
                 <li><a href="#tools" class="nav-link">Tools</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
@@ -1445,6 +1450,6 @@
     </div>
 
     <!-- JavaScript -->
-    <script src="script.js"></script>
+    <script is:inline src="/scripts/portfolio.js"></script>
 </body>
 </html>

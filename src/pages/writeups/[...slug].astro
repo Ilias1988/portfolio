@@ -1,0 +1,166 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('writeups', ({ data }) => !data.draft);
+
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'writeups'>;
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+const { data } = entry;
+const canonicalPath = `/writeups/${entry.id}/`;
+const canonicalUrl = new URL(canonicalPath, Astro.site).href;
+const published = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long' }).format(data.publishedAt);
+const solved = new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' }).format(data.solvedAt);
+
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  additionalType: 'https://schema.org/TechArticle',
+  headline: data.title,
+  description: data.summary,
+  datePublished: data.publishedAt.toISOString(),
+  dateModified: (data.updatedAt ?? data.publishedAt).toISOString(),
+  author: {
+    '@type': 'Person',
+    name: 'Ilias Georgopoulos',
+    url: 'https://ilias1988.me/',
+  },
+  publisher: {
+    '@type': 'Person',
+    name: 'Ilias Georgopoulos',
+    url: 'https://ilias1988.me/',
+  },
+  url: canonicalUrl,
+  mainEntityOfPage: canonicalUrl,
+  keywords: data.tags.join(', '),
+  educationalLevel: data.difficulty,
+  image: data.cover ? new URL(data.cover, Astro.site).href : undefined,
+};
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: new URL('/', Astro.site).href,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Write-ups',
+      item: new URL('/writeups/', Astro.site).href,
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: data.title,
+      item: canonicalUrl,
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={`${data.title} | HTB Write-up | Ilias1988`}
+  description={data.summary}
+  canonicalPath={canonicalPath}
+  currentPath="/writeups/"
+  ogType="article"
+  image={data.cover ?? null}
+  twitterCard="summary"
+>
+  <Fragment slot="head">
+    <meta property="article:published_time" content={data.publishedAt.toISOString()} />
+    <meta property="article:modified_time" content={(data.updatedAt ?? data.publishedAt).toISOString()} />
+    <meta property="article:author" content="Ilias Georgopoulos" />
+    {data.tags.map((tag) => <meta property="article:tag" content={tag} />)}
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
+  </Fragment>
+
+  <article class="writeup-article">
+    <header class="writeup-article-header">
+      <div class="container article-header-grid">
+        <div>
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="/">Home</a><span>/</span><a href="/writeups/">Write-ups</a><span>/</span><span>{data.title}</span>
+          </nav>
+          <p class="terminal-kicker"><span>root@kali:~$</span> cat {entry.id}.md</p>
+          <h1>{data.title}</h1>
+          <p class="article-summary">{data.summary}</p>
+          <div class="article-tags" aria-label="Techniques">
+            {data.tags.map((tag) => <span>{tag}</span>)}
+          </div>
+        </div>
+
+        <div class="machine-summary-panel">
+          {data.cover && (
+            <div class="machine-cover-wrap">
+              <img
+                class="machine-cover"
+                src={data.cover}
+                alt={data.coverAlt ?? `${data.title} machine artwork`}
+                width="300"
+                height="300"
+              />
+            </div>
+          )}
+          <dl class="machine-facts">
+            <div><dt>Platform</dt><dd>{data.platform}</dd></div>
+            <div><dt>Type</dt><dd>{data.contentType.replace('-', ' ')}</dd></div>
+            {data.difficulty && <div><dt>Difficulty</dt><dd>{data.difficulty}</dd></div>}
+            {data.os && <div><dt>Operating system</dt><dd>{data.os}</dd></div>}
+            <div><dt>Solved</dt><dd>{solved}</dd></div>
+            <div><dt>Published</dt><dd>{published}</dd></div>
+          </dl>
+        </div>
+      </div>
+    </header>
+
+    <div class="container article-shell">
+      <aside class="article-sidebar">
+        <div class="spoiler-notice">
+          <i class="fas fa-triangle-exclamation" aria-hidden="true"></i>
+          <div><strong>Spoiler warning</strong><p>This page contains a complete solution path for permitted HTB content.</p></div>
+        </div>
+
+        {headings.length > 0 && (
+          <nav class="table-of-contents" aria-label="Table of contents">
+            <p>On this page</p>
+            <ol>
+              {headings.filter(({ depth }) => depth === 2).map((heading) => (
+                <li><a href={`#${heading.slug}`}>{heading.text}</a></li>
+              ))}
+            </ol>
+          </nav>
+        )}
+      </aside>
+
+      <div class="writeup-prose">
+        <Content />
+
+        <footer class="article-footer">
+          <p><strong>Responsible publication:</strong> flags, personal secrets, VPN data and unrelated sensitive artifacts have been removed. Retired lab credentials appear only where they are required to reproduce the attack path.</p>
+          <div>
+            <a href="/writeups/"><i class="fas fa-arrow-left" aria-hidden="true"></i> All write-ups</a>
+            {data.htbUrl && <a href={data.htbUrl} target="_blank" rel="noopener noreferrer">HTB page <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>}
+          </div>
+        </footer>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

@@ -1,0 +1,110 @@
+---
+import '../styles/portfolio.css';
+import '../styles/writeups.css';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath: string;
+  currentPath?: string;
+  ogType?: 'website' | 'article';
+  image?: string | null;
+  twitterCard?: 'summary' | 'summary_large_image';
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonicalPath,
+  currentPath = canonicalPath,
+  ogType = 'website',
+  image = '/images/optimized/profile.jpg',
+  twitterCard,
+  noindex = false,
+} = Astro.props;
+
+const site = Astro.site ?? new URL('https://ilias1988.me');
+const canonical = new URL(canonicalPath, site).href;
+const socialImage = image ? new URL(image, site).href : null;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="author" content="Ilias Georgopoulos" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
+
+    <title>{title}</title>
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Ilias1988 Security Write-ups" href="/rss.xml" />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="Ilias Georgopoulos Portfolio" />
+    <meta property="og:locale" content="en_US" />
+    {socialImage && <meta property="og:image" content={socialImage} />}
+
+    <meta name="twitter:card" content={twitterCard ?? (socialImage ? 'summary_large_image' : 'summary')} />
+    <meta name="twitter:creator" content="@EliotGeo" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {socialImage && <meta name="twitter:image" content={socialImage} />}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <slot name="head" />
+  </head>
+  <body class="content-site">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <SiteHeader currentPath={currentPath} />
+    <main id="main-content">
+      <slot />
+    </main>
+    <SiteFooter />
+
+    <script is:inline>
+      const navToggle = document.getElementById('navToggle');
+      const navMenu = document.getElementById('navMenu');
+
+      if (navToggle && navMenu) {
+        const closeMenu = () => {
+          navToggle.classList.remove('active');
+          navMenu.classList.remove('active');
+          navToggle.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        };
+
+        navToggle.addEventListener('click', () => {
+          const isOpen = navMenu.classList.toggle('active');
+          navToggle.classList.toggle('active', isOpen);
+          navToggle.setAttribute('aria-expanded', String(isOpen));
+          document.body.style.overflow = isOpen ? 'hidden' : '';
+        });
+
+        navMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape') closeMenu();
+        });
+      }
+    </script>
+  </body>
+</html>

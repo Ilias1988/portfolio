@@ -1,0 +1,52 @@
+---
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '' } = Astro.props;
+
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/#about', label: 'About' },
+  { href: '/#roadmap', label: 'Roadmap' },
+  { href: '/writeups/', label: 'Write-ups' },
+  { href: '/#projects', label: 'Projects' },
+  { href: '/#contact', label: 'Contact' },
+];
+---
+
+<nav id="navbar" class="navbar scrolled content-navbar" aria-label="Primary navigation">
+  <div class="nav-container">
+    <a href="/" class="nav-logo" aria-label="Ilias1988 home">
+      <span class="logo-bracket">[</span>
+      <span class="logo-text">ilias1988</span>
+      <span class="logo-bracket">]</span>
+      <span class="logo-cursor">_</span>
+    </a>
+
+    <button
+      class="nav-toggle"
+      id="navToggle"
+      type="button"
+      aria-label="Toggle navigation"
+      aria-controls="navMenu"
+      aria-expanded="false"
+    >
+      <span class="hamburger"></span>
+    </button>
+
+    <ul class="nav-menu" id="navMenu">
+      {links.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class:list={['nav-link', currentPath.startsWith(link.href) && link.href !== '/' && 'active']}
+            aria-current={currentPath.startsWith(link.href) && link.href !== '/' ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</nav>
