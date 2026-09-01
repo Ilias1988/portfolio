@@ -4,13 +4,11 @@ import CloudflareAnalytics from '../components/CloudflareAnalytics.astro';
 import '../styles/portfolio.css';
 
 const publicWriteups = (await getCollection('writeups', ({ data }) => !data.draft))
-    .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
-const latestWriteups = publicWriteups.slice(0, 3);
-const formatWriteupDate = (date: Date) => new Intl.DateTimeFormat('en-GB', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
-}).format(date);
+    .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const publicLabs = (await getCollection('labs', ({ data }) => !data.draft))
+    .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const latestWriteup = publicWriteups[0];
+const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0];
 ---
 
 <!DOCTYPE html>
@@ -22,7 +20,7 @@ const formatWriteupDate = (date: Date) => new Intl.DateTimeFormat('en-GB', {
 
     <!-- SEO Meta Tags -->
     <title>Ilias Georgopoulos | Cybersecurity Portfolio</title>
-    <meta name="description" content="Cybersecurity portfolio of Ilias Georgopoulos featuring Hack The Box write-ups, offensive security tools, practical training and penetration testing research.">
+    <meta name="description" content="Cybersecurity portfolio of Ilias Georgopoulos: offensive security tools, Hack The Box write-ups, controlled security research labs and detection engineering.">
     <meta name="keywords" content="cybersecurity, penetration testing, red team, CTF, ethical hacking, security tools, Ilias Georgopoulos, Ilias1988">
     <meta name="author" content="Ilias Georgopoulos">
     <link rel="canonical" href="https://ilias1988.me/">
@@ -31,7 +29,7 @@ const formatWriteupDate = (date: Date) => new Intl.DateTimeFormat('en-GB', {
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ilias1988.me/">
     <meta property="og:title" content="Ilias Georgopoulos | Cybersecurity Portfolio">
-    <meta property="og:description" content="Hack The Box write-ups, offensive security tools and the hands-on penetration testing journey of Ilias Georgopoulos.">
+    <meta property="og:description" content="Hack The Box write-ups, controlled security research labs, offensive security tools and the hands-on penetration testing journey of Ilias Georgopoulos.">
     <meta property="og:image" content="https://ilias1988.me/images/optimized/profile.jpg">
     <meta property="og:image:width" content="400">
     <meta property="og:image:height" content="400">
@@ -43,7 +41,7 @@ const formatWriteupDate = (date: Date) => new Intl.DateTimeFormat('en-GB', {
     <meta name="twitter:site" content="@EliotGeo">
     <meta name="twitter:creator" content="@EliotGeo">
     <meta name="twitter:title" content="Ilias Georgopoulos | Cybersecurity Portfolio">
-    <meta name="twitter:description" content="Hack The Box write-ups, offensive security tools and the hands-on penetration testing journey of Ilias Georgopoulos.">
+    <meta name="twitter:description" content="Hack The Box write-ups, controlled security research labs, offensive security tools and the hands-on penetration testing journey of Ilias Georgopoulos.">
     <meta name="twitter:image" content="https://ilias1988.me/images/optimized/profile.jpg">
 
     <!-- Favicon -->
@@ -400,6 +398,7 @@ const formatWriteupDate = (date: Date) => new Intl.DateTimeFormat('en-GB', {
                 <li><a href="#skills" class="nav-link">Skills</a></li>
                 <li><a href="#roadmap" class="nav-link">Roadmap</a></li>
                 <li><a href="/writeups/" class="nav-link">Write-ups</a></li>
+                <li><a href="/labs/" class="nav-link">Labs</a></li>
                 <li><a href="#certifications" class="nav-link">Certs</a></li>
                 <li><a href="#tools" class="nav-link">Tools</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
@@ -698,58 +697,54 @@ const formatWriteupDate = (date: Date) => new Intl.DateTimeFormat('en-GB', {
     </section>
 
     <!-- ============================================ -->
-    <!-- LATEST WRITE-UPS SECTION                      -->
+    <!-- KNOWLEDGE BASE                               -->
     <!-- ============================================ -->
-    <section id="writeups" class="section home-writeups">
+    <section id="writeups" class="section knowledge-base">
         <div class="container">
             <h2 class="section-title">
                 <span class="title-decorator">&lt;</span>
-                Latest Write-ups
+                Technical Knowledge Base
                 <span class="title-decorator">/&gt;</span>
             </h2>
             <p class="section-subtitle">
-                <i class="fas fa-terminal"></i> Practical notes from retired Hack The Box machines, documented step by step
+                <i class="fas fa-book-open"></i> Reproducible attack paths, controlled research and detection-focused analysis
             </p>
 
-            <div class="home-writeups-grid">
-                {latestWriteups.map((entry) => (
-                    <article class="home-writeup-card" data-animate>
-                        {entry.data.cover && (
-                            <a class="home-writeup-cover" href={`/writeups/${entry.id}/`} aria-label={`Read ${entry.data.title}`}>
-                                <img
-                                    src={entry.data.cover}
-                                    alt={entry.data.coverAlt ?? `${entry.data.title} cover`}
-                                    loading="lazy"
-                                    width="300"
-                                    height="300"
-                                />
-                            </a>
-                        )}
-                        <div class="home-writeup-body">
-                            <div class="home-writeup-eyebrow">
-                                <span><i class="fas fa-cube" aria-hidden="true"></i> {entry.data.platform}</span>
-                                <time datetime={entry.data.publishedAt.toISOString()}>{formatWriteupDate(entry.data.publishedAt)}</time>
-                            </div>
-                            <h3><a href={`/writeups/${entry.id}/`}>{entry.data.title}</a></h3>
-                            <p>{entry.data.summary}</p>
-                            <div class="home-writeup-meta" aria-label="Write-up details">
-                                <span>{entry.data.contentType.replace('-', ' ')}</span>
-                                {entry.data.difficulty && <span>{entry.data.difficulty}</span>}
-                                {entry.data.os && <span>{entry.data.os}</span>}
-                            </div>
-                            <a class="home-writeup-link" href={`/writeups/${entry.id}/`}>
-                                Read write-up <i class="fas fa-arrow-right" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                    </article>
-                ))}
-            </div>
+            <div class="knowledge-grid">
+                <article class="knowledge-card" data-animate>
+                    <div class="knowledge-card-header">
+                        <span class="knowledge-icon"><i class="fas fa-flag"></i></span>
+                        <span class="knowledge-count">{publicWriteups.length} published</span>
+                    </div>
+                    <p class="knowledge-type">Hack The Box</p>
+                    <h3>Write-ups</h3>
+                    <p>Complete solution paths for permitted retired content, including enumeration, foothold, privilege escalation, failed paths and lessons learned.</p>
+                    {latestWriteup && (
+                        <a class="knowledge-latest" href={`/writeups/${latestWriteup.id}/`}>
+                            <span>Latest write-up</span>
+                            <strong>{latestWriteup.data.title}</strong>
+                        </a>
+                    )}
+                    <a class="knowledge-link" href="/writeups/">Explore write-ups <i class="fas fa-arrow-right"></i></a>
+                </article>
 
-            <div class="home-writeups-cta">
-                <p>{publicWriteups.length} public write-up{publicWriteups.length === 1 ? '' : 's'} and growing.</p>
-                <a href="/writeups/" class="btn btn-primary">
-                    <i class="fas fa-book-open"></i> Browse All Write-ups
-                </a>
+                <article class="knowledge-card knowledge-card-lab" data-animate>
+                    <div class="knowledge-card-header">
+                        <span class="knowledge-icon"><i class="fas fa-flask-vial"></i></span>
+                        <span class="knowledge-count">{publicLabs.length} published</span>
+                    </div>
+                    <p class="knowledge-type">Original validation</p>
+                    <h3>Security Research &amp; Labs</h3>
+                    <p>Controlled experiments connecting offensive techniques with Windows telemetry, forensic artifacts, MITRE ATT&amp;CK mapping and mitigations.</p>
+                    {featuredLab && (
+                        <a class="knowledge-latest" href={`/labs/${featuredLab.id}/`}>
+                            <span>Featured research</span>
+                            <strong>{featuredLab.data.title}</strong>
+                            <small>{featuredLab.data.status === 'validated' ? 'Validated' : 'Research blueprint'}</small>
+                        </a>
+                    )}
+                    <a class="knowledge-link" href="/labs/">Explore security labs <i class="fas fa-arrow-right"></i></a>
+                </article>
             </div>
         </div>
     </section>
@@ -1507,7 +1502,7 @@ const formatWriteupDate = (date: Date) => new Intl.DateTimeFormat('en-GB', {
             <div class="footer-content">
                 <p class="footer-text">
                     <span class="footer-prompt">&gt;</span> Designed &amp; Built by 
-                    <span class="highlight">Ilias Georgopoulos</span> 
+                    <span class="highlight">Ilias Georgopoulos</span>{' '}
                     <span class="footer-year">// 2026</span>
                 </p>
                 <p class="footer-subtext">Stay safe in cyberspace. <span class="blink">_</span></p>
@@ -1525,5 +1520,6 @@ const formatWriteupDate = (date: Date) => new Intl.DateTimeFormat('en-GB', {
 
     <!-- JavaScript -->
     <script is:inline src="/scripts/portfolio.js"></script>
+    <CloudflareAnalytics />
 </body>
 </html>

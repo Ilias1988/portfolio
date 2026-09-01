@@ -1,0 +1,161 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('labs', ({ data }) => !data.draft);
+
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'labs'>;
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+const { data } = entry;
+const canonicalPath = `/labs/${entry.id}/`;
+const site = Astro.site ?? new URL('https://ilias1988.me');
+const canonicalUrl = new URL(canonicalPath, site).href;
+const published = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long' }).format(data.publishedAt);
+const updated = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long' }).format(data.updatedAt ?? data.publishedAt);
+const statusLabel = data.status === 'validated'
+  ? 'Completed and validated'
+  : data.status === 'in-progress'
+    ? 'Practical validation in progress'
+    : 'Research blueprint — practical validation pending';
+
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: data.title,
+  description: data.summary,
+  datePublished: data.publishedAt.toISOString(),
+  dateModified: (data.updatedAt ?? data.publishedAt).toISOString(),
+  author: {
+    '@type': 'Person',
+    '@id': 'https://ilias1988.me/#person',
+    name: 'Ilias Georgopoulos',
+    url: 'https://ilias1988.me/',
+  },
+  publisher: {
+    '@type': 'Person',
+    name: 'Ilias Georgopoulos',
+    url: 'https://ilias1988.me/',
+  },
+  url: canonicalUrl,
+  mainEntityOfPage: canonicalUrl,
+  keywords: data.tags.join(', '),
+  educationalLevel: data.difficulty,
+  proficiencyLevel: data.difficulty,
+  learningResourceType: 'Hands-on security lab',
+  about: data.mitre.map((technique) => ({ '@type': 'Thing', name: technique })),
+  isAccessibleForFree: true,
+  inLanguage: 'en',
+};
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: new URL('/', site).href },
+    { '@type': 'ListItem', position: 2, name: 'Security Research & Labs', item: new URL('/labs/', site).href },
+    { '@type': 'ListItem', position: 3, name: data.title, item: canonicalUrl },
+  ],
+};
+---
+
+<BaseLayout
+  title={`${data.title} | Security Lab | Ilias1988`}
+  description={data.summary}
+  canonicalPath={canonicalPath}
+  currentPath="/labs/"
+  ogType="article"
+  image={null}
+  twitterCard="summary"
+>
+  <Fragment slot="head">
+    <meta property="article:published_time" content={data.publishedAt.toISOString()} />
+    <meta property="article:modified_time" content={(data.updatedAt ?? data.publishedAt).toISOString()} />
+    <meta property="article:author" content="Ilias Georgopoulos" />
+    {data.tags.map((tag) => <meta property="article:tag" content={tag} />)}
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
+  </Fragment>
+
+  <article class="writeup-article lab-article">
+    <header class="writeup-article-header lab-article-header">
+      <div class="container article-header-grid">
+        <div>
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="/">Home</a><span>/</span><a href="/labs/">Labs</a><span>/</span><span>{data.title}</span>
+          </nav>
+          <p class="terminal-kicker"><span>analyst@windows-lab:~$</span> inspect {entry.id}</p>
+          <h1>{data.title}</h1>
+          <p class="article-summary">{data.summary}</p>
+          <div class="article-tags" aria-label="Research topics">
+            {data.tags.map((tag) => <span>{tag}</span>)}
+          </div>
+        </div>
+
+        <dl class="machine-facts lab-facts">
+          <div><dt>Status</dt><dd>{statusLabel}</dd></div>
+          <div><dt>Category</dt><dd>{data.category}</dd></div>
+          <div><dt>Type</dt><dd>{data.labType.replaceAll('-', ' ')}</dd></div>
+          <div><dt>Difficulty</dt><dd>{data.difficulty}</dd></div>
+          <div><dt>Estimated time</dt><dd>{data.duration}</dd></div>
+          <div><dt>Published</dt><dd>{published}</dd></div>
+          <div><dt>Last updated</dt><dd>{updated}</dd></div>
+        </dl>
+      </div>
+    </header>
+
+    <div class="container article-shell">
+      <aside class="article-sidebar">
+        <div class="spoiler-notice lab-safety-notice">
+          <i class="fas fa-shield-halved" aria-hidden="true"></i>
+          <div>
+            <strong>Controlled lab only</strong>
+            <p>Use only in an isolated environment you own or are explicitly authorized to test. Some labs reproduce controlled attack-chain components; never deploy them against third-party or production systems.</p>
+          </div>
+        </div>
+
+        <div class:list={['lab-validation-state', `lab-validation-${data.status}`]}>
+          <span>Validation state</span>
+          <strong>{statusLabel}</strong>
+        </div>
+
+        {headings.length > 0 && (
+          <nav class="table-of-contents" aria-label="Table of contents">
+            <p>On this page</p>
+            <ol>
+              {headings.filter(({ depth }) => depth === 2).map((heading) => (
+                <li><a href={`#${heading.slug}`}>{heading.text}</a></li>
+              ))}
+            </ol>
+          </nav>
+        )}
+      </aside>
+
+      <div class="writeup-prose lab-prose">
+        <Content />
+
+        <footer class="article-footer">
+          <p><strong>Research ethics:</strong> the procedure is documented for controlled education, defensive validation and authorized security testing. Lab infrastructure and payloads are scoped to non-destructive validation in isolated systems.</p>
+          <div>
+            <a href="/labs/"><i class="fas fa-arrow-left" aria-hidden="true"></i> All security labs</a>
+            {data.sourceUrl && (
+              <a href={data.sourceUrl} target="_blank" rel="noopener noreferrer">
+                Source attribution <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+              </a>
+            )}
+          </div>
+        </footer>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

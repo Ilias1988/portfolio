@@ -887,6 +887,33 @@
         grid-template-columns: 1fr;
     }
 
+    .table-of-contents {
+        max-height: 300px;
+        overflow-y: auto;
+        padding: 16px;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        background: rgba(17, 24, 32, 0.62);
+        scrollbar-color: var(--accent-green) var(--bg-primary);
+        scrollbar-width: thin;
+    }
+
+    .writeup-prose table {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+        white-space: normal;
+        scrollbar-color: var(--accent-green) var(--bg-primary);
+        scrollbar-width: thin;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .writeup-prose th,
+    .writeup-prose td {
+        min-width: 135px;
+        overflow-wrap: anywhere;
+    }
+
     .article-shell {
         padding-top: 42px;
         padding-bottom: 70px;

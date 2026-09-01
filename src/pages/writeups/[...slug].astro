@@ -19,7 +19,8 @@ const { entry } = Astro.props;
 const { Content, headings } = await render(entry);
 const { data } = entry;
 const canonicalPath = `/writeups/${entry.id}/`;
-const canonicalUrl = new URL(canonicalPath, Astro.site).href;
+const site = Astro.site ?? new URL('https://ilias1988.me');
+const canonicalUrl = new URL(canonicalPath, site).href;
 const published = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long' }).format(data.publishedAt);
 const solved = new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' }).format(data.solvedAt);
 
@@ -45,7 +46,7 @@ const articleJsonLd = {
   mainEntityOfPage: canonicalUrl,
   keywords: data.tags.join(', '),
   educationalLevel: data.difficulty,
-  image: data.cover ? new URL(data.cover, Astro.site).href : undefined,
+  image: data.cover ? new URL(data.cover, site).href : undefined,
 };
 
 const breadcrumbJsonLd = {
@@ -56,13 +57,13 @@ const breadcrumbJsonLd = {
       '@type': 'ListItem',
       position: 1,
       name: 'Home',
-      item: new URL('/', Astro.site).href,
+      item: new URL('/', site).href,
     },
     {
       '@type': 'ListItem',
       position: 2,
       name: 'Write-ups',
-      item: new URL('/writeups/', Astro.site).href,
+      item: new URL('/writeups/', site).href,
     },
     {
       '@type': 'ListItem',

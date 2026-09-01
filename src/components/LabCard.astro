@@ -1,0 +1,47 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'labs'>;
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const published = new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' }).format(data.publishedAt);
+const statusLabel = data.status === 'validated'
+  ? 'Validated'
+  : data.status === 'in-progress'
+    ? 'In progress'
+    : 'Research blueprint';
+const visualLeft = data.visualLeft ?? 'LAB';
+const visualRight = data.visualRight ?? 'LOG';
+const visualProcess = data.visualProcess ?? data.tools[0] ?? 'telemetry';
+---
+
+<article class="lab-card">
+  <div class="lab-card-visual" aria-hidden="true">
+    <span class="lab-file lab-file-lnk">{visualLeft}</span>
+    <span class="lab-operator">+</span>
+    <span class="lab-file lab-file-hta">{visualRight}</span>
+    <span class="lab-process">{visualProcess}</span>
+  </div>
+  <div class="lab-card-body">
+    <div class="lab-card-topline">
+      <span class:list={['lab-status', `lab-status-${data.status}`]}>{statusLabel}</span>
+      <time datetime={data.publishedAt.toISOString()}>{published}</time>
+    </div>
+    <p class="lab-category">{data.category} / {data.labType.replaceAll('-', ' ')}</p>
+    <h2><a href={`/labs/${entry.id}/`}>{data.title}</a></h2>
+    <p>{data.summary}</p>
+    <dl class="lab-card-facts">
+      <div><dt>Difficulty</dt><dd>{data.difficulty}</dd></div>
+      <div><dt>Duration</dt><dd>{data.duration}</dd></div>
+    </dl>
+    <div class="article-tags" aria-label="Lab topics">
+      {data.tags.slice(0, 5).map((tag) => <span>{tag}</span>)}
+    </div>
+    <a class="writeup-read-link" href={`/labs/${entry.id}/`}>
+      Read the research <i class="fas fa-arrow-right" aria-hidden="true"></i>
+    </a>
+  </div>
+</article>

@@ -1,0 +1,70 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LabCard from '../../components/LabCard.astro';
+
+const labs = (await getCollection('labs', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+---
+
+<BaseLayout
+  title="Security Research & Labs | Ilias Georgopoulos"
+  description="Hands-on cybersecurity research by Ilias Georgopoulos: controlled experiments, Windows security, detection engineering, telemetry and practical validation."
+  canonicalPath="/labs/"
+  currentPath="/labs/"
+>
+  <section class="writeups-hero labs-hero">
+    <div class="container writeups-hero-content">
+      <p class="terminal-kicker"><span>analyst@lab:~$</span> find ./research -type f</p>
+      <h1>Security Research <span>&amp; Labs</span></h1>
+      <p class="writeups-lead">
+        Controlled experiments that connect offensive techniques with process telemetry, forensic evidence, detection opportunities and practical mitigations.
+      </p>
+      <div class="writeups-status">
+        <span><i class="fas fa-flask" aria-hidden="true"></i> {labs.length} published</span>
+        <span><i class="fas fa-shield-halved" aria-hidden="true"></i> Isolated environments</span>
+        <a href="/rss.xml"><i class="fas fa-rss" aria-hidden="true"></i> RSS feed</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="writeups-library section" aria-labelledby="labs-library-title">
+    <div class="container">
+      <div class="writeups-heading-row">
+        <div>
+          <p class="eyebrow">Research archive</p>
+          <h2 id="labs-library-title">Techniques tested from both sides</h2>
+        </div>
+        <p>Each entry separates the technique, the controlled methodology, the observed evidence and the current validation status.</p>
+      </div>
+
+      <div class="labs-grid">
+        {labs.map((entry) => <LabCard entry={entry} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="writeup-principles" aria-labelledby="lab-standard-title">
+    <div class="container">
+      <p class="eyebrow">Lab standard</p>
+      <h2 id="lab-standard-title">Transparent, controlled and reproducible</h2>
+      <div class="principles-grid">
+        <article>
+          <i class="fas fa-vial-circle-check" aria-hidden="true"></i>
+          <h3>Explicit validation state</h3>
+          <p>Research blueprints and completed experiments are clearly distinguished. Uncollected results are never presented as facts.</p>
+        </article>
+        <article>
+          <i class="fas fa-laptop-code" aria-hidden="true"></i>
+          <h3>Controlled lab payloads</h3>
+          <p>Potentially dangerous techniques are scoped to non-destructive validation inside isolated, authorized environments.</p>
+        </article>
+        <article>
+          <i class="fas fa-magnifying-glass-chart" aria-hidden="true"></i>
+          <h3>Detection-first analysis</h3>
+          <p>Process ancestry, host events, file artifacts, ATT&amp;CK mapping and mitigations are documented alongside execution.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
