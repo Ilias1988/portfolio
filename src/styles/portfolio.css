@@ -859,6 +859,156 @@ ul {
 }
 
 /* ============================================
+   LATEST WRITE-UPS
+   ============================================ */
+.home-writeups {
+    background:
+        radial-gradient(circle at 50% 0%, rgba(0, 255, 65, 0.05), transparent 38%),
+        var(--bg-primary);
+}
+
+.home-writeups-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.home-writeup-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+
+.home-writeup-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 255, 65, 0.4);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3), 0 0 24px var(--accent-green-dim);
+}
+
+.home-writeup-cover {
+    display: block;
+    padding: 24px 24px 0;
+}
+
+.home-writeup-cover img {
+    width: 116px;
+    height: 116px;
+    margin: 0 auto;
+    object-fit: contain;
+    filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.35));
+    transition: transform var(--transition);
+}
+
+.home-writeup-card:hover .home-writeup-cover img {
+    transform: scale(1.04);
+}
+
+.home-writeup-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 24px;
+}
+
+.home-writeup-eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.home-writeup-eyebrow span {
+    color: var(--accent-green);
+}
+
+.home-writeup-eyebrow time {
+    white-space: nowrap;
+}
+
+.home-writeup-body h3 {
+    margin-bottom: 10px;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 1.08rem;
+    line-height: 1.4;
+}
+
+.home-writeup-body h3 a:hover {
+    color: var(--accent-green);
+}
+
+.home-writeup-body > p {
+    margin-bottom: 18px;
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    line-height: 1.7;
+}
+
+.home-writeup-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: auto;
+    margin-bottom: 20px;
+}
+
+.home-writeup-meta span {
+    padding: 4px 9px;
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.035);
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    text-transform: capitalize;
+}
+
+.home-writeup-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    color: var(--accent-green);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.home-writeup-link i {
+    font-size: 0.7rem;
+    transition: transform var(--transition);
+}
+
+.home-writeup-link:hover i {
+    transform: translateX(4px);
+}
+
+.home-writeups-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 36px;
+}
+
+.home-writeups-cta p {
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+}
+
+/* ============================================
    CERTIFICATIONS
    ============================================ */
 
@@ -1658,6 +1808,29 @@ ul {
         grid-template-columns: 1fr;
     }
 
+    .home-writeups-grid {
+        grid-template-columns: 1fr;
+        max-width: 620px;
+        margin: 0 auto;
+    }
+
+    .home-writeup-card {
+        display: grid;
+        grid-template-columns: 150px minmax(0, 1fr);
+    }
+
+    .home-writeup-cover {
+        display: flex;
+        align-items: center;
+        padding: 24px 0 24px 24px;
+    }
+
+    .home-writeups-cta {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+
     .timeline {
         padding-left: 30px;
     }
@@ -1741,6 +1914,14 @@ ul {
 
     .hero-stats {
         gap: 20px;
+    }
+
+    .home-writeup-card {
+        display: flex;
+    }
+
+    .home-writeup-cover {
+        padding: 22px 22px 0;
     }
 
     .stat-number,

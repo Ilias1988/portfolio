@@ -1,5 +1,15 @@
 ---
+import { getCollection } from 'astro:content';
 import '../styles/portfolio.css';
+
+const publicWriteups = (await getCollection('writeups', ({ data }) => !data.draft))
+    .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+const latestWriteups = publicWriteups.slice(0, 3);
+const formatWriteupDate = (date: Date) => new Intl.DateTimeFormat('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+}).format(date);
 ---
 
 <!DOCTYPE html>
@@ -11,7 +21,7 @@ import '../styles/portfolio.css';
 
     <!-- SEO Meta Tags -->
     <title>Ilias Georgopoulos | Cybersecurity Portfolio</title>
-    <meta name="description" content="Cybersecurity Enthusiast, CTF Player & Red Teaming Tool Developer. Ranked #2 in Greece & Top 300 globally on TryHackMe. Now on HackTheBox. Building offensive security tools with AI & Code.">
+    <meta name="description" content="Cybersecurity portfolio of Ilias Georgopoulos featuring Hack The Box write-ups, offensive security tools, practical training and penetration testing research.">
     <meta name="keywords" content="cybersecurity, penetration testing, red team, CTF, ethical hacking, security tools, Ilias Georgopoulos, Ilias1988">
     <meta name="author" content="Ilias Georgopoulos">
     <link rel="canonical" href="https://ilias1988.me/">
@@ -20,7 +30,7 @@ import '../styles/portfolio.css';
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ilias1988.me/">
     <meta property="og:title" content="Ilias Georgopoulos | Cybersecurity Portfolio">
-    <meta property="og:description" content="Cybersecurity Enthusiast, CTF Player & Red Teaming Tool Developer. Ranked #2 in Greece & Top 300 globally on TryHackMe. Now on HackTheBox.">
+    <meta property="og:description" content="Hack The Box write-ups, offensive security tools and the hands-on penetration testing journey of Ilias Georgopoulos.">
     <meta property="og:image" content="https://ilias1988.me/images/optimized/profile.jpg">
     <meta property="og:image:width" content="400">
     <meta property="og:image:height" content="400">
@@ -32,7 +42,7 @@ import '../styles/portfolio.css';
     <meta name="twitter:site" content="@EliotGeo">
     <meta name="twitter:creator" content="@EliotGeo">
     <meta name="twitter:title" content="Ilias Georgopoulos | Cybersecurity Portfolio">
-    <meta name="twitter:description" content="Cybersecurity Enthusiast, CTF Player & Red Teaming Tool Developer. Ranked #2 in Greece & Top 300 globally on TryHackMe. Now on HackTheBox.">
+    <meta name="twitter:description" content="Hack The Box write-ups, offensive security tools and the hands-on penetration testing journey of Ilias Georgopoulos.">
     <meta name="twitter:image" content="https://ilias1988.me/images/optimized/profile.jpg">
 
     <!-- Favicon -->
@@ -47,7 +57,7 @@ import '../styles/portfolio.css';
         "@context": "https://schema.org",
         "@type": "ProfilePage",
         "dateCreated": "2026-01-01",
-        "dateModified": "2026-08-31",
+        "dateModified": "2026-09-01",
         "mainEntity": {
             "@type": "Person",
             "@id": "https://ilias1988.me/#person",
@@ -232,7 +242,7 @@ import '../styles/portfolio.css';
                 "https://www.linkedin.com/in/ilias-georgopoulos-b491a3371/",
                 "https://x.com/EliotGeo",
                 "https://tryhackme.com/p/Ilias1988",
-                "https://app.hackthebox.com/users/Ilias1988",
+                "https://profile.hackthebox.com/profile/019f1af0-0e02-70cb-9c8a-41589216a056",
                 "https://pentesterlab.com/profile/Elliot_1988",
                 "https://buymeacoffee.com/ilias1988",
                 "https://www.youtube.com/@Ilias-1988"
@@ -423,8 +433,8 @@ import '../styles/portfolio.css';
                 <a href="#projects" class="btn btn-primary">
                     <i class="fas fa-code"></i> View Projects
                 </a>
-                <a href="#contact" class="btn btn-secondary">
-                    <i class="fas fa-envelope"></i> Contact Me
+                <a href="#writeups" class="btn btn-secondary">
+                    <i class="fas fa-file-code"></i> Latest Write-ups
                 </a>
             </div>
 
@@ -488,28 +498,28 @@ import '../styles/portfolio.css';
                                 <span class="terminal-prompt-sm">$</span>
                                 I have dedicated myself daily to mastering cybersecurity. My journey 
                                 started on <span class="highlight">TryHackMe</span>, where over Jan 2025 – Jul 2026 
-                                I completed a major part of the platform and reached 
-                                <span class="highlight">#2 in Greece</span> and 
-                                <span class="highlight">Top 300 globally</span>, alongside 
-                                <span class="highlight">PentesterLab</span>. I'm also a 
+                                I completed a major part of the platform and reached{' '}
+                                <span class="highlight">#2 in Greece</span> and{' '}
+                                <span class="highlight">Top 300 globally</span>. I have also completed a major part of
+                                {' '}<span class="highlight">PentesterLab</span>. I'm a{' '}
                                 <span class="highlight">cybersecurity content creator on YouTube</span>, making videos about hacking, CTFs, and offensive security.
                             </p>
                             <p>
                                 <span class="terminal-prompt-sm">$</span>
-                                I'm now leveling up on <span class="highlight">HackTheBox Academy</span> and 
-                                <span class="highlight">HackTheBox Labs</span> — still a long road ahead, and 
-                                I'm always learning.
+                                I'm now leveling up on <span class="highlight">Hack The Box Academy</span> and{' '}
+                                <span class="highlight">Hack The Box Labs</span>, while starting{' '}
+                                <span class="highlight">PortSwigger Web Security Academy</span> to deepen my web exploitation skills.
                             </p>
                             <p>
                                 <span class="terminal-prompt-sm">$</span>
-                                I specialize in <span class="highlight">Web Security</span> and 
-                                <span class="highlight">Automation</span>. I believe in 
+                                I specialize in <span class="highlight">Web Security</span> and{' '}
+                                <span class="highlight">Automation</span>. I believe in{' '}
                                 <span class="highlight-purple">"vibe coding"</span> — leveraging AI to build 
                                 custom tools for Red Teaming and CTF challenges.
                             </p>
                             <p>
                                 <span class="terminal-prompt-sm">$</span>
-                                My goal is to transition from continuous learning to professional 
+                                My goal is to transition from continuous learning to professional{' '}
                                 <span class="highlight">Penetration Testing</span>.
                             </p>
                             <p class="terminal-output">
@@ -617,8 +627,8 @@ import '../styles/portfolio.css';
                     </div>
                     <div class="timeline-content">
                         <div class="timeline-badge done">Completed · Jan 2025 – Jul 2026</div>
-                        <h3>TryHackMe &amp; PentesterLab</h3>
-                        <p>Completed a major part of TryHackMe over 18 months of daily hands-on practice, reaching <strong>#2 in Greece</strong> and <strong>Top 300 globally</strong>. Built a strong foundation in web exploitation, privilege escalation, and network attacks, earning 30+ certifications and PentesterLab badges along the way.</p>
+                        <h3>TryHackMe &amp; PentesterLab Foundations</h3>
+                        <p>Completed a major part of both TryHackMe and PentesterLab through daily hands-on practice, reaching <strong>#2 in Greece</strong> and <strong>Top 300 globally</strong> on TryHackMe. Built a strong foundation in web exploitation, privilege escalation, and network attacks while earning 30+ certifications and badges.</p>
                         <div class="timeline-tags">
                             <span>#2 in Greece</span>
                             <span>Top 300 Global</span>
@@ -648,19 +658,19 @@ import '../styles/portfolio.css';
                 </div>
 
                 <!-- Timeline Item 3 -->
-                <div class="timeline-item" data-animate>
+                <div class="timeline-item active" data-animate>
                     <div class="timeline-marker">
-                        <i class="fas fa-rocket"></i>
+                        <i class="fas fa-flask"></i>
                     </div>
                     <div class="timeline-content">
-                        <div class="timeline-badge next">Next Step</div>
-                        <h3>PortSwigger Academy &amp; Certifications</h3>
-                        <p>Deep-dive into advanced web vulnerabilities (SQLi, XSS, SSRF, CORS, Prototype Pollution, HTTP Request Smuggling) and work towards industry certifications (CPTS / OSCP / eJPT) to validate skills at a professional level.</p>
+                        <div class="timeline-badge current">Started · Sep 2026</div>
+                        <h3>PortSwigger Web Security Academy</h3>
+                        <p>Starting a focused deep dive into modern web vulnerabilities through hands-on labs, including SQL injection, XSS, SSRF, access control, request smuggling, deserialization, and advanced Burp Suite workflows.</p>
                         <div class="timeline-tags">
+                            <span>Web Security Academy</span>
+                            <span>Burp Suite</span>
                             <span>Advanced Web</span>
-                            <span>Burp Suite Pro</span>
-                            <span>OSCP</span>
-                            <span>CPTS</span>
+                            <span>Hands-on Labs</span>
                         </div>
                     </div>
                 </div>
@@ -681,6 +691,63 @@ import '../styles/portfolio.css';
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- LATEST WRITE-UPS SECTION                      -->
+    <!-- ============================================ -->
+    <section id="writeups" class="section home-writeups">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-decorator">&lt;</span>
+                Latest Write-ups
+                <span class="title-decorator">/&gt;</span>
+            </h2>
+            <p class="section-subtitle">
+                <i class="fas fa-terminal"></i> Practical notes from retired Hack The Box machines, documented step by step
+            </p>
+
+            <div class="home-writeups-grid">
+                {latestWriteups.map((entry) => (
+                    <article class="home-writeup-card" data-animate>
+                        {entry.data.cover && (
+                            <a class="home-writeup-cover" href={`/writeups/${entry.id}/`} aria-label={`Read ${entry.data.title}`}>
+                                <img
+                                    src={entry.data.cover}
+                                    alt={entry.data.coverAlt ?? `${entry.data.title} cover`}
+                                    loading="lazy"
+                                    width="300"
+                                    height="300"
+                                />
+                            </a>
+                        )}
+                        <div class="home-writeup-body">
+                            <div class="home-writeup-eyebrow">
+                                <span><i class="fas fa-cube" aria-hidden="true"></i> {entry.data.platform}</span>
+                                <time datetime={entry.data.publishedAt.toISOString()}>{formatWriteupDate(entry.data.publishedAt)}</time>
+                            </div>
+                            <h3><a href={`/writeups/${entry.id}/`}>{entry.data.title}</a></h3>
+                            <p>{entry.data.summary}</p>
+                            <div class="home-writeup-meta" aria-label="Write-up details">
+                                <span>{entry.data.contentType.replace('-', ' ')}</span>
+                                {entry.data.difficulty && <span>{entry.data.difficulty}</span>}
+                                {entry.data.os && <span>{entry.data.os}</span>}
+                            </div>
+                            <a class="home-writeup-link" href={`/writeups/${entry.id}/`}>
+                                Read write-up <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </article>
+                ))}
+            </div>
+
+            <div class="home-writeups-cta">
+                <p>{publicWriteups.length} public write-up{publicWriteups.length === 1 ? '' : 's'} and growing.</p>
+                <a href="/writeups/" class="btn btn-primary">
+                    <i class="fas fa-book-open"></i> Browse All Write-ups
+                </a>
             </div>
         </div>
     </section>
@@ -1409,6 +1476,11 @@ import '../styles/portfolio.css';
                         <i class="fas fa-flask"></i>
                         <span class="social-name">PentesterLab</span>
                         <span class="social-handle">Elliot_1988</span>
+                    </a>
+                    <a href="https://profile.hackthebox.com/profile/019f1af0-0e02-70cb-9c8a-41589216a056" target="_blank" rel="noopener noreferrer" class="social-card" aria-label="Hack The Box profile">
+                        <i class="fas fa-cube"></i>
+                        <span class="social-name">Hack The Box</span>
+                        <span class="social-handle">Ilias1988</span>
                     </a>
                     <a href="https://buymeacoffee.com/ilias1988" target="_blank" rel="noopener noreferrer" class="social-card" aria-label="Buy Me a Coffee">
                         <i class="fas fa-mug-hot"></i>
