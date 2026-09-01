@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import CloudflareAnalytics from '../components/CloudflareAnalytics.astro';
 import '../styles/portfolio.css';
 
 const publicWriteups = (await getCollection('writeups', ({ data }) => !data.draft))
@@ -50,6 +51,7 @@ const formatWriteupDate = (date: Date) => new Intl.DateTimeFormat('en-GB', {
     <link rel="shortcut icon" href="/favicon.png">
     <link rel="sitemap" href="/sitemap-index.xml">
     <link rel="alternate" type="application/rss+xml" title="Ilias1988 Security Write-ups" href="/rss.xml">
+    <CloudflareAnalytics />
 
     <!-- JSON-LD Structured Data: ProfilePage + Person -->
     <script is:inline type="application/ld+json">

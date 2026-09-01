@@ -1,6 +1,7 @@
 ---
 import '../styles/portfolio.css';
 import '../styles/writeups.css';
+import CloudflareAnalytics from '../components/CloudflareAnalytics.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 
@@ -46,6 +47,7 @@ const socialImage = image ? new URL(image, site).href : null;
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" type="application/rss+xml" title="Ilias1988 Security Write-ups" href="/rss.xml" />
+    <CloudflareAnalytics />
 
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonical} />
