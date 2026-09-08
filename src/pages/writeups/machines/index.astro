@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import WriteupTypePage from '../../../components/WriteupTypePage.astro';
+
+const allEntries = (await getCollection('writeups', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const entries = allEntries.filter(({ data }) => data.contentType === 'machine');
+---
+
+<WriteupTypePage
+  type="machine"
+  entries={entries}
+  allEntries={allEntries}
+  title="Hack The Box Machine Write-ups | Ilias Georgopoulos"
+  description="Complete retired Hack The Box machine write-ups with enumeration, exploitation, privilege escalation and lessons learned."
+  headingPrefix="HTB Machine"
+  headingAccent="Write-ups"
+  lead="Complete, evidence-backed attack paths for retired Hack The Box machines."
+  libraryHeading="Retired machine archive"
+  libraryDescription="From initial enumeration to foothold, privilege escalation and final technical takeaways."
+  emptyTitle="No machine write-ups have been published yet."
+  emptyDescription="Verified retired machine walkthroughs will appear here automatically after publication."
+  searchPlaceholder="Search machines, techniques or tools..."
+/>

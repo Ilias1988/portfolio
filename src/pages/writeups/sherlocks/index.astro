@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import WriteupTypePage from '../../../components/WriteupTypePage.astro';
+
+const allEntries = (await getCollection('writeups', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const entries = allEntries.filter(({ data }) => data.contentType === 'sherlock');
+---
+
+<WriteupTypePage
+  type="sherlock"
+  entries={entries}
+  allEntries={allEntries}
+  title="Hack The Box Sherlock Write-ups | DFIR & SOC Investigations"
+  description="Evidence-led retired Hack The Box Sherlock write-ups covering DFIR, SOC, malware analysis, threat hunting, intelligence and cloud investigations."
+  headingPrefix="HTB Sherlock"
+  headingAccent="Write-ups"
+  lead="Evidence-led investigations that reconstruct incidents, timelines and attacker behavior."
+  libraryHeading="Retired Sherlock archive"
+  libraryDescription="Structured case notes covering evidence handling, artifact analysis, timelines, findings and defensive lessons."
+  emptyTitle="The Sherlock collection is ready."
+  emptyDescription="The first retired Sherlock investigation will appear here once its evidence and conclusions have been verified."
+  searchPlaceholder="Search investigations, artifacts or tools..."
+/>

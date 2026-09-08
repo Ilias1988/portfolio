@@ -1,0 +1,84 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WriteupLibrary from './WriteupLibrary.astro';
+import WriteupTypeNav from './WriteupTypeNav.astro';
+
+interface Props {
+  type: 'machine' | 'challenge' | 'sherlock';
+  entries: CollectionEntry<'writeups'>[];
+  allEntries: CollectionEntry<'writeups'>[];
+  title: string;
+  description: string;
+  headingPrefix: string;
+  headingAccent: string;
+  lead: string;
+  libraryHeading: string;
+  libraryDescription: string;
+  emptyTitle: string;
+  emptyDescription: string;
+  searchPlaceholder: string;
+}
+
+const {
+  type,
+  entries,
+  allEntries,
+  title,
+  description,
+  headingPrefix,
+  headingAccent,
+  lead,
+  libraryHeading,
+  libraryDescription,
+  emptyTitle,
+  emptyDescription,
+  searchPlaceholder,
+} = Astro.props;
+
+const pluralPath = type === 'machine' ? 'machines' : `${type}s`;
+const canonicalPath = `/writeups/${pluralPath}/`;
+const counts = {
+  all: allEntries.length,
+  machine: allEntries.filter(({ data }) => data.contentType === 'machine').length,
+  challenge: allEntries.filter(({ data }) => data.contentType === 'challenge').length,
+  sherlock: allEntries.filter(({ data }) => data.contentType === 'sherlock').length,
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath={canonicalPath}
+  currentPath="/writeups/"
+  noindex={entries.length === 0}
+>
+  <section class="writeups-hero writeup-type-hero">
+    <div class="container writeups-hero-content">
+      <p class="terminal-kicker"><span>root@kali:~$</span> ls ./writeups/{pluralPath}</p>
+      <h1>{headingPrefix} <span>{headingAccent}</span></h1>
+      <p class="writeups-lead">{lead}</p>
+      <div class="writeups-status">
+        <span><i class="fas fa-book-open" aria-hidden="true"></i> {entries.length} published</span>
+        <span><i class="fas fa-shield-halved" aria-hidden="true"></i> Retired content only</span>
+        <a href="/rss.xml"><i class="fas fa-rss" aria-hidden="true"></i> RSS feed</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="writeup-type-nav-wrap">
+    <div class="container">
+      <WriteupTypeNav current={type} counts={counts} />
+    </div>
+  </div>
+
+  <WriteupLibrary
+    entries={entries}
+    heading={libraryHeading}
+    description={libraryDescription}
+    emptyTitle={emptyTitle}
+    emptyDescription={emptyDescription}
+    terminalPath={`./writeups/${pluralPath}`}
+    searchPlaceholder={searchPlaceholder}
+  />
+</BaseLayout>

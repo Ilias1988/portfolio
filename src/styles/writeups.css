@@ -154,6 +154,68 @@
     color: var(--accent-green);
 }
 
+.writeup-type-nav-wrap {
+    position: relative;
+    z-index: 3;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--border-color);
+    background: rgba(7, 10, 13, 0.92);
+}
+
+.writeup-type-nav {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.writeup-type-link {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 10px;
+    min-height: 54px;
+    padding: 11px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 7px;
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    font: 0.78rem var(--font-mono);
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.writeup-type-link i {
+    color: var(--text-muted);
+}
+
+.writeup-type-link strong {
+    display: grid;
+    place-items: center;
+    min-width: 27px;
+    height: 27px;
+    padding: 0 6px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.045);
+    color: var(--text-muted);
+    font-size: 0.68rem;
+}
+
+.writeup-type-link:hover,
+.writeup-type-link.active {
+    border-color: rgba(0, 255, 65, 0.38);
+    background: rgba(0, 255, 65, 0.07);
+    color: var(--accent-green);
+}
+
+.writeup-type-link:hover i,
+.writeup-type-link.active i,
+.writeup-type-link.active strong {
+    color: var(--accent-green);
+}
+
+.writeup-type-hero {
+    min-height: 460px;
+}
+
 .writeups-library {
     background: rgba(13, 17, 23, 0.72);
     border-bottom: 1px solid var(--border-color);
@@ -181,7 +243,7 @@
 
 .writeup-filters {
     display: grid;
-    grid-template-columns: minmax(280px, 1fr) repeat(3, minmax(150px, 0.38fr));
+    grid-template-columns: minmax(280px, 1.4fr) repeat(auto-fit, minmax(150px, 0.55fr));
     gap: 12px;
     padding: 14px;
     border: 1px solid var(--border-color);
@@ -810,6 +872,10 @@
 }
 
 @media (max-width: 980px) {
+    .writeup-type-nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .writeup-filters {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -925,6 +991,10 @@
 }
 
 @media (max-width: 480px) {
+    .writeup-type-nav {
+        grid-template-columns: 1fr;
+    }
+
     .writeups-status {
         align-items: stretch;
         flex-direction: column;

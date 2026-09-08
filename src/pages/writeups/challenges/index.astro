@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import WriteupTypePage from '../../../components/WriteupTypePage.astro';
+
+const allEntries = (await getCollection('writeups', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const entries = allEntries.filter(({ data }) => data.contentType === 'challenge');
+---
+
+<WriteupTypePage
+  type="challenge"
+  entries={entries}
+  allEntries={allEntries}
+  title="Hack The Box Challenge Write-ups | Ilias Georgopoulos"
+  description="Retired Hack The Box Challenge write-ups across Web, Crypto, Pwn, Reversing, Forensics, OSINT and other categories."
+  headingPrefix="HTB Challenge"
+  headingAccent="Write-ups"
+  lead="Focused, reproducible solutions for retired Hack The Box technical challenges."
+  libraryHeading="Retired challenge archive"
+  libraryDescription="Each entry explains the weakness, reasoning, solver or exploit, validation and key learning outcome."
+  emptyTitle="The Challenge collection is ready."
+  emptyDescription="The first evidence-backed Challenge write-up will appear here after the challenge is officially retired."
+  searchPlaceholder="Search challenges, categories or techniques..."
+/>

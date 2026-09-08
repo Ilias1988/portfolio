@@ -1,0 +1,34 @@
+---
+interface Props {
+  current?: 'all' | 'machine' | 'challenge' | 'sherlock';
+  counts: {
+    all: number;
+    machine: number;
+    challenge: number;
+    sherlock: number;
+  };
+}
+
+const { current = 'all', counts } = Astro.props;
+
+const sections = [
+  { key: 'all', label: 'All write-ups', href: '/writeups/', icon: 'fa-layer-group' },
+  { key: 'machine', label: 'Machines', href: '/writeups/machines/', icon: 'fa-server' },
+  { key: 'challenge', label: 'Challenges', href: '/writeups/challenges/', icon: 'fa-puzzle-piece' },
+  { key: 'sherlock', label: 'Sherlocks', href: '/writeups/sherlocks/', icon: 'fa-magnifying-glass-chart' },
+] as const;
+---
+
+<nav class="writeup-type-nav" aria-label="Write-up collections">
+  {sections.map((section) => (
+    <a
+      href={section.href}
+      class:list={['writeup-type-link', current === section.key && 'active']}
+      aria-current={current === section.key ? 'page' : undefined}
+    >
+      <i class={`fas ${section.icon}`} aria-hidden="true"></i>
+      <span>{section.label}</span>
+      <strong>{counts[section.key]}</strong>
+    </a>
+  ))}
+</nav>

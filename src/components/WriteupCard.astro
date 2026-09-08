@@ -7,6 +7,7 @@ interface Props {
 
 const { entry } = Astro.props;
 const { data } = entry;
+const category = data.challengeCategory ?? data.sherlockCategory;
 const published = new Intl.DateTimeFormat('en-GB', {
   day: '2-digit',
   month: 'short',
@@ -18,6 +19,7 @@ const searchable = [
   data.summary,
   data.platform,
   data.contentType,
+  category,
   data.difficulty,
   data.os,
   ...data.tags,
@@ -32,6 +34,7 @@ const searchable = [
   data-difficulty={data.difficulty ?? ''}
   data-os={data.os ?? ''}
   data-type={data.contentType}
+  data-category={category ?? ''}
 >
   {data.cover && (
     <a class="writeup-card-cover" href={`/writeups/${entry.id}/`} tabindex="-1" aria-hidden="true">
@@ -61,6 +64,12 @@ const searchable = [
       <div>
         <dt>OS</dt>
         <dd>{data.os}</dd>
+      </div>
+    )}
+    {category && (
+      <div>
+        <dt>Category</dt>
+        <dd>{category}</dd>
       </div>
     )}
   </dl>

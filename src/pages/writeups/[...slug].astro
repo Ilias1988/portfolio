@@ -18,11 +18,22 @@ interface Props {
 const { entry } = Astro.props;
 const { Content, headings } = await render(entry);
 const { data } = entry;
+const category = data.challengeCategory ?? data.sherlockCategory;
 const canonicalPath = `/writeups/${entry.id}/`;
 const site = Astro.site ?? new URL('https://ilias1988.me');
 const canonicalUrl = new URL(canonicalPath, site).href;
 const published = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long' }).format(data.publishedAt);
 const solved = new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' }).format(data.solvedAt);
+const typeArchive = {
+  machine: { label: 'Machines', href: '/writeups/machines/' },
+  challenge: { label: 'Challenges', href: '/writeups/challenges/' },
+  sherlock: { label: 'Sherlocks', href: '/writeups/sherlocks/' },
+  'starting-point': { label: 'Starting Point', href: '/writeups/' },
+  academy: { label: 'Academy', href: '/writeups/' },
+}[data.contentType];
+const typeLabel = data.contentType === 'sherlock'
+  ? 'Sherlock'
+  : data.contentType.charAt(0).toUpperCase() + data.contentType.slice(1).replace('-', ' ');
 
 const articleJsonLd = {
   '@context': 'https://schema.org',
@@ -68,6 +79,12 @@ const breadcrumbJsonLd = {
     {
       '@type': 'ListItem',
       position: 3,
+      name: typeArchive?.label ?? 'Write-ups',
+      item: typeArchive ? new URL(typeArchive.href, site).href : new URL('/writeups/', site).href,
+    },
+    {
+      '@type': 'ListItem',
+      position: 4,
       name: data.title,
       item: canonicalUrl,
     },
@@ -76,7 +93,7 @@ const breadcrumbJsonLd = {
 ---
 
 <BaseLayout
-  title={`${data.title} | HTB Write-up | Ilias1988`}
+  title={`${data.title} | HTB ${typeLabel} Write-up | Ilias1988`}
   description={data.summary}
   canonicalPath={canonicalPath}
   currentPath="/writeups/"
@@ -98,7 +115,9 @@ const breadcrumbJsonLd = {
       <div class="container article-header-grid">
         <div>
           <nav class="breadcrumbs" aria-label="Breadcrumb">
-            <a href="/">Home</a><span>/</span><a href="/writeups/">Write-ups</a><span>/</span><span>{data.title}</span>
+            <a href="/">Home</a><span>/</span><a href="/writeups/">Write-ups</a>
+            {typeArchive && <><span>/</span><a href={typeArchive.href}>{typeArchive.label}</a></>}
+            <span>/</span><span>{data.title}</span>
           </nav>
           <p class="terminal-kicker"><span>root@kali:~$</span> cat {entry.id}.md</p>
           <h1>{data.title}</h1>
@@ -114,7 +133,7 @@ const breadcrumbJsonLd = {
               <img
                 class="machine-cover"
                 src={data.cover}
-                alt={data.coverAlt ?? `${data.title} machine artwork`}
+                alt={data.coverAlt ?? `${data.title} artwork`}
                 width="300"
                 height="300"
               />
@@ -125,6 +144,7 @@ const breadcrumbJsonLd = {
             <div><dt>Type</dt><dd>{data.contentType.replace('-', ' ')}</dd></div>
             {data.difficulty && <div><dt>Difficulty</dt><dd>{data.difficulty}</dd></div>}
             {data.os && <div><dt>Operating system</dt><dd>{data.os}</dd></div>}
+            {category && <div><dt>Category</dt><dd>{category}</dd></div>}
             <div><dt>Solved</dt><dd>{solved}</dd></div>
             <div><dt>Published</dt><dd>{published}</dd></div>
           </dl>

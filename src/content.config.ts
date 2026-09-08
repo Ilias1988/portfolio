@@ -15,6 +15,26 @@ const writeups = defineCollection({
     publicationPolicy: z.enum(['retired', 'starting-point', 'academy-tier-0']),
     difficulty: z.enum(['Very Easy', 'Easy', 'Medium', 'Hard', 'Insane']).optional(),
     os: z.enum(['Linux', 'Windows', 'Other']).optional(),
+    challengeCategory: z.enum([
+      'Reversing',
+      'Misc',
+      'Stego',
+      'Crypto',
+      'Web',
+      'Forensics',
+      'OSINT',
+      'Pwn',
+      'Mobile',
+      'Hardware',
+    ]).optional(),
+    sherlockCategory: z.enum([
+      'DFIR',
+      'SOC',
+      'Malware Analysis',
+      'Threat Hunting',
+      'Threat Intelligence',
+      'Cloud',
+    ]).optional(),
     solvedAt: z.coerce.date(),
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
@@ -26,6 +46,22 @@ const writeups = defineCollection({
     coverAlt: z.string().min(5).optional(),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
+  }).superRefine((data, context) => {
+    if (data.contentType === 'challenge' && !data.challengeCategory) {
+      context.addIssue({
+        code: 'custom',
+        path: ['challengeCategory'],
+        message: 'challengeCategory is required when contentType is challenge',
+      });
+    }
+
+    if (data.contentType === 'sherlock' && !data.sherlockCategory) {
+      context.addIssue({
+        code: 'custom',
+        path: ['sherlockCategory'],
+        message: 'sherlockCategory is required when contentType is sherlock',
+      });
+    }
   }),
 });
 

@@ -1,0 +1,165 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import WriteupCard from './WriteupCard.astro';
+
+interface Props {
+  entries: CollectionEntry<'writeups'>[];
+  heading: string;
+  description: string;
+  emptyTitle: string;
+  emptyDescription: string;
+  terminalPath: string;
+  searchPlaceholder?: string;
+  showTypeFilter?: boolean;
+}
+
+const {
+  entries,
+  heading,
+  description,
+  emptyTitle,
+  emptyDescription,
+  terminalPath,
+  searchPlaceholder = 'Search techniques, tools or write-ups...',
+  showTypeFilter = false,
+} = Astro.props;
+
+const difficulties = [...new Set(entries.map(({ data }) => data.difficulty).filter(Boolean))].sort();
+const operatingSystems = [...new Set(entries.map(({ data }) => data.os).filter(Boolean))].sort();
+const contentTypes = [...new Set(entries.map(({ data }) => data.contentType))].sort();
+const categories = [...new Set(entries
+  .map(({ data }) => data.challengeCategory ?? data.sherlockCategory)
+  .filter(Boolean))].sort();
+---
+
+<section class="writeups-library section" aria-labelledby="writeups-library-title" data-writeup-library>
+  <div class="container">
+    <div class="writeups-heading-row">
+      <div>
+        <p class="eyebrow">Knowledge base</p>
+        <h2 id="writeups-library-title">{heading}</h2>
+      </div>
+      <p>{description}</p>
+    </div>
+
+    {entries.length > 0 ? (
+      <>
+        <form class="writeup-filters" data-writeup-filters role="search">
+          <label class="search-field">
+            <span class="sr-only">Search write-ups</span>
+            <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+            <input type="search" name="query" placeholder={searchPlaceholder} autocomplete="off" />
+          </label>
+
+          {showTypeFilter && contentTypes.length > 1 && (
+            <label>
+              <span class="sr-only">Filter by type</span>
+              <select name="type">
+                <option value="">All types</option>
+                {contentTypes.map((type) => <option value={type}>{type.replace('-', ' ')}</option>)}
+              </select>
+            </label>
+          )}
+
+          {categories.length > 0 && (
+            <label>
+              <span class="sr-only">Filter by category</span>
+              <select name="category">
+                <option value="">All categories</option>
+                {categories.map((category) => <option value={category}>{category}</option>)}
+              </select>
+            </label>
+          )}
+
+          {difficulties.length > 0 && (
+            <label>
+              <span class="sr-only">Filter by difficulty</span>
+              <select name="difficulty">
+                <option value="">All difficulties</option>
+                {difficulties.map((difficulty) => <option value={difficulty}>{difficulty}</option>)}
+              </select>
+            </label>
+          )}
+
+          {operatingSystems.length > 0 && (
+            <label>
+              <span class="sr-only">Filter by operating system</span>
+              <select name="os">
+                <option value="">All operating systems</option>
+                {operatingSystems.map((os) => <option value={os}>{os}</option>)}
+              </select>
+            </label>
+          )}
+        </form>
+
+        <p class="filter-result-count" aria-live="polite" data-result-count>{entries.length} write-ups</p>
+        <div class="writeups-grid" data-writeups-grid>
+          {entries.map((entry) => <WriteupCard entry={entry} />)}
+        </div>
+        <div class="filter-empty" data-filter-empty hidden>
+          <i class="fas fa-terminal" aria-hidden="true"></i>
+          <h3>No matching write-ups</h3>
+          <p>Try a broader search or clear one of the filters.</p>
+        </div>
+      </>
+    ) : (
+      <div class="writeups-empty-state">
+        <div class="empty-terminal" aria-hidden="true">
+          <div class="empty-terminal-bar"><span></span><span></span><span></span></div>
+          <div class="empty-terminal-body">
+            <p><span class="prompt">$</span> find {terminalPath} -type f</p>
+            <p class="terminal-output">No public write-ups yet.</p>
+            <p><span class="prompt">$</span> <span class="terminal-cursor">_</span></p>
+          </div>
+        </div>
+        <div class="empty-copy">
+          <p class="eyebrow">Publishing pipeline ready</p>
+          <h3>{emptyTitle}</h3>
+          <p>{emptyDescription}</p>
+          <a class="btn btn-secondary" href="/writeups/">
+            <i class="fas fa-arrow-left" aria-hidden="true"></i> All write-ups
+          </a>
+        </div>
+      </div>
+    )}
+  </div>
+</section>
+
+<script is:inline>
+  document.querySelectorAll('[data-writeup-library]').forEach((library) => {
+    const filters = library.querySelector('[data-writeup-filters]');
+    const cards = [...library.querySelectorAll('[data-writeup-card]')];
+    const resultCount = library.querySelector('[data-result-count]');
+    const emptyState = library.querySelector('[data-filter-empty]');
+
+    if (!filters || !cards.length) return;
+
+    const updateResults = () => {
+      const form = new FormData(filters);
+      const query = String(form.get('query') ?? '').trim().toLowerCase();
+      const type = String(form.get('type') ?? '');
+      const category = String(form.get('category') ?? '');
+      const difficulty = String(form.get('difficulty') ?? '');
+      const os = String(form.get('os') ?? '');
+      let visible = 0;
+
+      cards.forEach((card) => {
+        const matches =
+          (!query || card.dataset.search.includes(query)) &&
+          (!type || card.dataset.type === type) &&
+          (!category || card.dataset.category === category) &&
+          (!difficulty || card.dataset.difficulty === difficulty) &&
+          (!os || card.dataset.os === os);
+
+        card.hidden = !matches;
+        if (matches) visible += 1;
+      });
+
+      if (resultCount) resultCount.textContent = `${visible} write-up${visible === 1 ? '' : 's'}`;
+      if (emptyState) emptyState.hidden = visible !== 0;
+    };
+
+    filters.addEventListener('input', updateResults);
+    filters.addEventListener('change', updateResults);
+  });
+</script>

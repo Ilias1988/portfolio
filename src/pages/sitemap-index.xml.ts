@@ -2,7 +2,7 @@ import { getCollection } from 'astro:content';
 import type { APIRoute } from 'astro';
 import { latestDate, sitemapIndexResponse } from '../lib/sitemap';
 
-const HOME_LAST_MODIFIED = new Date('2026-09-01T00:00:00.000Z');
+const SITE_STRUCTURE_LAST_MODIFIED = new Date('2026-09-08T00:00:00.000Z');
 
 export const GET: APIRoute = async ({ site }) => {
   const origin = site ?? new URL('https://ilias1988.me');
@@ -13,7 +13,7 @@ export const GET: APIRoute = async ({ site }) => {
       ...writeups.map(({ data }) => data.updatedAt ?? data.publishedAt),
       ...labs.map(({ data }) => data.updatedAt ?? data.publishedAt),
     ],
-    HOME_LAST_MODIFIED,
+    SITE_STRUCTURE_LAST_MODIFIED,
   );
 
   return sitemapIndexResponse([
