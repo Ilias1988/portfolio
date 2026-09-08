@@ -7,7 +7,32 @@ const publicWriteups = (await getCollection('writeups', ({ data }) => !data.draf
     .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 const publicLabs = (await getCollection('labs', ({ data }) => !data.draft))
     .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
-const latestWriteup = publicWriteups[0];
+const writeupGroups = [
+    {
+        type: 'machine',
+        label: 'Machines',
+        href: '/writeups/machines/',
+        icon: 'fa-server',
+        description: 'Full attack paths from enumeration and foothold through privilege escalation, including failed paths and lessons learned.'
+    },
+    {
+        type: 'challenge',
+        label: 'Challenges',
+        href: '/writeups/challenges/',
+        icon: 'fa-puzzle-piece',
+        description: 'Focused solutions for Web, Pwn, Crypto, Reversing, Forensics and other retired Hack The Box challenges.'
+    },
+    {
+        type: 'sherlock',
+        label: 'Sherlocks',
+        href: '/writeups/sherlocks/',
+        icon: 'fa-magnifying-glass-chart',
+        description: 'Evidence-driven DFIR and SOC investigations with timelines, findings, attack-chain reconstruction and detection opportunities.'
+    }
+].map(group => {
+    const entries = publicWriteups.filter(({ data }) => data.contentType === group.type);
+    return { ...group, entries, latest: entries[0] };
+});
 const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0];
 ---
 
@@ -711,21 +736,76 @@ const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0
             </p>
 
             <div class="knowledge-grid">
-                <article class="knowledge-card" data-animate>
+                <article class="knowledge-card knowledge-card-writeups" data-animate>
                     <div class="knowledge-card-header">
                         <span class="knowledge-icon"><i class="fas fa-flag"></i></span>
                         <span class="knowledge-count">{publicWriteups.length} published</span>
                     </div>
-                    <p class="knowledge-type">Hack The Box</p>
-                    <h3>Write-ups</h3>
-                    <p>Complete solution paths for permitted retired content, including enumeration, foothold, privilege escalation, failed paths and lessons learned.</p>
-                    {latestWriteup && (
-                        <a class="knowledge-latest" href={`/writeups/${latestWriteup.id}/`}>
-                            <span>Latest write-up</span>
-                            <strong>{latestWriteup.data.title}</strong>
-                        </a>
-                    )}
-                    <a class="knowledge-link" href="/writeups/">Explore write-ups <i class="fas fa-arrow-right"></i></a>
+                    <p class="knowledge-type">Hack The Box write-ups</p>
+
+                    <div class="knowledge-carousel" data-knowledge-carousel>
+                        <div class="knowledge-carousel-tabs" role="tablist" aria-label="Hack The Box write-up categories">
+                            {writeupGroups.map((group, index) => (
+                                <button
+                                    type="button"
+                                    class:list={['knowledge-carousel-tab', index === 0 && 'active']}
+                                    role="tab"
+                                    id={`knowledge-tab-${group.type}`}
+                                    aria-controls={`knowledge-panel-${group.type}`}
+                                    aria-selected={index === 0 ? 'true' : 'false'}
+                                    tabindex={index === 0 ? 0 : -1}
+                                    data-knowledge-tab={index}
+                                >
+                                    <i class={`fas ${group.icon}`} aria-hidden="true"></i>
+                                    <span>{group.label}</span>
+                                    <small>{group.entries.length}</small>
+                                </button>
+                            ))}
+                        </div>
+
+                        <div class="knowledge-carousel-viewport" aria-live="polite">
+                            {writeupGroups.map((group, index) => (
+                                <section
+                                    class="knowledge-slide"
+                                    id={`knowledge-panel-${group.type}`}
+                                    role="tabpanel"
+                                    aria-labelledby={`knowledge-tab-${group.type}`}
+                                    data-knowledge-slide={index}
+                                    hidden={index !== 0}
+                                >
+                                    <p class="knowledge-slide-position">Category {index + 1} / {writeupGroups.length}</p>
+                                    <h3>{group.label}</h3>
+                                    <p>{group.description}</p>
+
+                                    {group.latest ? (
+                                        <a class="knowledge-latest" href={`/writeups/${group.latest.id}/`}>
+                                            <span>Latest {group.label.toLowerCase()} write-up</span>
+                                            <strong>{group.latest.data.title}</strong>
+                                        </a>
+                                    ) : (
+                                        <div class="knowledge-latest knowledge-latest-empty">
+                                            <span>Collection ready</span>
+                                            <strong>Write-ups coming soon</strong>
+                                        </div>
+                                    )}
+
+                                    <a class="knowledge-link" href={group.href}>
+                                        Explore {group.label.toLowerCase()} <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                                    </a>
+                                </section>
+                            ))}
+                        </div>
+
+                        <div class="knowledge-carousel-controls" aria-label="Carousel controls">
+                            <button type="button" data-knowledge-previous aria-label="Previous write-up category">
+                                <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                            </button>
+                            <span data-knowledge-status>1 / {writeupGroups.length}</span>
+                            <button type="button" data-knowledge-next aria-label="Next write-up category">
+                                <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
                 </article>
 
                 <article class="knowledge-card knowledge-card-lab" data-animate>

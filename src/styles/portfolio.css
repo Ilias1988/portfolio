@@ -73,6 +73,7 @@ ul {
 
 .section {
     padding: 100px 0;
+    scroll-margin-top: calc(var(--nav-height) + 24px);
 }
 
 /* ---------- Section Titles ---------- */
@@ -279,6 +280,10 @@ ul {
         rgba(17, 24, 32, 0.92);
 }
 
+.knowledge-card-writeups {
+    min-width: 0;
+}
+
 .knowledge-card-header {
     display: flex;
     align-items: center;
@@ -328,6 +333,129 @@ ul {
     margin: 7px 0 10px;
     font-family: var(--font-mono);
     font-size: 1.55rem;
+}
+
+.knowledge-carousel {
+    display: flex;
+    min-height: 0;
+    flex: 1;
+    flex-direction: column;
+}
+
+.knowledge-carousel-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin: 18px 0 22px;
+}
+
+.knowledge-carousel-tab {
+    display: grid;
+    min-width: 0;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 9px;
+    border: 1px solid var(--border-color);
+    border-radius: 7px;
+    background: rgba(7, 10, 13, 0.72);
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    cursor: pointer;
+    transition: border-color var(--transition), background var(--transition), color var(--transition);
+}
+
+.knowledge-carousel-tab span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.knowledge-carousel-tab small {
+    display: grid;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    place-items: center;
+    border-radius: 999px;
+    background: rgba(139, 148, 158, 0.1);
+    font-size: 0.62rem;
+}
+
+.knowledge-carousel-tab:hover,
+.knowledge-carousel-tab.active {
+    border-color: rgba(0, 255, 65, 0.4);
+    background: var(--accent-green-dim);
+    color: var(--accent-green);
+}
+
+.knowledge-carousel-tab:focus-visible,
+.knowledge-carousel-controls button:focus-visible {
+    outline: 2px solid var(--accent-green);
+    outline-offset: 2px;
+}
+
+.knowledge-carousel-viewport,
+.knowledge-slide {
+    display: flex;
+    min-height: 0;
+    flex: 1;
+    flex-direction: column;
+}
+
+.knowledge-slide[hidden] {
+    display: none;
+}
+
+.knowledge-slide-position {
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.knowledge-slide > p:not(.knowledge-slide-position) {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.knowledge-latest-empty {
+    cursor: default;
+}
+
+.knowledge-latest-empty:hover {
+    border-color: var(--border-color);
+}
+
+.knowledge-carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 18px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+}
+
+.knowledge-carousel-controls button {
+    display: grid;
+    width: 31px;
+    height: 31px;
+    place-items: center;
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    background: rgba(7, 10, 13, 0.72);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: border-color var(--transition), color var(--transition), transform var(--transition);
+}
+
+.knowledge-carousel-controls button:hover {
+    border-color: rgba(0, 255, 65, 0.4);
+    color: var(--accent-green);
+    transform: translateY(-1px);
 }
 
 .knowledge-card > p:not(.knowledge-type) {
@@ -2050,10 +2178,21 @@ ul {
     }
 }
 
+@media (max-width: 640px) {
+    .knowledge-carousel-tabs {
+        grid-template-columns: 1fr;
+    }
+
+    .knowledge-carousel-tab {
+        padding: 10px 12px;
+    }
+}
+
 /* ============================================
    RESPONSIVE — Small Mobile (max-width: 480px)
    ============================================ */
 @media (max-width: 480px) {
+
     .hero-buttons {
         flex-direction: column;
         align-items: center;

@@ -259,23 +259,105 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ========================================
-    // 8. SMOOTH SCROLL for anchor links
+    // 8. KNOWLEDGE BASE CATEGORY CAROUSEL
     // ========================================
+    document.querySelectorAll('[data-knowledge-carousel]').forEach(carousel => {
+        const tabs = Array.from(carousel.querySelectorAll('[data-knowledge-tab]'));
+        const slides = Array.from(carousel.querySelectorAll('[data-knowledge-slide]'));
+        const previousButton = carousel.querySelector('[data-knowledge-previous]');
+        const nextButton = carousel.querySelector('[data-knowledge-next]');
+        const status = carousel.querySelector('[data-knowledge-status]');
+        let currentIndex = 0;
+
+        function showSlide(index, focusTab = false) {
+            currentIndex = (index + slides.length) % slides.length;
+
+            tabs.forEach((tab, tabIndex) => {
+                const isActive = tabIndex === currentIndex;
+                tab.classList.toggle('active', isActive);
+                tab.setAttribute('aria-selected', String(isActive));
+                tab.tabIndex = isActive ? 0 : -1;
+            });
+
+            slides.forEach((slide, slideIndex) => {
+                slide.hidden = slideIndex !== currentIndex;
+            });
+
+            if (status) status.textContent = `${currentIndex + 1} / ${slides.length}`;
+            if (focusTab) tabs[currentIndex]?.focus();
+        }
+
+        tabs.forEach((tab, index) => {
+            tab.addEventListener('click', () => showSlide(index));
+            tab.addEventListener('keydown', event => {
+                if (event.key === 'ArrowLeft') {
+                    event.preventDefault();
+                    showSlide(currentIndex - 1, true);
+                }
+                if (event.key === 'ArrowRight') {
+                    event.preventDefault();
+                    showSlide(currentIndex + 1, true);
+                }
+            });
+        });
+
+        previousButton?.addEventListener('click', () => showSlide(currentIndex - 1));
+        nextButton?.addEventListener('click', () => showSlide(currentIndex + 1));
+        showSlide(0);
+    });
+
+    // ========================================
+    // 9. SMOOTH SCROLL for anchor links
+    // ========================================
+    function scrollToSection(target, behavior = 'smooth') {
+        const navHeight = navbar ? navbar.offsetHeight : 0;
+        const breathingRoom = 24;
+        const targetTop = target.getBoundingClientRect().top + window.scrollY;
+
+        window.scrollTo({
+            top: Math.max(0, targetTop - navHeight - breathingRoom),
+            behavior
+        });
+    }
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+            const targetId = this.getAttribute('href');
+            if (!targetId || targetId === '#') return;
+
+            const target = document.querySelector(targetId);
             if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                e.preventDefault();
+                window.history.pushState(null, '', targetId);
+                scrollToSection(target);
             }
         });
     });
 
+    // Browser hash navigation can run before fonts and lazy assets settle.
+    // Re-align once the page is stable so fixed navigation never covers a title.
+    function alignInitialHash() {
+        if (!window.location.hash) return;
+
+        const target = document.querySelector(window.location.hash);
+        if (!target) return;
+
+        const align = () => requestAnimationFrame(() => scrollToSection(target, 'auto'));
+        if (document.fonts?.ready) {
+            document.fonts.ready.then(align);
+        } else {
+            align();
+        }
+    }
+
+    if (document.readyState === 'complete') {
+        alignInitialHash();
+    } else {
+        window.addEventListener('load', alignInitialHash, { once: true });
+    }
+
     // ========================================
-    // 8. CONSOLE EASTER EGG
+    // 10. CONSOLE EASTER EGG
     // ========================================
     console.log('%c[ilias1988] Access Granted.', 'color: #00ff41; font-size: 16px; font-family: monospace; font-weight: bold;');
     console.log('%cWelcome to my portfolio! Check out my GitHub: https://github.com/Ilias1988', 'color: #8b949e; font-size: 12px; font-family: monospace;');
