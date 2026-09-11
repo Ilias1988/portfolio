@@ -82,7 +82,7 @@ const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0
         "@context": "https://schema.org",
         "@type": "ProfilePage",
         "dateCreated": "2026-01-01",
-        "dateModified": "2026-09-01",
+        "dateModified": "2026-09-11",
         "mainEntity": {
             "@type": "Person",
             "@id": "https://ilias1988.me/#person",
@@ -297,7 +297,7 @@ const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0
         "@type": "ItemList",
         "name": "Cybersecurity Projects by Ilias Georgopoulos",
         "description": "Open-source offensive security tools built with AI & Code.",
-        "numberOfItems": 7,
+        "numberOfItems": 8,
         "itemListElement": [
             {
                 "@type": "ListItem",
@@ -385,6 +385,38 @@ const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0
                     "applicationCategory": "SecurityApplication",
                     "operatingSystem": "Windows, Linux",
                     "programmingLanguage": "Python",
+                    "author": { "@id": "https://ilias1988.me/#person" },
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 7,
+                "item": {
+                    "@type": "SoftwareApplication",
+                    "name": "WAF Bypass Toolkit",
+                    "description": "A browser-based payload obfuscation toolkit for authorized testing of SQLi, XSS, CMDi, LFI, SSRF, SSTI and XXE defenses.",
+                    "url": "https://github.com/Ilias1988/waf-bypass",
+                    "installUrl": "https://waf-bypass.dev/",
+                    "applicationCategory": "SecurityApplication",
+                    "operatingSystem": "Web Browser",
+                    "programmingLanguage": "JavaScript",
+                    "author": { "@id": "https://ilias1988.me/#person" },
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 8,
+                "item": {
+                    "@type": "SoftwareApplication",
+                    "name": "TargetVeil",
+                    "description": "A local-first pentest data sanitizer that redacts or pseudonymizes sensitive client information before technical evidence is shared with public AI services.",
+                    "url": "https://github.com/Ilias1988/targetveil",
+                    "installUrl": "https://ilias1988.github.io/targetveil/",
+                    "applicationCategory": "SecurityApplication",
+                    "operatingSystem": "Web Browser, Windows, Linux",
+                    "programmingLanguage": ["JavaScript", "Python"],
                     "author": { "@id": "https://ilias1988.me/#person" },
                     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
                 }
@@ -1321,6 +1353,49 @@ const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0
                     </div>
                 </div>
 
+                <!-- Tool 5: TargetVeil -->
+                <div class="tool-card" data-animate>
+                    <a href="https://ilias1988.github.io/targetveil/" target="_blank" rel="noopener noreferrer" class="tool-card-link">
+                        <div class="tool-browser">
+                            <div class="browser-bar">
+                                <div class="browser-dots">
+                                    <span class="dot-r"></span>
+                                    <span class="dot-y"></span>
+                                    <span class="dot-g"></span>
+                                </div>
+                                <div class="browser-url">
+                                    <i class="fas fa-lock"></i>
+                                    <span>ilias1988.github.io/targetveil/</span>
+                                </div>
+                            </div>
+                            <div class="browser-screen">
+                                <div class="screen-placeholder">
+                                    <i class="fas fa-shield-halved"></i>
+                                    <span>TargetVeil</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="tool-body">
+                        <h3 class="tool-title">TargetVeil</h3>
+                        <p class="tool-description">Sanitize PII, client infrastructure and secrets in pentest evidence before using public AI — locally, with explainable detection and relationship-preserving pseudonyms.</p>
+                        <div class="tool-tags">
+                            <span class="tool-tag">JavaScript</span>
+                            <span class="tool-tag">Python</span>
+                            <span class="tool-tag">Privacy</span>
+                            <span class="tool-tag">Offline</span>
+                        </div>
+                        <div class="tool-actions">
+                            <a href="https://ilias1988.github.io/targetveil/" target="_blank" rel="noopener noreferrer" class="tool-btn-visit">
+                                <i class="fas fa-external-link-alt"></i> Visit Website
+                            </a>
+                            <a href="https://github.com/Ilias1988/targetveil" target="_blank" rel="noopener noreferrer" class="tool-btn-github" aria-label="View TargetVeil on GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -1490,6 +1565,31 @@ const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0
                         <span>React</span>
                         <span>Vite</span>
                         <span>Bug Bounty</span>
+                    </div>
+                </div>
+
+                <!-- Project 8 -->
+                <div class="project-card" data-animate>
+                    <div class="project-header">
+                        <div class="project-icon">
+                            <i class="fas fa-shield-halved"></i>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/Ilias1988/targetveil" target="_blank" rel="noopener noreferrer" aria-label="View TargetVeil on GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://ilias1988.github.io/targetveil/" target="_blank" rel="noopener noreferrer" aria-label="Open the TargetVeil live application">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">TargetVeil</h3>
+                    <p class="project-description">Local-first redaction and pseudonymization for AI-assisted penetration testing. Includes 17 pentest profiles, global identifier packs, engagement scope files, explainable preview and synthetic leakage-canary tests.</p>
+                    <div class="project-tags">
+                        <span>JavaScript</span>
+                        <span>Python</span>
+                        <span>Privacy</span>
+                        <span>Open Source</span>
                     </div>
                 </div>
             </div>
