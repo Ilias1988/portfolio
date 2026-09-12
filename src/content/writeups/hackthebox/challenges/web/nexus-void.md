@@ -25,6 +25,8 @@ tools:
   - jq
 cves: []
 htbUrl: "https://app.hackthebox.com/challenges/Nexus%2520Void"
+cover: "/images/writeups/hackthebox/challenges/shared/hackthebox-challenge-cover.webp"
+coverAlt: "Abstract cybersecurity challenge medallion with terminal, puzzle and network motifs"
 featured: false
 draft: false
 ---

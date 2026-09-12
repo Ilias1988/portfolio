@@ -19,6 +19,8 @@ tools:
   - Burp Suite
 cves: []
 htbUrl: "https://app.hackthebox.com/challenges/Phonebook"
+cover: "/images/writeups/hackthebox/challenges/shared/hackthebox-challenge-cover.webp"
+coverAlt: "Abstract cybersecurity challenge medallion with terminal, puzzle and network motifs"
 featured: false
 draft: false
 ---

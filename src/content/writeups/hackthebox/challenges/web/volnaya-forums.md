@@ -24,6 +24,8 @@ tools:
   - Python
 cves: []
 htbUrl: "https://app.hackthebox.com/challenges/Volnaya%2520Forums"
+cover: "/images/writeups/hackthebox/challenges/shared/hackthebox-challenge-cover.webp"
+coverAlt: "Abstract cybersecurity challenge medallion with terminal, puzzle and network motifs"
 featured: false
 draft: false
 ---

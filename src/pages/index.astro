@@ -82,7 +82,7 @@ const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0
         "@context": "https://schema.org",
         "@type": "ProfilePage",
         "dateCreated": "2026-01-01",
-        "dateModified": "2026-09-11",
+        "dateModified": "2026-09-12",
         "mainEntity": {
             "@type": "Person",
             "@id": "https://ilias1988.me/#person",
@@ -810,9 +810,25 @@ const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0
                                     <p>{group.description}</p>
 
                                     {group.latest ? (
-                                        <a class="knowledge-latest" href={`/writeups/${group.latest.id}/`}>
-                                            <span>Latest {group.label.toLowerCase()} write-up</span>
-                                            <strong>{group.latest.data.title}</strong>
+                                        <a
+                                            class:list={['knowledge-latest', group.latest.data.cover && 'knowledge-latest-with-cover']}
+                                            href={`/writeups/${group.latest.id}/`}
+                                        >
+                                            {group.latest.data.cover && (
+                                                <img
+                                                    class="knowledge-latest-cover"
+                                                    src={group.latest.data.cover}
+                                                    alt={group.latest.data.coverAlt ?? `${group.latest.data.title} cover`}
+                                                    width="96"
+                                                    height="96"
+                                                    loading="lazy"
+                                                    decoding="async"
+                                                />
+                                            )}
+                                            <div class="knowledge-latest-copy">
+                                                <span>Latest {group.label.toLowerCase()} write-up</span>
+                                                <strong>{group.latest.data.title}</strong>
+                                            </div>
                                         </a>
                                     ) : (
                                         <div class="knowledge-latest knowledge-latest-empty">

@@ -473,6 +473,28 @@ ul {
     background: rgba(7, 10, 13, 0.72);
 }
 
+.knowledge-latest-with-cover {
+    grid-template-columns: 96px minmax(0, 1fr);
+    align-items: center;
+    gap: 16px;
+    padding: 12px;
+}
+
+.knowledge-latest-cover {
+    width: 96px;
+    aspect-ratio: 1;
+    border: 1px solid rgba(0, 255, 65, 0.22);
+    border-radius: 6px;
+    object-fit: cover;
+    box-shadow: 0 0 18px rgba(0, 255, 65, 0.08);
+}
+
+.knowledge-latest-copy {
+    display: grid;
+    min-width: 0;
+    gap: 5px;
+}
+
 .knowledge-latest:hover {
     border-color: rgba(0, 255, 65, 0.32);
 }
@@ -2192,6 +2214,15 @@ ul {
    RESPONSIVE — Small Mobile (max-width: 480px)
    ============================================ */
 @media (max-width: 480px) {
+
+    .knowledge-latest-with-cover {
+        grid-template-columns: 72px minmax(0, 1fr);
+        gap: 12px;
+    }
+
+    .knowledge-latest-cover {
+        width: 72px;
+    }
 
     .hero-buttons {
         flex-direction: column;
