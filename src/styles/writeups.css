@@ -565,6 +565,16 @@
     align-items: end;
 }
 
+.article-header-grid > * {
+    min-width: 0;
+}
+
+.writeup-article-header .terminal-kicker,
+.writeup-article-header h1,
+.article-summary {
+    overflow-wrap: anywhere;
+}
+
 .breadcrumbs {
     display: flex;
     flex-wrap: wrap;
