@@ -260,6 +260,12 @@ const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0
                     "name": "Pro Lab: Puppet",
                     "credentialCategory": "certificate",
                     "recognizedBy": { "@type": "Organization", "name": "Hack The Box", "url": "https://www.hackthebox.com" }
+                },
+                {
+                    "@type": "EducationalOccupationalCredential",
+                    "name": "Mini Pro Lab: FullHouse",
+                    "credentialCategory": "certificate",
+                    "recognizedBy": { "@type": "Organization", "name": "Hack The Box", "url": "https://www.hackthebox.com" }
                 }
             ],
             "sameAs": [
@@ -888,7 +894,7 @@ const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0
                 <span class="title-decorator">/&gt;</span>
             </h2>
             <p class="section-subtitle">
-                <i class="fas fa-award"></i> 38 Certificates &amp; Badges earned
+                <i class="fas fa-award"></i> 39 Certificates &amp; Badges earned
             </p>
 
             <!-- Tabs -->
@@ -900,7 +906,7 @@ const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0
                     <i class="fas fa-flask"></i> PentesterLab <span class="tab-count">19</span>
                 </button>
                 <button class="cert-tab" data-tab="hackthebox">
-                    <i class="fas fa-cube"></i> Hack The Box <span class="tab-count">2</span>
+                    <i class="fas fa-cube"></i> Hack The Box <span class="tab-count">3</span>
                 </button>
             </div>
 
@@ -1171,6 +1177,13 @@ const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0
             <!-- Hack The Box Pro Labs -->
             <div class="cert-tab-content" id="tab-hackthebox">
                 <div class="certs-grid">
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/htb-fullhouse.jpg" alt="Hack The Box Mini Pro Lab - FullHouse" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>FullHouse (Mini Pro Lab)</h3></div>
+                    </div>
                     <div class="cert-card" data-animate>
                         <div class="cert-image-wrapper">
                             <img src="images/optimized/htb-mythical.jpg" alt="Hack The Box Pro Lab - Mythical" class="cert-image" loading="lazy">
