@@ -6,6 +6,7 @@ import re
 import socket
 import struct
 import sys
+from typing import Optional
 
 
 MEMORY_SIZE = 16 * 1024
@@ -67,7 +68,7 @@ class Client:
         if not ok or reply != b"\x01":
             raise RuntimeError(f"write failed at 0x{address:04x}")
 
-    def get_secret(self, password: bytes) -> bytes | None:
+    def get_secret(self, password: bytes) -> Optional[bytes]:
         ok, data = self.operation(GET_SECRET, password)
         return data if ok else None
 
