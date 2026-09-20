@@ -74,6 +74,7 @@ const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0
     <link rel="shortcut icon" href="/favicon.png">
     <link rel="sitemap" href="/sitemap-index.xml">
     <link rel="alternate" type="application/rss+xml" title="Ilias1988 Security Write-ups" href="/rss.xml">
+    <link rel="describedby" href="/llms.txt">
     <CloudflareAnalytics />
 
     <!-- JSON-LD Structured Data: ProfilePage + Person -->
@@ -1722,6 +1723,10 @@ const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0
                     <span class="footer-year">// 2026</span>
                 </p>
                 <p class="footer-subtext">Stay safe in cyberspace. <span class="blink">_</span></p>
+                <nav class="footer-links" aria-label="Machine-readable resources">
+                    <a href="/rss.xml"><i class="fas fa-rss" aria-hidden="true"></i> RSS feed</a>
+                    <a href="/llms.txt"><i class="fas fa-robot" aria-hidden="true"></i> For AI agents</a>
+                </nav>
             </div>
         </div>
     </footer>
