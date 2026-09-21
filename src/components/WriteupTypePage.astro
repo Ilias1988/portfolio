@@ -5,7 +5,7 @@ import WriteupLibrary from './WriteupLibrary.astro';
 import WriteupTypeNav from './WriteupTypeNav.astro';
 
 interface Props {
-  type: 'machine' | 'challenge' | 'sherlock';
+  type: 'machine' | 'challenge' | 'sherlock' | 'pro-lab';
   entries: CollectionEntry<'writeups'>[];
   allEntries: CollectionEntry<'writeups'>[];
   title: string;
@@ -43,6 +43,7 @@ const counts = {
   machine: allEntries.filter(({ data }) => data.contentType === 'machine').length,
   challenge: allEntries.filter(({ data }) => data.contentType === 'challenge').length,
   sherlock: allEntries.filter(({ data }) => data.contentType === 'sherlock').length,
+  'pro-lab': allEntries.filter(({ data }) => data.contentType === 'pro-lab').length,
 };
 ---
 

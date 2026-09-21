@@ -28,12 +28,15 @@ const typeArchive = {
   machine: { label: 'Machines', href: '/writeups/machines/' },
   challenge: { label: 'Challenges', href: '/writeups/challenges/' },
   sherlock: { label: 'Sherlocks', href: '/writeups/sherlocks/' },
+  'pro-lab': { label: 'Pro Labs', href: '/writeups/pro-labs/' },
   'starting-point': { label: 'Starting Point', href: '/writeups/' },
   academy: { label: 'Academy', href: '/writeups/' },
 }[data.contentType];
 const typeLabel = data.contentType === 'sherlock'
   ? 'Sherlock'
-  : data.contentType.charAt(0).toUpperCase() + data.contentType.slice(1).replace('-', ' ');
+  : data.contentType === 'pro-lab'
+    ? 'Pro Lab'
+    : data.contentType.charAt(0).toUpperCase() + data.contentType.slice(1).replace('-', ' ');
 
 const articleJsonLd = {
   '@context': 'https://schema.org',

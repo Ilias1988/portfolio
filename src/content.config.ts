@@ -11,7 +11,7 @@ const writeups = defineCollection({
     title: z.string().min(5),
     summary: z.string().min(30).max(240),
     platform: z.literal('Hack The Box'),
-    contentType: z.enum(['machine', 'challenge', 'sherlock', 'starting-point', 'academy']),
+    contentType: z.enum(['machine', 'challenge', 'sherlock', 'pro-lab', 'starting-point', 'academy']),
     publicationPolicy: z.enum(['retired', 'starting-point', 'academy-tier-0']),
     difficulty: z.enum(['Very Easy', 'Easy', 'Medium', 'Hard', 'Insane']).optional(),
     os: z.enum(['Linux', 'Windows', 'Other']).optional(),

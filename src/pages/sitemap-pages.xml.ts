@@ -17,6 +17,7 @@ export const GET: APIRoute = async ({ site }) => {
   const machineWriteups = writeups.filter(({ data }) => data.contentType === 'machine');
   const challengeWriteups = writeups.filter(({ data }) => data.contentType === 'challenge');
   const sherlockWriteups = writeups.filter(({ data }) => data.contentType === 'sherlock');
+  const proLabWriteups = writeups.filter(({ data }) => data.contentType === 'pro-lab');
   const labsLastModified = latestDate(
     labs.map(({ data }) => data.updatedAt ?? data.publishedAt),
     HOME_LAST_MODIFIED,
@@ -47,6 +48,13 @@ export const GET: APIRoute = async ({ site }) => {
       loc: new URL('/writeups/sherlocks/', origin).href,
       lastmod: latestDate(
         sherlockWriteups.map(({ data }) => data.updatedAt ?? data.publishedAt),
+        WRITEUP_COLLECTIONS_LAST_MODIFIED,
+      ),
+    }] : []),
+    ...(proLabWriteups.length > 0 ? [{
+      loc: new URL('/writeups/pro-labs/', origin).href,
+      lastmod: latestDate(
+        proLabWriteups.map(({ data }) => data.updatedAt ?? data.publishedAt),
         WRITEUP_COLLECTIONS_LAST_MODIFIED,
       ),
     }] : []),

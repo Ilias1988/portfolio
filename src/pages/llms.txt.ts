@@ -18,6 +18,7 @@ export const GET: APIRoute = async ({ site }) => {
     { type: 'machine', heading: 'Hack The Box Machines' },
     { type: 'challenge', heading: 'Hack The Box Challenges' },
     { type: 'sherlock', heading: 'Hack The Box Sherlocks' },
+    { type: 'pro-lab', heading: 'Hack The Box Pro Labs' },
   ].flatMap(({ type, heading }) => {
     const entries = writeups.filter(({ data }) => data.contentType === type);
     if (entries.length === 0) return [];
@@ -64,7 +65,7 @@ export const GET: APIRoute = async ({ site }) => {
     '## Start Here',
     '',
     `- [Portfolio home](${absolute('/')}): Profile, skills, certifications, selected tools, projects and contact links.`,
-    `- [Write-ups archive](${absolute('/writeups/')}): All published Hack The Box Machines, Challenges and Sherlocks.`,
+    `- [Write-ups archive](${absolute('/writeups/')}): All published Hack The Box Machines, Challenges, Sherlocks and retired Pro Labs.`,
     `- [Security research labs](${absolute('/labs/')}): Controlled red-team, Windows, network-security and detection-engineering experiments.`,
     `- [Bug bounty research](${absolute('/bug-bounty/')}): Sanitized reports from authorized vulnerability research with transparent triage outcomes.`,
     `- [RSS feed](${absolute('/rss.xml')}): Chronological feed of public write-ups.`,

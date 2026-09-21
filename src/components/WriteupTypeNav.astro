@@ -1,11 +1,12 @@
 ---
 interface Props {
-  current?: 'all' | 'machine' | 'challenge' | 'sherlock';
+  current?: 'all' | 'machine' | 'challenge' | 'sherlock' | 'pro-lab';
   counts: {
     all: number;
     machine: number;
     challenge: number;
     sherlock: number;
+    'pro-lab': number;
   };
 }
 
@@ -16,6 +17,7 @@ const sections = [
   { key: 'machine', label: 'Machines', href: '/writeups/machines/', icon: 'fa-server' },
   { key: 'challenge', label: 'Challenges', href: '/writeups/challenges/', icon: 'fa-puzzle-piece' },
   { key: 'sherlock', label: 'Sherlocks', href: '/writeups/sherlocks/', icon: 'fa-magnifying-glass-chart' },
+  { key: 'pro-lab', label: 'Pro Labs', href: '/writeups/pro-labs/', icon: 'fa-network-wired' },
 ] as const;
 ---
 

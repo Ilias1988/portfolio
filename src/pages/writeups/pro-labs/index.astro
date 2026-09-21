@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import WriteupTypePage from '../../../components/WriteupTypePage.astro';
+
+const allEntries = (await getCollection('writeups', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const entries = allEntries.filter(({ data }) => data.contentType === 'pro-lab');
+---
+
+<WriteupTypePage
+  type="pro-lab"
+  entries={entries}
+  allEntries={allEntries}
+  title="Hack The Box Pro Lab Write-ups | Ilias Georgopoulos"
+  description="Complete retired Hack The Box Pro Lab write-ups covering enterprise enumeration, pivoting, lateral movement, privilege escalation and Active Directory compromise."
+  headingPrefix="HTB Pro Lab"
+  headingAccent="Write-ups"
+  lead="End-to-end, evidence-backed attack paths for retired Hack The Box Pro Labs."
+  libraryHeading="Retired Pro Lab archive"
+  libraryDescription="Multi-host attack chains from perimeter discovery through pivoting, lateral movement and domain compromise."
+  emptyTitle="No Pro Lab write-ups have been published yet."
+  emptyDescription="Verified retired Pro Lab walkthroughs will appear here automatically after publication."
+  searchPlaceholder="Search Pro Labs, techniques or tools..."
+/>

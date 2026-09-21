@@ -12,12 +12,13 @@ const counts = {
   machine: writeups.filter(({ data }) => data.contentType === 'machine').length,
   challenge: writeups.filter(({ data }) => data.contentType === 'challenge').length,
   sherlock: writeups.filter(({ data }) => data.contentType === 'sherlock').length,
+  'pro-lab': writeups.filter(({ data }) => data.contentType === 'pro-lab').length,
 };
 ---
 
 <BaseLayout
-  title="Hack The Box Write-ups | Machines, Challenges & Sherlocks"
-  description="Practical Hack The Box machine, challenge and Sherlock write-ups covering offensive security, exploitation, DFIR and threat investigation."
+  title="Hack The Box Write-ups | Machines, Challenges, Sherlocks & Pro Labs"
+  description="Practical Hack The Box machine, challenge, Sherlock and Pro Lab write-ups covering offensive security, exploitation, DFIR and enterprise attack paths."
   canonicalPath="/writeups/"
   currentPath="/writeups/"
 >
@@ -26,7 +27,7 @@ const counts = {
       <p class="terminal-kicker"><span>root@kali:~$</span> ls ./writeups</p>
       <h1>Hack The Box <span>Write-ups</span></h1>
       <p class="writeups-lead">
-        Reproducible attack paths and evidence-led investigations from authorized Hack The Box Machines, Challenges and Sherlocks.
+        Reproducible attack paths and evidence-led investigations from authorized Hack The Box Machines, Challenges, Sherlocks and retired Pro Labs.
       </p>
       <div class="writeups-status">
         <span><i class="fas fa-book-open" aria-hidden="true"></i> {writeups.length} published</span>
@@ -45,7 +46,7 @@ const counts = {
   <WriteupLibrary
     entries={writeups}
     heading="Field notes from the labs"
-    description="Browse full machine attack paths, focused technical challenges and defensive Sherlock investigations."
+    description="Browse full machine and Pro Lab attack paths, focused technical challenges and defensive Sherlock investigations."
     emptyTitle="The archive is prepared for the first retired entry."
     emptyDescription="New write-ups will appear here after evidence review, content validation and publication through GitHub Pages."
     terminalPath="./writeups"
