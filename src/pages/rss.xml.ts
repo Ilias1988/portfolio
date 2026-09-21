@@ -21,12 +21,21 @@ export const GET: APIRoute = async (context) => {
       categories: entry.data.tags,
     }));
 
-  const items = [...writeups, ...labs]
+  const bugBounty = (await getCollection('bugBounty', ({ data }) => !data.draft))
+    .map((entry) => ({
+      title: entry.data.title,
+      description: entry.data.summary,
+      pubDate: entry.data.publishedAt,
+      link: `/bug-bounty/${entry.id}/`,
+      categories: entry.data.tags,
+    }));
+
+  const items = [...writeups, ...labs, ...bugBounty]
     .sort((a, b) => b.pubDate.valueOf() - a.pubDate.valueOf());
 
   return rss({
     title: 'Ilias1988 Security Research & Write-ups',
-    description: 'Hands-on security research and Hack The Box write-ups by Ilias Georgopoulos: controlled labs, detection engineering, exploitation and lessons learned.',
+    description: 'Hands-on security research, sanitized bug bounty findings and Hack The Box write-ups by Ilias Georgopoulos.',
     site: context.site ?? 'https://ilias1988.me',
     customData: '<language>en-us</language>',
     items,

@@ -1,0 +1,306 @@
+/* Sanitized bug bounty disclosure archive. */
+
+.bug-bounty-hero {
+    background:
+        radial-gradient(circle at 80% 18%, rgba(255, 170, 0, 0.11), transparent 24rem),
+        rgba(13, 17, 23, 0.74);
+}
+
+.bug-bounty-hero::after {
+    content: 'BOUNTY';
+    -webkit-text-stroke-color: rgba(255, 170, 0, 0.1);
+}
+
+.bug-bounty-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.bug-bounty-card {
+    display: flex;
+    min-height: 520px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--bg-card);
+    flex-direction: column;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.bug-bounty-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 170, 0, 0.46);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.22), 0 0 25px rgba(255, 170, 0, 0.05);
+}
+
+.bug-bounty-card-visual {
+    position: relative;
+    display: flex;
+    min-height: 180px;
+    align-items: center;
+    justify-content: center;
+    gap: 13px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border-color);
+    background:
+        linear-gradient(rgba(255, 170, 0, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 170, 0, 0.035) 1px, transparent 1px),
+        radial-gradient(circle at center, rgba(0, 255, 65, 0.08), transparent 62%),
+        #070a0d;
+    background-size: 28px 28px, 28px 28px, auto, auto;
+}
+
+.bug-bounty-signal {
+    display: grid;
+    min-width: 84px;
+    height: 58px;
+    padding: 0 12px;
+    place-items: center;
+    border: 1px solid rgba(0, 255, 65, 0.34);
+    border-radius: 7px;
+    background: rgba(17, 24, 32, 0.94);
+    color: var(--accent-green);
+    font: 700 0.78rem var(--font-mono);
+}
+
+.bug-bounty-signal-internal {
+    border-color: rgba(255, 170, 0, 0.46);
+    color: #ffbd4a;
+}
+
+.bug-bounty-path {
+    color: var(--text-muted);
+}
+
+.bug-bounty-card-outcome {
+    position: absolute;
+    right: 14px;
+    bottom: 12px;
+    color: var(--text-muted);
+    font: 0.68rem var(--font-mono);
+    text-transform: uppercase;
+}
+
+.bug-bounty-card-outcome::before {
+    content: '> ';
+    color: #ffbd4a;
+}
+
+.bug-bounty-card-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 26px;
+}
+
+.bug-bounty-card-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    color: var(--text-muted);
+    font: 0.7rem var(--font-mono);
+}
+
+.bug-bounty-outcome {
+    padding: 5px 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.bug-bounty-outcome-informative {
+    border-color: rgba(254, 188, 46, 0.4);
+    background: rgba(254, 188, 46, 0.07);
+    color: #febc2e;
+}
+
+.bug-bounty-outcome-duplicate {
+    border-color: rgba(216, 134, 255, 0.38);
+    background: rgba(191, 0, 255, 0.08);
+    color: #d886ff;
+}
+
+.bug-bounty-category {
+    margin-top: 20px;
+    color: #ffbd4a;
+    font: 0.68rem var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.bug-bounty-card h2 {
+    margin: 10px 0 12px;
+    font-family: var(--font-mono);
+    font-size: 1.3rem;
+    line-height: 1.35;
+}
+
+.bug-bounty-card h2 a:hover {
+    color: #ffbd4a;
+}
+
+.bug-bounty-card-body > p:not(.bug-bounty-category) {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.bug-bounty-card-facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 26px;
+    margin: 20px 0;
+}
+
+.bug-bounty-card-facts div {
+    display: flex;
+    gap: 7px;
+}
+
+.bug-bounty-card-facts dt,
+.bug-bounty-card-facts dd {
+    font: 0.7rem var(--font-mono);
+}
+
+.bug-bounty-card-facts dt { color: var(--text-muted); }
+.bug-bounty-card-facts dd { color: var(--text-primary); }
+
+.bug-bounty-article-header {
+    background:
+        linear-gradient(rgba(255, 170, 0, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 170, 0, 0.025) 1px, transparent 1px),
+        radial-gradient(circle at 86% 10%, rgba(255, 170, 0, 0.1), transparent 24rem),
+        rgba(13, 17, 23, 0.75);
+    background-size: 44px 44px, 44px 44px, auto, auto;
+}
+
+.bug-bounty-facts dd {
+    text-transform: none;
+}
+
+.bug-bounty-safety-notice {
+    border-color: rgba(255, 170, 0, 0.25);
+    background: rgba(255, 170, 0, 0.045);
+}
+
+.bug-bounty-safety-notice i {
+    color: #ffbd4a;
+}
+
+.bug-bounty-validation-state {
+    display: grid;
+    gap: 5px;
+    margin-top: 16px;
+    padding: 14px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: rgba(17, 24, 32, 0.72);
+}
+
+.bug-bounty-validation-state span {
+    color: var(--text-muted);
+    font: 0.66rem var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.bug-bounty-validation-state strong {
+    color: #ffbd4a;
+    font: 0.72rem/1.5 var(--font-mono);
+}
+
+.bug-bounty-prose .research-state {
+    padding: 18px 20px;
+    border: 1px solid rgba(255, 170, 0, 0.3);
+    border-radius: 7px;
+    background: rgba(255, 170, 0, 0.055);
+}
+
+.bug-bounty-prose .evidence-boundary {
+    padding: 18px 20px;
+    border-left: 3px solid #ffbd4a;
+    background: rgba(255, 170, 0, 0.045);
+}
+
+.bug-bounty-prose .report-outcome {
+    padding: 20px;
+    border: 1px solid rgba(216, 134, 255, 0.32);
+    border-radius: 7px;
+    background: rgba(191, 0, 255, 0.055);
+}
+
+.bug-bounty-prose .report-evidence-image {
+    display: block;
+    width: min(100%, 380px);
+    margin: 22px auto 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.34);
+}
+
+.knowledge-card-bugbounty {
+    min-width: 0;
+    grid-column: 1 / -1;
+    background:
+        radial-gradient(circle at 94% 8%, rgba(255, 170, 0, 0.12), transparent 17rem),
+        rgba(17, 24, 32, 0.92);
+}
+
+.knowledge-card-bugbounty .knowledge-icon {
+    border-color: rgba(255, 170, 0, 0.34);
+    background: rgba(255, 170, 0, 0.08);
+    color: #ffbd4a;
+}
+
+.knowledge-card-bugbounty .knowledge-carousel-tab:hover,
+.knowledge-card-bugbounty .knowledge-carousel-tab.active {
+    border-color: rgba(255, 170, 0, 0.44);
+    background: rgba(255, 170, 0, 0.07);
+    color: #ffbd4a;
+}
+
+.knowledge-card-bugbounty .knowledge-link {
+    color: #ffbd4a;
+}
+
+.knowledge-card-bugbounty .knowledge-carousel-controls .knowledge-link {
+    margin: 0 auto 0 0;
+}
+
+.bug-bounty-home-outcome {
+    display: inline-flex;
+    width: fit-content;
+    margin-top: 8px;
+    padding: 5px 8px;
+    border: 1px solid rgba(255, 170, 0, 0.28);
+    border-radius: 4px;
+    color: #ffbd4a;
+    font: 0.66rem var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+@media (max-width: 768px) {
+    .bug-bounty-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .bug-bounty-card-body {
+        padding: 20px;
+    }
+
+    .bug-bounty-card-topline {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .bug-bounty-signal {
+        min-width: 70px;
+        padding: 0 8px;
+        font-size: 0.68rem;
+    }
+}

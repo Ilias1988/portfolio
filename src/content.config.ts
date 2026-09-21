@@ -103,4 +103,29 @@ const labs = defineCollection({
   }),
 });
 
-export const collections = { writeups, labs };
+const bugBounty = defineCollection({
+  loader: glob({
+    base: './src/content/bug-bounty',
+    pattern: '**/*.{md,mdx}',
+  }),
+  schema: z.object({
+    title: z.string().min(5),
+    summary: z.string().min(30).max(240),
+    findingType: z.string().min(3),
+    severity: z.enum(['Informational', 'Low', 'Medium', 'High', 'Critical']),
+    outcome: z.enum(['Informative', 'Duplicate', 'Triaged', 'Resolved']),
+    outcomeDetail: z.string().min(5).max(100),
+    publishedAt: z.coerce.date(),
+    updatedAt: z.coerce.date().optional(),
+    testedAt: z.coerce.date(),
+    tags: z.array(z.string()).min(1),
+    tools: z.array(z.string()).default([]),
+    evidenceImage: z.string().startsWith('/'),
+    evidenceAlt: z.string().min(10),
+    order: z.number().int().min(1),
+    featured: z.boolean().default(false),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { writeups, labs, bugBounty };

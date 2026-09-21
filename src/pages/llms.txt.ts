@@ -11,6 +11,8 @@ export const GET: APIRoute = async ({ site }) => {
     .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
   const labs = (await getCollection('labs', ({ data }) => !data.draft))
     .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+  const bugBounty = (await getCollection('bugBounty', ({ data }) => !data.draft))
+    .sort((a, b) => a.data.order - b.data.order);
 
   const writeupSections = [
     { type: 'machine', heading: 'Hack The Box Machines' },
@@ -41,6 +43,17 @@ export const GET: APIRoute = async ({ site }) => {
       ]
     : [];
 
+  const bugBountyLines = bugBounty.length > 0
+    ? [
+        '## Bug Bounty Research',
+        '',
+        ...bugBounty.map(({ id, data }) =>
+          `- [${data.title}](${absolute(`/bug-bounty/${id}/`)}): ${clean(data.summary)}`,
+        ),
+        '',
+      ]
+    : [];
+
   const body = [
     '# Ilias Georgopoulos Cybersecurity Portfolio',
     '',
@@ -53,11 +66,13 @@ export const GET: APIRoute = async ({ site }) => {
     `- [Portfolio home](${absolute('/')}): Profile, skills, certifications, selected tools, projects and contact links.`,
     `- [Write-ups archive](${absolute('/writeups/')}): All published Hack The Box Machines, Challenges and Sherlocks.`,
     `- [Security research labs](${absolute('/labs/')}): Controlled red-team, Windows, network-security and detection-engineering experiments.`,
+    `- [Bug bounty research](${absolute('/bug-bounty/')}): Sanitized reports from authorized vulnerability research with transparent triage outcomes.`,
     `- [RSS feed](${absolute('/rss.xml')}): Chronological feed of public write-ups.`,
     `- [Sitemap index](${absolute('/sitemap-index.xml')}): Machine-readable inventory of public site URLs.`,
     '',
     ...writeupSections,
     ...labLines,
+    ...bugBountyLines,
     '## Optional',
     '',
     '- [GitHub](https://github.com/Ilias1988): Source repositories and security tooling by Ilias1988.',

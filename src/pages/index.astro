@@ -2,11 +2,15 @@
 import { getCollection } from 'astro:content';
 import CloudflareAnalytics from '../components/CloudflareAnalytics.astro';
 import '../styles/portfolio.css';
+import '../styles/bug-bounty.css';
 
 const publicWriteups = (await getCollection('writeups', ({ data }) => !data.draft))
     .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 const publicLabs = (await getCollection('labs', ({ data }) => !data.draft))
     .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const publicBugBounty = (await getCollection('bugBounty', ({ data }) => !data.draft))
+    .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const latestBugBounty = publicBugBounty.slice(0, 3);
 const writeupGroups = [
     {
         type: 'machine',
@@ -463,6 +467,7 @@ const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0
                 <li><a href="#roadmap" class="nav-link">Roadmap</a></li>
                 <li><a href="/writeups/" class="nav-link">Write-ups</a></li>
                 <li><a href="/labs/" class="nav-link">Labs</a></li>
+                <li><a href="/bug-bounty/" class="nav-link">Bug Bounty</a></li>
                 <li><a href="#certifications" class="nav-link">Certs</a></li>
                 <li><a href="#tools" class="nav-link">Tools</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
@@ -879,6 +884,76 @@ const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0
                         </a>
                     )}
                     <a class="knowledge-link" href="/labs/">Explore security labs <i class="fas fa-arrow-right"></i></a>
+                </article>
+
+                <article class="knowledge-card knowledge-card-bugbounty" data-animate>
+                    <div class="knowledge-card-header">
+                        <span class="knowledge-icon"><i class="fas fa-bug"></i></span>
+                        <span class="knowledge-count">{publicBugBounty.length} published findings</span>
+                    </div>
+                    <p class="knowledge-type">Authorized &amp; sanitized disclosure</p>
+                    <h3>Bug Bounty</h3>
+                    <p>Latest reports from authorized security research, presented without target names, private identifiers or authentication material.</p>
+
+                    <div class="knowledge-carousel" data-knowledge-carousel>
+                        <div class="knowledge-carousel-tabs" role="tablist" aria-label="Bug bounty findings">
+                            {latestBugBounty.map((entry, index) => (
+                                <button
+                                    type="button"
+                                    class:list={['knowledge-carousel-tab', index === 0 && 'active']}
+                                    role="tab"
+                                    id={`bounty-tab-${index}`}
+                                    aria-controls={`bounty-panel-${index}`}
+                                    aria-selected={index === 0 ? 'true' : 'false'}
+                                    tabindex={index === 0 ? 0 : -1}
+                                    data-knowledge-tab={index}
+                                >
+                                    <i class="fas fa-shield-halved" aria-hidden="true"></i>
+                                    <span>Finding {String(index + 1).padStart(2, '0')}</span>
+                                    <small>{entry.data.severity.charAt(0)}</small>
+                                </button>
+                            ))}
+                        </div>
+
+                        <div class="knowledge-carousel-viewport" aria-live="polite">
+                            {latestBugBounty.map((entry, index) => (
+                                <section
+                                    class="knowledge-slide"
+                                    id={`bounty-panel-${index}`}
+                                    role="tabpanel"
+                                    aria-labelledby={`bounty-tab-${index}`}
+                                    data-knowledge-slide={index}
+                                    hidden={index !== 0}
+                                >
+                                    <p class="knowledge-slide-position">Latest finding {index + 1} / {latestBugBounty.length}</p>
+                                    <h3>{entry.data.title}</h3>
+                                    <p>{entry.data.summary}</p>
+                                    <span class="bug-bounty-home-outcome">{entry.data.severity} · {entry.data.outcomeDetail}</span>
+
+                                    <a class="knowledge-latest" href={`/bug-bounty/${entry.id}/`}>
+                                        <span>Sanitized technical report</span>
+                                        <strong>{entry.data.findingType}</strong>
+                                        <small>Evidence, impact, remediation and final outcome</small>
+                                    </a>
+
+                                    <a class="knowledge-link" href={`/bug-bounty/${entry.id}/`}>
+                                        Read this finding <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                                    </a>
+                                </section>
+                            ))}
+                        </div>
+
+                        <div class="knowledge-carousel-controls" aria-label="Bug bounty carousel controls">
+                            <a class="knowledge-link" href="/bug-bounty/">View all findings</a>
+                            <button type="button" data-knowledge-previous aria-label="Previous bug bounty finding">
+                                <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                            </button>
+                            <span data-knowledge-status>1 / {latestBugBounty.length}</span>
+                            <button type="button" data-knowledge-next aria-label="Next bug bounty finding">
+                                <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
                 </article>
             </div>
         </div>

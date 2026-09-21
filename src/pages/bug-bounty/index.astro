@@ -1,0 +1,70 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BugBountyCard from '../../components/BugBountyCard.astro';
+
+const findings = (await getCollection('bugBounty', ({ data }) => !data.draft))
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="Bug Bounty Research | Ilias Georgopoulos"
+  description="Sanitized, evidence-led reports from authorized bug bounty research: blind SSRF, internal-network reachability oracles and responsible disclosure outcomes."
+  canonicalPath="/bug-bounty/"
+  currentPath="/bug-bounty/"
+>
+  <section class="writeups-hero bug-bounty-hero">
+    <div class="container writeups-hero-content">
+      <p class="terminal-kicker"><span>researcher@authorized-scope:~$</span> list ./findings</p>
+      <h1>Bug Bounty <span>Research</span></h1>
+      <p class="writeups-lead">
+        Sanitized technical reports from authorized security testing. Target identity, report identifiers and tenant-specific details are intentionally withheld; methodology, evidence boundaries and triage outcomes remain transparent.
+      </p>
+      <div class="writeups-status">
+        <span><i class="fas fa-bug" aria-hidden="true"></i> {findings.length} documented findings</span>
+        <span><i class="fas fa-user-shield" aria-hidden="true"></i> Authorized scope</span>
+        <span><i class="fas fa-eye-slash" aria-hidden="true"></i> Sanitized disclosure</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="writeups-library section" aria-labelledby="bug-bounty-library-title">
+    <div class="container">
+      <div class="writeups-heading-row">
+        <div>
+          <p class="eyebrow">Disclosure archive</p>
+          <h2 id="bug-bounty-library-title">From technical signal to triage outcome</h2>
+        </div>
+        <p>Each article separates the verified behavior, reproducible evidence, practical impact, limitations and final program decision.</p>
+      </div>
+
+      <div class="bug-bounty-grid">
+        {findings.map((entry) => <BugBountyCard entry={entry} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="writeup-principles" aria-labelledby="bug-bounty-standard-title">
+    <div class="container">
+      <p class="eyebrow">Publication standard</p>
+      <h2 id="bug-bounty-standard-title">Technical detail without exposing the target</h2>
+      <div class="principles-grid">
+        <article>
+          <i class="fas fa-scale-balanced" aria-hidden="true"></i>
+          <h3>Evidence over claims</h3>
+          <p>Observed timings, response classes and controlled callbacks are distinguished from impact that was not demonstrated.</p>
+        </article>
+        <article>
+          <i class="fas fa-mask-face" aria-hidden="true"></i>
+          <h3>Sanitized disclosure</h3>
+          <p>The target, domains, report IDs, tenant identifiers, credentials and private program details are not published.</p>
+        </article>
+        <article>
+          <i class="fas fa-shield-halved" aria-hidden="true"></i>
+          <h3>Authorized testing</h3>
+          <p>Validation used owned accounts and projects, low request volumes and non-destructive techniques within published scope.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

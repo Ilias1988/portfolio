@@ -9,6 +9,7 @@ export const GET: APIRoute = async ({ site }) => {
   const origin = site ?? new URL('https://ilias1988.me');
   const writeups = await getCollection('writeups', ({ data }) => !data.draft);
   const labs = await getCollection('labs', ({ data }) => !data.draft);
+  const bugBounty = await getCollection('bugBounty', ({ data }) => !data.draft);
   const writeupsLastModified = latestDate(
     writeups.map(({ data }) => data.updatedAt ?? data.publishedAt),
     WRITEUP_COLLECTIONS_LAST_MODIFIED,
@@ -18,6 +19,10 @@ export const GET: APIRoute = async ({ site }) => {
   const sherlockWriteups = writeups.filter(({ data }) => data.contentType === 'sherlock');
   const labsLastModified = latestDate(
     labs.map(({ data }) => data.updatedAt ?? data.publishedAt),
+    HOME_LAST_MODIFIED,
+  );
+  const bugBountyLastModified = latestDate(
+    bugBounty.map(({ data }) => data.updatedAt ?? data.publishedAt),
     HOME_LAST_MODIFIED,
   );
 
@@ -46,5 +51,6 @@ export const GET: APIRoute = async ({ site }) => {
       ),
     }] : []),
     { loc: new URL('/labs/', origin).href, lastmod: labsLastModified },
+    { loc: new URL('/bug-bounty/', origin).href, lastmod: bugBountyLastModified },
   ]);
 };

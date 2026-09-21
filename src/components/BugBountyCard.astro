@@ -1,0 +1,40 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'bugBounty'>;
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const published = new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' }).format(data.publishedAt);
+const outcomeClass = data.outcome.toLowerCase();
+---
+
+<article class="bug-bounty-card">
+  <div class="bug-bounty-card-visual" aria-hidden="true">
+    <span class="bug-bounty-signal">SSRF</span>
+    <span class="bug-bounty-path"><i class="fas fa-arrow-right"></i></span>
+    <span class="bug-bounty-signal bug-bounty-signal-internal">INTERNAL</span>
+    <span class="bug-bounty-card-outcome">{data.outcome}</span>
+  </div>
+  <div class="bug-bounty-card-body">
+    <div class="bug-bounty-card-topline">
+      <span class:list={['bug-bounty-outcome', `bug-bounty-outcome-${outcomeClass}`]}>{data.outcomeDetail}</span>
+      <time datetime={data.publishedAt.toISOString()}>{published}</time>
+    </div>
+    <p class="bug-bounty-category">{data.findingType}</p>
+    <h2><a href={`/bug-bounty/${entry.id}/`}>{data.title}</a></h2>
+    <p>{data.summary}</p>
+    <dl class="bug-bounty-card-facts">
+      <div><dt>Severity</dt><dd>{data.severity}</dd></div>
+      <div><dt>Testing</dt><dd>Authorized</dd></div>
+    </dl>
+    <div class="article-tags" aria-label="Finding topics">
+      {data.tags.slice(0, 5).map((tag) => <span>{tag}</span>)}
+    </div>
+    <a class="writeup-read-link" href={`/bug-bounty/${entry.id}/`}>
+      Read the finding <i class="fas fa-arrow-right" aria-hidden="true"></i>
+    </a>
+  </div>
+</article>
