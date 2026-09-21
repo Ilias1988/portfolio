@@ -349,6 +349,22 @@ ul {
     margin: 18px 0 22px;
 }
 
+.knowledge-carousel-tabs-writeups {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+}
+
+.knowledge-carousel-tabs-writeups .knowledge-carousel-tab {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 5px;
+    padding-inline: 7px;
+    font-size: 0.64rem;
+}
+
+.knowledge-carousel-tabs-writeups .knowledge-carousel-tab > i {
+    display: none;
+}
+
 .knowledge-carousel-tab {
     display: grid;
     min-width: 0;
@@ -2225,7 +2241,8 @@ ul {
 }
 
 @media (max-width: 640px) {
-    .knowledge-carousel-tabs {
+    .knowledge-carousel-tabs,
+    .knowledge-carousel-tabs-writeups {
         grid-template-columns: 1fr;
     }
 

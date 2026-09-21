@@ -32,6 +32,13 @@ const writeupGroups = [
         href: '/writeups/sherlocks/',
         icon: 'fa-magnifying-glass-chart',
         description: 'Evidence-driven DFIR and SOC investigations with timelines, findings, attack-chain reconstruction and detection opportunities.'
+    },
+    {
+        type: 'pro-lab',
+        label: 'Pro Labs',
+        href: '/writeups/pro-labs/',
+        icon: 'fa-network-wired',
+        description: 'Multi-host enterprise attack paths covering foothold, privilege escalation, pivoting, lateral movement and Active Directory compromise.'
     }
 ].map(group => {
     const entries = publicWriteups.filter(({ data }) => data.contentType === group.type);
@@ -788,7 +795,7 @@ const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0
                     <p class="knowledge-type">Hack The Box write-ups</p>
 
                     <div class="knowledge-carousel" data-knowledge-carousel>
-                        <div class="knowledge-carousel-tabs" role="tablist" aria-label="Hack The Box write-up categories">
+                        <div class="knowledge-carousel-tabs knowledge-carousel-tabs-writeups" role="tablist" aria-label="Hack The Box write-up categories">
                             {writeupGroups.map((group, index) => (
                                 <button
                                     type="button"
