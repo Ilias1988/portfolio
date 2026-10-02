@@ -101,6 +101,15 @@ const categories = [...new Set(entries
           <h3>No matching write-ups</h3>
           <p>Try a broader search or clear one of the filters.</p>
         </div>
+        <nav class="writeup-pagination" aria-label="Write-up pages" data-writeup-pagination hidden>
+          <button type="button" data-page-prev disabled>
+            <i class="fas fa-arrow-left" aria-hidden="true"></i> Previous
+          </button>
+          <span data-page-status aria-live="polite"></span>
+          <button type="button" data-page-next>
+            Next <i class="fas fa-arrow-right" aria-hidden="true"></i>
+          </button>
+        </nav>
       </>
     ) : (
       <div class="writeups-empty-state">
@@ -129,37 +138,81 @@ const categories = [...new Set(entries
   document.querySelectorAll('[data-writeup-library]').forEach((library) => {
     const filters = library.querySelector('[data-writeup-filters]');
     const cards = [...library.querySelectorAll('[data-writeup-card]')];
+    const grid = library.querySelector('[data-writeups-grid]');
     const resultCount = library.querySelector('[data-result-count]');
     const emptyState = library.querySelector('[data-filter-empty]');
+    const pagination = library.querySelector('[data-writeup-pagination]');
+    const previous = library.querySelector('[data-page-prev]');
+    const next = library.querySelector('[data-page-next]');
+    const pageStatus = library.querySelector('[data-page-status]');
 
     if (!filters || !cards.length) return;
 
-    const updateResults = () => {
+    const pageSize = 10;
+    const readPage = () => {
+      const raw = new URLSearchParams(window.location.search).get('page');
+      const value = Number(raw);
+      return raw && Number.isSafeInteger(value) && value > 0 ? value : 1;
+    };
+    let page = readPage();
+
+    const updateUrl = (mode) => {
+      const url = new URL(window.location.href);
+      if (page === 1) url.searchParams.delete('page');
+      else url.searchParams.set('page', String(page));
+      if (url.href !== window.location.href) window.history[`${mode}State`](null, '', url);
+    };
+
+    const updateResults = ({ resetPage = false, historyMode = null, scroll = false } = {}) => {
       const form = new FormData(filters);
       const query = String(form.get('query') ?? '').trim().toLowerCase();
       const type = String(form.get('type') ?? '');
       const category = String(form.get('category') ?? '');
       const difficulty = String(form.get('difficulty') ?? '');
       const os = String(form.get('os') ?? '');
-      let visible = 0;
-
-      cards.forEach((card) => {
-        const matches =
+      const matches = cards.filter((card) =>
           (!query || card.dataset.search.includes(query)) &&
           (!type || card.dataset.type === type) &&
           (!category || card.dataset.category === category) &&
           (!difficulty || card.dataset.difficulty === difficulty) &&
-          (!os || card.dataset.os === os);
+          (!os || card.dataset.os === os)
+      );
+      const totalPages = Math.max(1, Math.ceil(matches.length / pageSize));
+      if (resetPage) page = 1;
+      page = Math.min(Math.max(page, 1), totalPages);
 
-        card.hidden = !matches;
-        if (matches) visible += 1;
-      });
+      cards.forEach((card) => { card.hidden = true; });
+      const first = (page - 1) * pageSize;
+      matches.slice(first, first + pageSize).forEach((card) => { card.hidden = false; });
 
-      if (resultCount) resultCount.textContent = `${visible} write-up${visible === 1 ? '' : 's'}`;
-      if (emptyState) emptyState.hidden = visible !== 0;
+      if (resultCount) resultCount.textContent = matches.length
+        ? `Showing ${first + 1}–${Math.min(first + pageSize, matches.length)} of ${matches.length} write-ups`
+        : '0 write-ups';
+      if (emptyState) emptyState.hidden = matches.length !== 0;
+      if (pagination) pagination.hidden = totalPages <= 1;
+      if (previous) previous.disabled = page === 1;
+      if (next) next.disabled = page === totalPages;
+      if (pageStatus) pageStatus.textContent = `Page ${page} of ${totalPages}`;
+      if (historyMode) updateUrl(historyMode);
+      if (scroll && grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
 
-    filters.addEventListener('input', updateResults);
-    filters.addEventListener('change', updateResults);
+    filters.addEventListener('input', () => updateResults({ resetPage: true, historyMode: 'replace' }));
+    filters.addEventListener('change', () => updateResults({ resetPage: true, historyMode: 'replace' }));
+    previous?.addEventListener('click', () => {
+      if (page > 1) {
+        page -= 1;
+        updateResults({ historyMode: 'push', scroll: true });
+      }
+    });
+    next?.addEventListener('click', () => {
+      page += 1;
+      updateResults({ historyMode: 'push', scroll: true });
+    });
+    window.addEventListener('popstate', () => {
+      page = readPage();
+      updateResults({ historyMode: 'replace' });
+    });
+    updateResults({ historyMode: 'replace' });
   });
 </script>

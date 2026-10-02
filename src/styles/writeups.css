@@ -296,6 +296,7 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 20px;
+    scroll-margin-top: calc(var(--nav-height) + 20px);
 }
 
 .writeup-card {
@@ -444,6 +445,46 @@
     margin: 14px 0 6px;
     color: var(--text-primary);
     font-family: var(--font-mono);
+}
+
+.writeup-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 32px;
+}
+
+.writeup-pagination button {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 11px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    cursor: pointer;
+    font: 0.78rem var(--font-mono);
+}
+
+.writeup-pagination button:hover:not(:disabled),
+.writeup-pagination button:focus-visible {
+    border-color: var(--accent-green);
+    color: var(--accent-green);
+}
+
+.writeup-pagination button:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+}
+
+.writeup-pagination [data-page-status] {
+    min-width: 100px;
+    color: var(--text-muted);
+    font: 0.78rem var(--font-mono);
+    text-align: center;
 }
 
 .writeups-empty-state {
