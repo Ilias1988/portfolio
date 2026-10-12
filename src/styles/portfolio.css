@@ -1919,6 +1919,12 @@ ul {
     gap: 16px;
 }
 
+.social-links-bugbounty {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 600px;
+    margin: 16px auto 0;
+}
+
 .social-card {
     display: flex;
     flex-direction: column;
@@ -2220,6 +2226,10 @@ ul {
 
     .social-links {
         grid-template-columns: 1fr;
+    }
+
+    .social-links-bugbounty {
+        max-width: none;
     }
 
     .section {

@@ -1,6 +1,5 @@
 ---
 import { getCollection } from 'astro:content';
-import BugBountyProfileLinks from '../components/BugBountyProfileLinks.astro';
 import CloudflareAnalytics from '../components/CloudflareAnalytics.astro';
 import '../styles/portfolio.css';
 
@@ -1756,6 +1755,18 @@ const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0
                         <span class="social-handle">@Ilias-1988</span>
                     </a>
                 </div>
+                <div class="social-links social-links-bugbounty">
+                    <a href="https://hackerone.com/ilias1988" target="_blank" rel="noopener noreferrer" class="social-card" aria-label="HackerOne profile">
+                        <i class="fas fa-shield-halved" aria-hidden="true"></i>
+                        <span class="social-name">HackerOne</span>
+                        <span class="social-handle">ilias1988</span>
+                    </a>
+                    <a href="https://bugcrowd.com/h/Ilias1988" target="_blank" rel="noopener noreferrer" class="social-card" aria-label="Bugcrowd profile">
+                        <i class="fas fa-bug" aria-hidden="true"></i>
+                        <span class="social-name">Bugcrowd</span>
+                        <span class="social-handle">Ilias1988</span>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -1772,7 +1783,6 @@ const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0
                     <span class="footer-year">// 2026</span>
                 </p>
                 <p class="footer-subtext">Stay safe in cyberspace. <span class="blink">_</span></p>
-                <BugBountyProfileLinks />
                 <nav class="footer-links" aria-label="Machine-readable resources">
                     <a href="/rss.xml"><i class="fas fa-rss" aria-hidden="true"></i> RSS feed</a>
                     <a href="/llms.txt"><i class="fas fa-robot" aria-hidden="true"></i> For AI agents</a>
