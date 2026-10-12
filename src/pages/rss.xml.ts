@@ -35,7 +35,7 @@ export const GET: APIRoute = async (context) => {
 
   return rss({
     title: 'Ilias1988 Security Research & Write-ups',
-    description: 'Hands-on security research, sanitized bug bounty findings and Hack The Box write-ups by Ilias Georgopoulos.',
+    description: 'Hands-on security research, published bug bounty case studies, independent technique guides and Hack The Box write-ups by Ilias Georgopoulos.',
     site: context.site ?? 'https://ilias1988.me',
     customData: '<language>en-us</language>',
     items,

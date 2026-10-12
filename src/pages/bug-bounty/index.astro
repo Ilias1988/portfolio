@@ -5,11 +5,13 @@ import BugBountyCard from '../../components/BugBountyCard.astro';
 
 const findings = (await getCollection('bugBounty', ({ data }) => !data.draft))
   .sort((a, b) => a.data.order - b.data.order);
+const reports = findings.filter(({ data }) => data.kind === 'report');
+const techniques = findings.filter(({ data }) => data.kind === 'technique');
 ---
 
 <BaseLayout
   title="Bug Bounty Research | Ilias Georgopoulos"
-  description="Sanitized, evidence-led reports from authorized bug bounty research: blind SSRF, internal-network reachability oracles and responsible disclosure outcomes."
+  description="Published bug bounty case studies and independent technique guides with synthetic examples, evidence boundaries and clear disclosure status."
   canonicalPath="/bug-bounty/"
   currentPath="/bug-bounty/"
 >
@@ -18,12 +20,12 @@ const findings = (await getCollection('bugBounty', ({ data }) => !data.draft))
       <p class="terminal-kicker"><span>researcher@authorized-scope:~$</span> list ./findings</p>
       <h1>Bug Bounty <span>Research</span></h1>
       <p class="writeups-lead">
-        Sanitized technical reports from authorized security testing. Target identity, report identifiers and tenant-specific details are intentionally withheld; methodology, evidence boundaries and triage outcomes remain transparent.
+        Evidence-led case studies and independent technique guides. Case studies retain their stated triage outcomes; technique guides use synthetic examples and disclose no live target.
       </p>
       <div class="writeups-status">
-        <span><i class="fas fa-bug" aria-hidden="true"></i> {findings.length} documented findings</span>
-        <span><i class="fas fa-user-shield" aria-hidden="true"></i> Authorized scope</span>
-        <span><i class="fas fa-eye-slash" aria-hidden="true"></i> Sanitized disclosure</span>
+        <span><i class="fas fa-bug" aria-hidden="true"></i> {reports.length} case studies</span>
+        <span><i class="fas fa-flask" aria-hidden="true"></i> {techniques.length} technique guides</span>
+        <span><i class="fas fa-eye-slash" aria-hidden="true"></i> Clear evidence boundaries</span>
       </div>
     </div>
   </section>
@@ -32,37 +34,54 @@ const findings = (await getCollection('bugBounty', ({ data }) => !data.draft))
     <div class="container">
       <div class="writeups-heading-row">
         <div>
-          <p class="eyebrow">Disclosure archive</p>
+          <p class="eyebrow">Published case studies</p>
           <h2 id="bug-bounty-library-title">From technical signal to triage outcome</h2>
         </div>
         <p>Each article separates the verified behavior, reproducible evidence, practical impact, limitations and final program decision.</p>
       </div>
 
       <div class="bug-bounty-grid">
-        {findings.map((entry) => <BugBountyCard entry={entry} />)}
+        {reports.map((entry) => <BugBountyCard entry={entry} />)}
       </div>
     </div>
   </section>
 
+  {techniques.length > 0 && (
+    <section class="writeups-library section bug-bounty-techniques" aria-labelledby="bug-bounty-techniques-title">
+      <div class="container">
+        <div class="writeups-heading-row">
+          <div>
+            <p class="eyebrow">Independent methodology</p>
+            <h2 id="bug-bounty-techniques-title">Techniques to test and explain</h2>
+          </div>
+          <p>These guides use fictional applications and synthetic data. They are educational examples, not claims of accepted vulnerabilities or program decisions.</p>
+        </div>
+        <div class="bug-bounty-grid">
+          {techniques.map((entry) => <BugBountyCard entry={entry} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
   <section class="writeup-principles" aria-labelledby="bug-bounty-standard-title">
     <div class="container">
       <p class="eyebrow">Publication standard</p>
-      <h2 id="bug-bounty-standard-title">Technical detail without exposing the target</h2>
+      <h2 id="bug-bounty-standard-title">Technical detail with clear boundaries</h2>
       <div class="principles-grid">
         <article>
           <i class="fas fa-scale-balanced" aria-hidden="true"></i>
           <h3>Evidence over claims</h3>
-          <p>Observed timings, response classes and controlled callbacks are distinguished from impact that was not demonstrated.</p>
+          <p>Observed results are separated from hypothetical impact and synthetic teaching examples.</p>
         </article>
         <article>
           <i class="fas fa-mask-face" aria-hidden="true"></i>
-          <h3>Sanitized disclosure</h3>
-          <p>The target, domains, report IDs, tenant identifiers, credentials and private program details are not published.</p>
+          <h3>Disclosure status</h3>
+          <p>Case studies follow their publication terms. Technique guides contain no live target, report ID, credential or private program detail.</p>
         </article>
         <article>
           <i class="fas fa-shield-halved" aria-hidden="true"></i>
-          <h3>Authorized testing</h3>
-          <p>Validation used owned accounts and projects, low request volumes and non-destructive techniques within published scope.</p>
+          <h3>Controlled validation</h3>
+          <p>Practical checks focus on owned accounts, low request volumes and a reproducible final result.</p>
         </article>
       </div>
     </div>

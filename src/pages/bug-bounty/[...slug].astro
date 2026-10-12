@@ -18,11 +18,12 @@ interface Props {
 const { entry } = Astro.props;
 const { Content, headings } = await render(entry);
 const { data } = entry;
+const isTechnique = data.kind === 'technique';
 const canonicalPath = `/bug-bounty/${entry.id}/`;
 const site = Astro.site ?? new URL('https://ilias1988.me');
 const canonicalUrl = new URL(canonicalPath, site).href;
 const published = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long' }).format(data.publishedAt);
-const tested = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long' }).format(data.testedAt);
+const tested = data.testedAt ? new Intl.DateTimeFormat('en-GB', { dateStyle: 'long' }).format(data.testedAt) : null;
 
 const articleJsonLd = {
   '@context': 'https://schema.org',
@@ -40,7 +41,7 @@ const articleJsonLd = {
   url: canonicalUrl,
   mainEntityOfPage: canonicalUrl,
   keywords: data.tags.join(', '),
-  learningResourceType: 'Sanitized vulnerability report',
+  learningResourceType: isTechnique ? 'Educational security technique' : 'Sanitized vulnerability report',
   isAccessibleForFree: true,
   inLanguage: 'en',
 };
@@ -81,7 +82,7 @@ const breadcrumbJsonLd = {
           <nav class="breadcrumbs" aria-label="Breadcrumb">
             <a href="/">Home</a><span>/</span><a href="/bug-bounty/">Bug Bounty</a><span>/</span><span>{data.title}</span>
           </nav>
-          <p class="terminal-kicker"><span>researcher@authorized-scope:~$</span> inspect {entry.id}</p>
+          <p class="terminal-kicker"><span>researcher@authorized-scope:~$</span> {isTechnique ? 'study' : 'inspect'} {entry.id}</p>
           <h1>{data.title}</h1>
           <p class="article-summary">{data.summary}</p>
           <div class="article-tags" aria-label="Finding topics">
@@ -90,12 +91,15 @@ const breadcrumbJsonLd = {
         </div>
 
         <dl class="machine-facts bug-bounty-facts">
-          <div><dt>Outcome</dt><dd>{data.outcomeDetail}</dd></div>
-          <div><dt>Severity</dt><dd>{data.severity}</dd></div>
+          {isTechnique ? (
+            <div><dt>Format</dt><dd>Independent technique guide</dd></div>
+          ) : (
+            <><div><dt>Outcome</dt><dd>{data.outcomeDetail}</dd></div><div><dt>Severity</dt><dd>{data.severity}</dd></div></>
+          )}
           <div><dt>Finding type</dt><dd>{data.findingType}</dd></div>
-          <div><dt>Testing date</dt><dd>{tested}</dd></div>
+          {tested && <div><dt>Testing date</dt><dd>{tested}</dd></div>}
           <div><dt>Published</dt><dd>{published}</dd></div>
-          <div><dt>Disclosure</dt><dd>Sanitized</dd></div>
+          <div><dt>Examples</dt><dd>{isTechnique ? 'Synthetic' : 'Sanitized'}</dd></div>
         </dl>
       </div>
     </header>
@@ -105,15 +109,18 @@ const breadcrumbJsonLd = {
         <div class="spoiler-notice bug-bounty-safety-notice">
           <i class="fas fa-user-shield" aria-hidden="true"></i>
           <div>
-            <strong>Authorized research</strong>
-            <p>This report documents testing performed within an approved bug bounty scope using owned accounts and resources. Target identity and tenant-specific details are withheld.</p>
+            <strong>{isTechnique ? 'Educational technique' : 'Authorized research'}</strong>
+            <p>{isTechnique ? 'The examples in this guide are fictional and use synthetic data. No program outcome or live-target test is claimed.' : 'This report documents testing performed within an approved bug bounty scope using owned accounts and resources. Target identity and tenant-specific details are withheld.'}</p>
           </div>
         </div>
 
-        <div class:list={['bug-bounty-validation-state', `bug-bounty-validation-${data.outcome.toLowerCase()}`]}>
-          <span>Program outcome</span>
-          <strong>{data.outcomeDetail}</strong>
-        </div>
+        {isTechnique ? (
+          <div class="bug-bounty-validation-state"><span>Publication type</span><strong>Independent methodology</strong></div>
+        ) : (
+          <div class:list={['bug-bounty-validation-state', `bug-bounty-validation-${data.outcome?.toLowerCase()}`]}>
+            <span>Program outcome</span><strong>{data.outcomeDetail}</strong>
+          </div>
+        )}
 
         {headings.length > 0 && (
           <nav class="table-of-contents" aria-label="Table of contents">
@@ -131,7 +138,7 @@ const breadcrumbJsonLd = {
         <Content />
 
         <footer class="article-footer">
-          <p><strong>Disclosure note:</strong> this portfolio entry preserves the technical lesson and final triage outcome while withholding the target, domain, report ID, tenant identifiers and any authentication material.</p>
+          <p><strong>{isTechnique ? 'Method note:' : 'Disclosure note:'}</strong> {isTechnique ? 'All sample requests, tokens and application behavior here are illustrative. This guide does not describe a disclosed program report or a triage decision.' : 'This portfolio entry preserves the technical lesson and final triage outcome while withholding the target, domain, report ID, tenant identifiers and any authentication material.'}</p>
           <div>
             <a href="/bug-bounty/"><i class="fas fa-arrow-left" aria-hidden="true"></i> All bug bounty findings</a>
           </div>

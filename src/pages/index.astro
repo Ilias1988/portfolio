@@ -914,14 +914,14 @@ const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0
                 <article class="knowledge-card knowledge-card-bugbounty" data-animate>
                     <div class="knowledge-card-header">
                         <span class="knowledge-icon"><i class="fas fa-bug"></i></span>
-                        <span class="knowledge-count">{publicBugBounty.length} published findings</span>
+                        <span class="knowledge-count">{publicBugBounty.length} research articles</span>
                     </div>
-                    <p class="knowledge-type">Authorized &amp; sanitized disclosure</p>
+                    <p class="knowledge-type">Case studies &amp; independent methodology</p>
                     <h3>Bug Bounty</h3>
-                    <p>Latest reports from authorized security research, presented without target names, private identifiers or authentication material.</p>
+                    <p>Evidence-led case studies alongside technique guides built with fictional targets and synthetic data.</p>
 
                     <div class="knowledge-carousel" data-knowledge-carousel>
-                        <div class="knowledge-carousel-tabs" role="tablist" aria-label="Bug bounty findings">
+                        <div class="knowledge-carousel-tabs" role="tablist" aria-label="Bug bounty research articles">
                             {latestBugBounty.map((entry, index) => (
                                 <button
                                     type="button"
@@ -934,8 +934,8 @@ const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0
                                     data-knowledge-tab={index}
                                 >
                                     <i class="fas fa-shield-halved" aria-hidden="true"></i>
-                                    <span>Finding {String(index + 1).padStart(2, '0')}</span>
-                                    <small>{entry.data.severity.charAt(0)}</small>
+                                    <span>Article {String(index + 1).padStart(2, '0')}</span>
+                                    <small>{entry.data.kind === 'technique' ? 'T' : entry.data.severity?.charAt(0)}</small>
                                 </button>
                             ))}
                         </div>
@@ -950,31 +950,31 @@ const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0
                                     data-knowledge-slide={index}
                                     hidden={index !== 0}
                                 >
-                                    <p class="knowledge-slide-position">Latest finding {index + 1} / {latestBugBounty.length}</p>
+                                    <p class="knowledge-slide-position">Latest article {index + 1} / {latestBugBounty.length}</p>
                                     <h3>{entry.data.title}</h3>
                                     <p>{entry.data.summary}</p>
-                                    <span class="bug-bounty-home-outcome">{entry.data.severity} · {entry.data.outcomeDetail}</span>
+                                    <span class="bug-bounty-home-outcome">{entry.data.kind === 'technique' ? 'Educational technique · Synthetic example' : `${entry.data.severity} · ${entry.data.outcomeDetail}`}</span>
 
                                     <a class="knowledge-latest" href={`/bug-bounty/${entry.id}/`}>
-                                        <span>Sanitized technical report</span>
+                                        <span>{entry.data.kind === 'technique' ? 'Independent methodology' : 'Sanitized technical report'}</span>
                                         <strong>{entry.data.findingType}</strong>
-                                        <small>Evidence, impact, remediation and final outcome</small>
+                                        <small>{entry.data.kind === 'technique' ? 'Test design, evidence boundaries and remediation' : 'Evidence, impact, remediation and final outcome'}</small>
                                     </a>
 
                                     <a class="knowledge-link" href={`/bug-bounty/${entry.id}/`}>
-                                        Read this finding <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                                        Read this article <i class="fas fa-arrow-right" aria-hidden="true"></i>
                                     </a>
                                 </section>
                             ))}
                         </div>
 
                         <div class="knowledge-carousel-controls" aria-label="Bug bounty carousel controls">
-                            <a class="knowledge-link" href="/bug-bounty/">View all findings</a>
-                            <button type="button" data-knowledge-previous aria-label="Previous bug bounty finding">
+                            <a class="knowledge-link" href="/bug-bounty/">View all research</a>
+                            <button type="button" data-knowledge-previous aria-label="Previous bug bounty article">
                                 <i class="fas fa-arrow-left" aria-hidden="true"></i>
                             </button>
                             <span data-knowledge-status>1 / {latestBugBounty.length}</span>
-                            <button type="button" data-knowledge-next aria-label="Next bug bounty finding">
+                            <button type="button" data-knowledge-next aria-label="Next bug bounty article">
                                 <i class="fas fa-arrow-right" aria-hidden="true"></i>
                             </button>
                         </div>

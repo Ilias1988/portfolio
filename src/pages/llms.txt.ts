@@ -67,7 +67,7 @@ export const GET: APIRoute = async ({ site }) => {
     `- [Portfolio home](${absolute('/')}): Profile, skills, certifications, selected tools, projects and contact links.`,
     `- [Write-ups archive](${absolute('/writeups/')}): All published Hack The Box Machines, Challenges, Sherlocks and retired Pro Labs.`,
     `- [Security research labs](${absolute('/labs/')}): Controlled red-team, Windows, network-security and detection-engineering experiments.`,
-    `- [Bug bounty research](${absolute('/bug-bounty/')}): Sanitized reports from authorized vulnerability research with transparent triage outcomes.`,
+    `- [Bug bounty research](${absolute('/bug-bounty/')}): Published case studies with stated triage outcomes and separate educational technique guides using synthetic examples.`,
     `- [RSS feed](${absolute('/rss.xml')}): Chronological feed of public write-ups.`,
     `- [Sitemap index](${absolute('/sitemap-index.xml')}): Machine-readable inventory of public site URLs.`,
     '',

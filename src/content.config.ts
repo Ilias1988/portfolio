@@ -111,20 +111,30 @@ const bugBounty = defineCollection({
   schema: z.object({
     title: z.string().min(5),
     summary: z.string().min(30).max(240),
+    kind: z.enum(['report', 'technique']).default('report'),
     findingType: z.string().min(3),
-    severity: z.enum(['Informational', 'Low', 'Medium', 'High', 'Critical']),
-    outcome: z.enum(['Informative', 'Duplicate', 'Triaged', 'Resolved']),
-    outcomeDetail: z.string().min(5).max(100),
+    severity: z.enum(['Informational', 'Low', 'Medium', 'High', 'Critical']).optional(),
+    outcome: z.enum(['Informative', 'Duplicate', 'Triaged', 'Resolved']).optional(),
+    outcomeDetail: z.string().min(5).max(100).optional(),
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
-    testedAt: z.coerce.date(),
+    testedAt: z.coerce.date().optional(),
     tags: z.array(z.string()).min(1),
     tools: z.array(z.string()).default([]),
-    evidenceImage: z.string().startsWith('/'),
-    evidenceAlt: z.string().min(10),
+    evidenceImage: z.string().startsWith('/').optional(),
+    evidenceAlt: z.string().min(10).optional(),
+    visualFrom: z.string().min(2).max(12).optional(),
+    visualTo: z.string().min(2).max(12).optional(),
     order: z.number().int().min(1),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
+  }).superRefine((data, context) => {
+    if (data.kind !== 'report') return;
+    for (const field of ['severity', 'outcome', 'outcomeDetail', 'testedAt', 'evidenceImage', 'evidenceAlt'] as const) {
+      if (data[field] === undefined) {
+        context.addIssue({ code: 'custom', path: [field], message: `${field} is required for a report` });
+      }
+    }
   }),
 });
 
