@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import BugBountyProfileLinks from '../components/BugBountyProfileLinks.astro';
 import CloudflareAnalytics from '../components/CloudflareAnalytics.astro';
 import '../styles/portfolio.css';
 
@@ -1771,6 +1772,7 @@ const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0
                     <span class="footer-year">// 2026</span>
                 </p>
                 <p class="footer-subtext">Stay safe in cyberspace. <span class="blink">_</span></p>
+                <BugBountyProfileLinks />
                 <nav class="footer-links" aria-label="Machine-readable resources">
                     <a href="/rss.xml"><i class="fas fa-rss" aria-hidden="true"></i> RSS feed</a>
                     <a href="/llms.txt"><i class="fas fa-robot" aria-hidden="true"></i> For AI agents</a>
