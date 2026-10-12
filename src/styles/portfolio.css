@@ -1919,9 +1919,9 @@ ul {
     gap: 16px;
 }
 
-.social-links-bugbounty {
+.social-links-pair {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    max-width: 600px;
+    width: calc(66.666667% - 5.333333px);
     margin: 16px auto 0;
 }
 
@@ -2228,8 +2228,8 @@ ul {
         grid-template-columns: 1fr;
     }
 
-    .social-links-bugbounty {
-        max-width: none;
+    .social-links-pair {
+        width: 100%;
     }
 
     .section {
