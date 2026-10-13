@@ -111,7 +111,7 @@ const bugBounty = defineCollection({
   schema: z.object({
     title: z.string().min(5),
     summary: z.string().min(30).max(240),
-    kind: z.enum(['report', 'technique']).default('report'),
+    kind: z.enum(['report', 'technique', 'process']).default('report'),
     findingType: z.string().min(3),
     severity: z.enum(['Informational', 'Low', 'Medium', 'High', 'Critical']).optional(),
     outcome: z.enum(['Informative', 'Duplicate', 'Triaged', 'Resolved']).optional(),

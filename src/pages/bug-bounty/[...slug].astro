@@ -19,6 +19,7 @@ const { entry } = Astro.props;
 const { Content, headings } = await render(entry);
 const { data } = entry;
 const isTechnique = data.kind === 'technique';
+const isProcess = data.kind === 'process';
 const canonicalPath = `/bug-bounty/${entry.id}/`;
 const site = Astro.site ?? new URL('https://ilias1988.me');
 const canonicalUrl = new URL(canonicalPath, site).href;
@@ -41,7 +42,7 @@ const articleJsonLd = {
   url: canonicalUrl,
   mainEntityOfPage: canonicalUrl,
   keywords: data.tags.join(', '),
-  learningResourceType: isTechnique ? 'Educational security technique' : 'Sanitized vulnerability report',
+  learningResourceType: isTechnique ? 'Educational security technique' : isProcess ? 'Responsible disclosure process case study' : 'Sanitized vulnerability report',
   isAccessibleForFree: true,
   inLanguage: 'en',
 };
@@ -93,13 +94,15 @@ const breadcrumbJsonLd = {
         <dl class="machine-facts bug-bounty-facts">
           {isTechnique ? (
             <div><dt>Format</dt><dd>Independent technique guide</dd></div>
+          ) : isProcess ? (
+            <><div><dt>Format</dt><dd>Process case study</dd></div><div><dt>Outcome</dt><dd>{data.outcomeDetail}</dd></div></>
           ) : (
             <><div><dt>Outcome</dt><dd>{data.outcomeDetail}</dd></div><div><dt>Severity</dt><dd>{data.severity}</dd></div></>
           )}
           <div><dt>Finding type</dt><dd>{data.findingType}</dd></div>
           {tested && <div><dt>Testing date</dt><dd>{tested}</dd></div>}
           <div><dt>Published</dt><dd>{published}</dd></div>
-          <div><dt>Examples</dt><dd>{isTechnique ? 'Synthetic' : 'Sanitized'}</dd></div>
+          <div><dt>Examples</dt><dd>{isTechnique ? 'Synthetic' : isProcess ? 'Outcome illustrations' : 'Sanitized'}</dd></div>
         </dl>
       </div>
     </header>
@@ -109,8 +112,8 @@ const breadcrumbJsonLd = {
         <div class="spoiler-notice bug-bounty-safety-notice">
           <i class="fas fa-user-shield" aria-hidden="true"></i>
           <div>
-            <strong>{isTechnique ? 'Educational technique' : 'Authorized research'}</strong>
-            <p>{isTechnique ? 'The examples in this guide are fictional and use synthetic data. No program outcome or live-target test is claimed.' : 'This report documents testing performed within an approved bug bounty scope using owned accounts and resources. Target identity and tenant-specific details are withheld.'}</p>
+            <strong>{isTechnique ? 'Educational technique' : isProcess ? 'Private report outcomes' : 'Authorized research'}</strong>
+            <p>{isTechnique ? 'The examples in this guide are fictional and use synthetic data. No program outcome or live-target test is claimed.' : isProcess ? 'This article covers the reporting process and final duplicate outcomes. It omits the program, targets, technical findings and private report evidence.' : 'This report documents testing performed within an approved bug bounty scope using owned accounts and resources. Target identity and tenant-specific details are withheld.'}</p>
           </div>
         </div>
 
@@ -138,7 +141,7 @@ const breadcrumbJsonLd = {
         <Content />
 
         <footer class="article-footer">
-          <p><strong>{isTechnique ? 'Method note:' : 'Disclosure note:'}</strong> {isTechnique ? 'All sample requests, tokens and application behavior here are illustrative. This guide does not describe a disclosed program report or a triage decision.' : 'This portfolio entry preserves the technical lesson and final triage outcome while withholding the target, domain, report ID, tenant identifiers and any authentication material.'}</p>
+          <p><strong>{isTechnique ? 'Method note:' : 'Disclosure note:'}</strong> {isTechnique ? 'All sample requests, tokens and application behavior here are illustrative. This guide does not describe a disclosed program report or a triage decision.' : isProcess ? 'Both original reports remain private. The two images are anonymized illustrations of the duplicate status, not original screenshots or proof of a paid or accepted first report.' : 'This portfolio entry preserves the technical lesson and final triage outcome while withholding the target, domain, report ID, tenant identifiers and any authentication material.'}</p>
           <div>
             <a href="/bug-bounty/"><i class="fas fa-arrow-left" aria-hidden="true"></i> All bug bounty findings</a>
           </div>

@@ -41,6 +41,9 @@ const writeupGroups = [
     return { ...group, entries, latest: entries[0] };
 });
 const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0];
+const latestBugBounty = (await getCollection('bugBounty', ({ data }) => !data.draft && data.kind !== 'technique'))
+    .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
+    .slice(0, 3);
 ---
 
 <!DOCTYPE html>
@@ -906,6 +909,51 @@ const featuredLab = publicLabs.find(({ data }) => data.featured) ?? publicLabs[0
                     )}
                     <a class="knowledge-link" href="/labs/">Explore security labs <i class="fas fa-arrow-right"></i></a>
                 </article>
+
+                {latestBugBounty.length > 0 && (
+                    <article class="knowledge-card knowledge-card-bug-bounty" data-animate>
+                        <div class="knowledge-card-header">
+                            <span class="knowledge-icon"><i class="fas fa-bug" aria-hidden="true"></i></span>
+                            <span class="knowledge-count">{latestBugBounty.length} recent case studies</span>
+                        </div>
+                        <p class="knowledge-type">Bug bounty research</p>
+                        <h3>Latest reporting outcomes</h3>
+                        <div class="knowledge-carousel" data-knowledge-carousel>
+                            <div class="knowledge-carousel-tabs" role="tablist" aria-label="Recent bug bounty case studies">
+                                {latestBugBounty.map((_, index) => (
+                                    <button type="button" class:list={['knowledge-carousel-tab', index === 0 && 'active']} role="tab"
+                                        id={`bug-bounty-tab-${index}`} aria-controls={`bug-bounty-panel-${index}`}
+                                        aria-selected={index === 0 ? 'true' : 'false'} tabindex={index === 0 ? 0 : -1}
+                                        data-knowledge-tab={index}>
+                                        <i class="fas fa-shield-halved" aria-hidden="true"></i>
+                                        <span>Case {index + 1}</span><small>{index + 1}</small>
+                                    </button>
+                                ))}
+                            </div>
+                            <div class="knowledge-carousel-viewport" aria-live="polite">
+                                {latestBugBounty.map((entry, index) => (
+                                    <section class="knowledge-slide" id={`bug-bounty-panel-${index}`} role="tabpanel"
+                                        aria-labelledby={`bug-bounty-tab-${index}`} data-knowledge-slide={index} hidden={index !== 0}>
+                                        <p class="knowledge-slide-position">Case study {index + 1} / {latestBugBounty.length}</p>
+                                        <h3>{entry.data.title}</h3>
+                                        <p>{entry.data.summary}</p>
+                                        <a class="knowledge-latest" href={`/bug-bounty/${entry.id}/`}>
+                                            <span>Reported outcome</span>
+                                            <strong>{entry.data.outcomeDetail}</strong>
+                                        </a>
+                                        <a class="knowledge-link" href={`/bug-bounty/${entry.id}/`}>Read the case study <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                                    </section>
+                                ))}
+                            </div>
+                            <div class="knowledge-carousel-controls" aria-label="Case study carousel controls">
+                                <button type="button" data-knowledge-previous aria-label="Previous case study"><i class="fas fa-arrow-left" aria-hidden="true"></i></button>
+                                <span data-knowledge-status>1 / {latestBugBounty.length}</span>
+                                <button type="button" data-knowledge-next aria-label="Next case study"><i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                        <a class="knowledge-link" href="/bug-bounty/">All bug bounty research <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                    </article>
+                )}
 
             </div>
         </div>

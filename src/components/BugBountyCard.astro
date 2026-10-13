@@ -9,6 +9,7 @@ const { entry } = Astro.props;
 const { data } = entry;
 const published = new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' }).format(data.publishedAt);
 const isTechnique = data.kind === 'technique';
+const isProcess = data.kind === 'process';
 const outcomeClass = (data.outcome ?? 'technique').toLowerCase();
 ---
 
@@ -17,7 +18,7 @@ const outcomeClass = (data.outcome ?? 'technique').toLowerCase();
     <span class="bug-bounty-signal">{data.visualFrom ?? 'SSRF'}</span>
     <span class="bug-bounty-path"><i class="fas fa-arrow-right"></i></span>
     <span class="bug-bounty-signal bug-bounty-signal-internal">{data.visualTo ?? 'INTERNAL'}</span>
-    <span class="bug-bounty-card-outcome">{isTechnique ? 'METHOD' : data.outcome}</span>
+    <span class="bug-bounty-card-outcome">{isTechnique ? 'METHOD' : isProcess ? 'PROCESS' : data.outcome}</span>
   </div>
   <div class="bug-bounty-card-body">
     <div class="bug-bounty-card-topline">
@@ -30,6 +31,8 @@ const outcomeClass = (data.outcome ?? 'technique').toLowerCase();
     <dl class="bug-bounty-card-facts">
       {isTechnique ? (
         <div><dt>Format</dt><dd>Synthetic example</dd></div>
+      ) : isProcess ? (
+        <><div><dt>Format</dt><dd>Process case study</dd></div><div><dt>Outcome</dt><dd>Duplicate</dd></div></>
       ) : (
         <><div><dt>Severity</dt><dd>{data.severity}</dd></div><div><dt>Testing</dt><dd>Authorized</dd></div></>
       )}
@@ -38,7 +41,7 @@ const outcomeClass = (data.outcome ?? 'technique').toLowerCase();
       {data.tags.slice(0, 5).map((tag) => <span>{tag}</span>)}
     </div>
     <a class="writeup-read-link" href={`/bug-bounty/${entry.id}/`}>
-      {isTechnique ? 'Read the technique' : 'Read the finding'} <i class="fas fa-arrow-right" aria-hidden="true"></i>
+      {isTechnique ? 'Read the technique' : isProcess ? 'Read the case study' : 'Read the finding'} <i class="fas fa-arrow-right" aria-hidden="true"></i>
     </a>
   </div>
 </article>
