@@ -2320,7 +2320,3 @@ ul {
         font-size: clamp(1.8rem, 8vw, 2.5rem);
     }
 }
-
-.knowledge-card-bug-bounty { grid-column: 1 / -1; background: radial-gradient(circle at 88% 4%, rgba(255, 170, 0, 0.09), transparent 16rem), rgba(17, 24, 32, 0.92); }
-.knowledge-card-bug-bounty .knowledge-icon { border-color: rgba(255, 170, 0, 0.32); color: #ffbd4a; background: rgba(255, 170, 0, 0.07); }
-.knowledge-card-bug-bounty .knowledge-carousel { max-width: 840px; }
