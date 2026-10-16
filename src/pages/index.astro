@@ -295,6 +295,12 @@ const latestBugBounty = (await getCollection('bugBounty', ({ data }) => !data.dr
                     "name": "Mini Pro Lab: Hades",
                     "credentialCategory": "certificate",
                     "recognizedBy": { "@type": "Organization", "name": "Hack The Box", "url": "https://www.hackthebox.com" }
+                },
+                {
+                    "@type": "EducationalOccupationalCredential",
+                    "name": "HTB Certified Junior Cybersecurity Associate (CJCA)",
+                    "credentialCategory": "certificate",
+                    "recognizedBy": { "@type": "Organization", "name": "Hack The Box", "url": "https://www.hackthebox.com" }
                 }
             ],
             "sameAs": [
@@ -970,7 +976,7 @@ const latestBugBounty = (await getCollection('bugBounty', ({ data }) => !data.dr
                 <span class="title-decorator">/&gt;</span>
             </h2>
             <p class="section-subtitle">
-                <i class="fas fa-award"></i> 42 Certificates &amp; Badges earned
+                <i class="fas fa-award"></i> 43 Certificates &amp; Badges earned
             </p>
 
             <!-- Tabs -->
@@ -982,7 +988,7 @@ const latestBugBounty = (await getCollection('bugBounty', ({ data }) => !data.dr
                     <i class="fas fa-flask"></i> PentesterLab <span class="tab-count">19</span>
                 </button>
                 <button class="cert-tab" data-tab="hackthebox">
-                    <i class="fas fa-cube"></i> Hack The Box <span class="tab-count">6</span>
+                    <i class="fas fa-cube"></i> Hack The Box <span class="tab-count">7</span>
                 </button>
             </div>
 
@@ -1250,9 +1256,16 @@ const latestBugBounty = (await getCollection('bugBounty', ({ data }) => !data.dr
                 </div>
             </div>
 
-            <!-- Hack The Box Pro Labs -->
+            <!-- Hack The Box certificates -->
             <div class="cert-tab-content" id="tab-hackthebox">
                 <div class="certs-grid">
+                    <div class="cert-card" data-animate>
+                        <div class="cert-image-wrapper">
+                            <img src="images/optimized/htb-cjca.webp" alt="Hack The Box Certified Junior Cybersecurity Associate (CJCA) certificate awarded to Ilias Georgopoulos" class="cert-image" loading="lazy">
+                            <div class="cert-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="cert-info"><h3>Certified Junior Cybersecurity Associate (CJCA)</h3></div>
+                    </div>
                     <div class="cert-card" data-animate>
                         <div class="cert-image-wrapper">
                             <img src="images/optimized/htb-hades.webp" alt="Hack The Box Hades Mini Pro Lab certificate of completion awarded to Ilias Georgopoulos" class="cert-image" loading="lazy">
