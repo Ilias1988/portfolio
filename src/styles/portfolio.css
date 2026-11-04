@@ -1925,6 +1925,12 @@ ul {
     margin: 16px auto 0;
 }
 
+.social-links-single {
+    grid-template-columns: minmax(0, 1fr);
+    width: calc(33.333333% - 10.666667px);
+    margin: 16px auto 0;
+}
+
 .social-card {
     display: flex;
     flex-direction: column;
@@ -2228,7 +2234,8 @@ ul {
         grid-template-columns: 1fr;
     }
 
-    .social-links-pair {
+    .social-links-pair,
+    .social-links-single {
         width: 100%;
     }
 
