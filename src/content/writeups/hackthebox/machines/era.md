@@ -63,10 +63,11 @@ echo "$TARGET_IP era.htb file.era.htb" | sudo tee -a /etc/hosts
 
 ### TCP services and virtual host
 
-The full TCP scan found FTP and HTTP. SSH was closed from the attack machine, a detail that matters later because the application can still reach a localhost SSH service:
+The full TCP scan found FTP and HTTP. A focused follow-up confirmed SSH was closed from the attack machine, a detail that matters later because the application can still reach a localhost SSH service:
 
 ```bash
 nmap -sC -sV -p- "$TARGET_IP"
+nmap -sV -p22 "$TARGET_IP"
 ```
 
 ```text
