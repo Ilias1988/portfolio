@@ -2,29 +2,37 @@ import { getCollection } from 'astro:content';
 import type { APIRoute } from 'astro';
 
 const clean = (value: string) => value.replace(/\s+/g, ' ').trim();
+const MAX_RECENT_WRITEUPS_PER_CATEGORY = 10;
 
 export const GET: APIRoute = async ({ site }) => {
   const origin = site ?? new URL('https://ilias1988.me');
   const absolute = (path: string) => new URL(path, origin).href;
 
   const writeups = (await getCollection('writeups', ({ data }) => !data.draft))
-    .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+    .sort((a, b) =>
+      b.data.solvedAt.valueOf() - a.data.solvedAt.valueOf()
+      || b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()
+      || a.id.localeCompare(b.id)
+    );
   const labs = (await getCollection('labs', ({ data }) => !data.draft))
     .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
   const bugBounty = (await getCollection('bugBounty', ({ data }) => !data.draft))
     .sort((a, b) => a.data.order - b.data.order);
 
   const writeupSections = [
-    { type: 'machine', heading: 'Hack The Box Machines' },
-    { type: 'challenge', heading: 'Hack The Box Challenges' },
-    { type: 'sherlock', heading: 'Hack The Box Sherlocks' },
-    { type: 'pro-lab', heading: 'Hack The Box Pro Labs' },
-  ].flatMap(({ type, heading }) => {
-    const entries = writeups.filter(({ data }) => data.contentType === type);
-    if (entries.length === 0) return [];
+    { type: 'machine', heading: 'Hack The Box Machines', archive: '/writeups/machines/' },
+    { type: 'challenge', heading: 'Hack The Box Challenges', archive: '/writeups/challenges/' },
+    { type: 'sherlock', heading: 'Hack The Box Sherlocks', archive: '/writeups/sherlocks/' },
+    { type: 'pro-lab', heading: 'Hack The Box Pro Labs', archive: '/writeups/pro-labs/' },
+  ].flatMap(({ type, heading, archive }) => {
+    const categoryEntries = writeups.filter(({ data }) => data.contentType === type);
+    if (categoryEntries.length === 0) return [];
+    const entries = categoryEntries.slice(0, MAX_RECENT_WRITEUPS_PER_CATEGORY);
 
     return [
       `## ${heading}`,
+      '',
+      `Most recently solved public write-ups (${entries.length} of ${categoryEntries.length}). [Browse the full archive](${absolute(archive)}).`,
       '',
       ...entries.map(({ id, data }) =>
         `- [${data.title}](${absolute(`/writeups/${id}/`)}): ${clean(data.summary)}`,

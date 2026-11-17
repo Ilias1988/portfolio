@@ -1,5 +1,5 @@
 ---
-title: "Hack The Box Pro Lab — Xen"
+title: "Hack The Box Mini Pro Lab — Xen"
 summary: "Xen chains SMTP phishing, a Citrix breakout, Windows privilege escalation, Kerberoasting, pivoting, NetScaler traffic capture and Backup Operators abuse into full Active Directory compromise."
 platform: "Hack The Box"
 contentType: "pro-lab"
@@ -7,6 +7,7 @@ publicationPolicy: "retired"
 difficulty: "Hard"
 solvedAt: 2026-09-21
 publishedAt: 2026-09-21
+updatedAt: 2026-11-17
 tags:
   - active-directory
   - citrix
